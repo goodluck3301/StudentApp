@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.LogInFragment"
+    android:background="@drawable/gradient_bg_color"
+    android:paddingHorizontal="16dp"
+    >
+
+    <ImageView
+        android:id="@+id/imglogin"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:src="@drawable/veclogin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Մուտք գործել հաշիվ"
+        android:textColor="#6DA3B8"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imglogin" />
+
+
+    <androidx.constraintlayout.helper.widget.Flow
+        android:id="@+id/flow3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        app:constraint_referenced_ids="emailLogin,passwdLogin,liinearLogin"
+        app:flow_verticalGap="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/appCompatButton"
+        app:layout_constraintTop_toBottomOf="@+id/textViewLogin"
+        tools:layout_editor_absoluteX="16dp" />
+
+
+    <EditText
+        android:id="@+id/emailLogin"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/ed_text_design"
+        android:drawableLeft="@drawable/costum_mail_icon"
+        android:hint="E-mail"
+        android:paddingLeft="8dp"
+        android:paddingRight="16dp"
+        android:textAlignment="center"
+        android:textColor="#262626"
+        android:textColorHint="#AFADAD"
+        />
+
+    <EditText
+        android:id="@+id/passwdLogin"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/ed_text_design"
+        android:drawableStart="@drawable/costum_lock_icon"
+        android:drawableLeft="@drawable/ic_baseline_lock_24"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:paddingLeft="8dp"
+        android:paddingRight="16dp"
+        android:textAlignment="center"
+        android:textColor="#262626"
+        android:textColorHint="#AFADAD"
+        />
+
+    <LinearLayout
+        android:id="@+id/liinearLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Չունեմ հաշիվ։ "
+            android:textColor="#685BFB"
+            app:layout_constraintEnd_toEndOf="@+id/repeatPaswdS"
+            app:layout_constraintStart_toStartOf="@+id/repeatPaswdS"
+            app:layout_constraintTop_toBottomOf="@+id/repeatPaswdS" />
+
+        <TextView
+            android:id="@+id/toLoginPage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ստեղծել նոր հաշիվ։"
+            android:textColor="#6B69E2"
+            app:layout_constraintEnd_toEndOf="@+id/repeatPaswdS"
+            app:layout_constraintStart_toStartOf="@+id/repeatPaswdS"
+            app:layout_constraintTop_toBottomOf="@+id/repeatPaswdS" />
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/appCompatButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn2_style"
+        android:paddingHorizontal="8dp"
+        android:text="Հաստատել"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/passwdLogin"
+        app:layout_constraintStart_toStartOf="@+id/passwdLogin"
+        app:layout_constraintTop_toBottomOf="@+id/liinearLogin" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
