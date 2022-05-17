@@ -12,7 +12,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Բարի Գալուստ\nԳՊՀ"
+        android:text="Բարի Գալուստ"
         android:textSize="32dp"
         android:textColor="#355BAF"
         android:textAlignment="center"
@@ -26,12 +26,12 @@
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:src="@drawable/getstart"
-        app:layout_constraintBottom_toTopOf="@+id/start"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <androidx.appcompat.widget.AppCompatButton
+<!--
+ <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/start"
         android:layout_width="150dp"
         android:paddingRight="15dp"
@@ -44,13 +44,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
+-->
+
 
     <ImageView
+        android:id="@+id/imageView3"
         android:layout_width="match_parent"
         android:layout_height="6dp"
-        android:src="@drawable/line"
         android:layout_marginHorizontal="100dp"
         android:layout_marginBottom="15dp"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:src="@drawable/line"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="100dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
