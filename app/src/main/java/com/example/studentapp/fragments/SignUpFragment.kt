@@ -1,6 +1,9 @@
 package com.example.gavarstateuniversityapp.fragments
 
 import android.content.ContentValues.TAG
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
@@ -116,9 +119,19 @@ class SignUpFragment : Fragment() {
 
         ok.setOnClickListener {
 
+            var internet  = false
             var emailBool = false
             var passBool  = false
-            var nameBool      = false
+            var nameBool  = false
+
+            if (context?.let { it1 -> checkForInternet(it1) } == true) {
+                internet = true
+            } else
+                Toast.makeText(
+                    context,
+                    "Համացանցը չի գտնվել :(",
+                    Toast.LENGTH_LONG
+                ).show()
 
             if (isEmailValid(email.text.toString()))
                 emailBool = true
@@ -126,13 +139,17 @@ class SignUpFragment : Fragment() {
                 email.error = "No correct mail address"
             if (passValid(pass))
                 passBool = true
+            else {
+                show1.visibility = View.INVISIBLE
+                hide1.visibility = View.INVISIBLE
+            }
             if (name.text.toString().isNotEmpty())
                 nameBool = true
             else
                 name.error = "Text area is empty!"
 
 
-            if(emailBool && passBool && nameBool) {
+            if(emailBool && passBool && nameBool && internet) {
                 if (email.text.isNotEmpty() && pass.text.toString() == pass2.text.toString()) {
                     firebaseAuth
                         .createUserWithEmailAndPassword(email.text.toString(), pass.text.toString())
@@ -152,7 +169,13 @@ class SignUpFragment : Fragment() {
                                 .actionSignUpFragmentToHomeFragment()
                         )
 
-                } else { Toast.makeText( context, "Error", Toast.LENGTH_SHORT).show() }
+                } else {
+                    Toast.makeText(
+                        context,
+                        "Error",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
 
         }//btn
@@ -205,4 +228,18 @@ fun passValid(pass:EditText):Boolean{
         else -> true
     }
     return errorText
+}
+
+
+fun checkForInternet(context: Context): Boolean {
+
+    val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val network = connectivityManager.activeNetwork ?: return false
+    val activeNetwork = connectivityManager.getNetworkCapabilities(network) ?: return false
+
+    return when {
+        activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+        activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+        else -> false
+    }
 }

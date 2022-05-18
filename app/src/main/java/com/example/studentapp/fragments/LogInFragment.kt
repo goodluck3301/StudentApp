@@ -39,12 +39,6 @@ class LogInFragment : Fragment() {
         val pass     = view.findViewById<EditText>(R.id.passwdLogin)
         val ok       = view.findViewById<Button>  (R.id.okLogin)
 
-/*
-        if (firebaseAuth.currentUser != null) {
-            readUserData(firebaseAuth.currentUser!!.uid)
-        }
-
- */
 
         toSignUp.setOnClickListener {
            findNavController()
@@ -67,24 +61,45 @@ class LogInFragment : Fragment() {
                 }
         }
 
+
+
         ok.setOnClickListener {
-            firebaseAuth
-                .signInWithEmailAndPassword(email.text.toString(), pass.text.toString())
-                .addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        val user = firebaseAuth.currentUser
-                        readUserData(user!!.uid)
-                        Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
-                        findNavController()
-                            .navigate(
-                                LogInFragmentDirections
-                                    .actionLogInFragmentToHomeFragment()
-                            )
+            if (email.text.isEmpty())
+                email.error = "Text area is Empty."
+            if (pass.text.isEmpty())
+                pass.error  = "Text area is Empty."
+
+
+            var internet  = false
+            if (context?.let { it1 -> checkForInternet(it1) } == true) {
+                internet = true
+            } else
+                Toast.makeText(
+                    context,
+                    "Համացանցը չի գտնվել :(",
+                    Toast.LENGTH_LONG
+                ).show()
+
+            if (internet && email.text.isNotEmpty() && pass.text.isNotEmpty()) {
+                firebaseAuth
+                    .signInWithEmailAndPassword(email.text.toString(), pass.text.toString())
+                    .addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            val user = firebaseAuth.currentUser
+                            readUserData(user!!.uid)
+                            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+                            findNavController()
+                                .navigate(
+                                    LogInFragmentDirections
+                                        .actionLogInFragmentToHomeFragment()
+                                )
+                        }
                     }
-                }
+            }
         }//Ok
 
 
     }
 
 }
+

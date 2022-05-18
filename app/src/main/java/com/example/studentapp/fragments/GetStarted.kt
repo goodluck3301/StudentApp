@@ -1,18 +1,24 @@
 package com.example.gavarstateuniversityapp.fragments
 
 import android.animation.ObjectAnimator
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnticipateOvershootInterpolator
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.studentapp.R
-import kotlinx.coroutines.*
-
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 class GetStarted : Fragment() {
@@ -56,14 +62,14 @@ class GetStarted : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        activityScope.launch {
-            delay(4500)
-            findNavController()
-                .navigate(
-                    GetStartedDirections
-                        .actionGetStartedToSignUpFragment()
-                )
+            activityScope.launch {
+                delay(4500)
+                findNavController()
+                    .navigate(
+                        GetStartedDirections
+                            .actionGetStartedToSignUpFragment()
+                    )
+            }
         }
-    }
-
 }
+

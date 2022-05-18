@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">StudentApp</string>
+    <string name="app_name">Student App</string>
     <string name="password">Password</string>
     <string name="iHaveAcc">Արդեն իսկ ունեմ հաշիվ։</string>
     <string name="toLoginPage">Մուտք գործել</string>
