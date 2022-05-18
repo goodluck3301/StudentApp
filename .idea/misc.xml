@@ -11,7 +11,11 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/gradient_bg_color.xml" value="0.1935" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.3015" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.3015" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/ic_baseline_remove_red_eye_24.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/ic_baseline_visibility_24.xml" value="0.247" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/ic_baseline_visibility_off_24.xml" value="0.247" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/ic_focused_person_24.xml" value="0.3015" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/ic_focused_visibility_off_24.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/ic_lock_focused.xml" value="0.3015" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/ic_mail_focused.xml" value="0.3015" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/ic_name_focused.xml" value="0.3015" />
@@ -20,7 +24,9 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/fragment_get_started.xml" value="0.5" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/fragment_log_in.xml" value="0.22" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/fragment_sign_up.xml" value="0.3625" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/fragment_sign_up.xml" value="0.26038781163434904" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2675" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1935" />
       </map>
     </option>
   </component>

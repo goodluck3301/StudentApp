@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">StudentApp</string>
+    <string name="password">Password</string>
+    <string name="iHaveAcc">Արդեն իսկ ունեմ հաշիվ։</string>
+    <string name="toLoginPage">Մուտք գործել</string>
+    <string name="ok">Հաստատել</string>
+    <string name="name">Name</string>
 </resources>

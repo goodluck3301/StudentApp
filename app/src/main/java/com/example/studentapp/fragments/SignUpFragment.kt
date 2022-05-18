@@ -2,14 +2,13 @@ package com.example.gavarstateuniversityapp.fragments
 
 import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.gavarstateuniversityapp.viewmodel.AuthViewModel
@@ -17,18 +16,21 @@ import com.example.studentapp.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 
 class SignUpFragment : Fragment() {
+
+    private lateinit var show1:ImageView
+    private lateinit var hide1:ImageView
+    private lateinit var show2:ImageView
+    private lateinit var hide2:ImageView
 
     private lateinit var name:EditText
     private lateinit var email:EditText
     private lateinit var pass :EditText
     private lateinit var pass2:EditText
     private lateinit var ok   :Button
-    private lateinit var viewModel: AuthViewModel
     private lateinit var firebaseAuth: FirebaseAuth
 
 
@@ -62,6 +64,11 @@ class SignUpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        show1 = view.findViewById(R.id.show)
+        hide1 = view.findViewById(R.id.hide)
+        show2 = view.findViewById(R.id.show2)
+        hide2 = view.findViewById(R.id.hide2)
+
         name  = view.findViewById(R.id.name)
         email = view.findViewById(R.id.emailS)
         pass  = view.findViewById(R.id.passwdS)
@@ -89,14 +96,14 @@ class SignUpFragment : Fragment() {
             val firebaseUser = FirebaseAuth.getInstance().currentUser
             val db = Firebase.firestore
 
-            val userDate = hashMapOf(
-                "name"  to name.text.toString(),
-                "score" to 0,
+            val user = hashMapOf(
+                "name" to name.text.toString(),
+                "score" to 0
             )
 
-            db.collection("users").document(firebaseUser!!.uid)
-                .set(userDate)
-                .addOnSuccessListener { documentReference ->
+            db.collection("users")
+                .add(user)
+                .addOnSuccessListener {
                     Log.d(TAG, "DocumentSnapshot written with ID: ")
                 }
                 .addOnFailureListener { e ->
@@ -149,6 +156,31 @@ class SignUpFragment : Fragment() {
             }
 
         }//btn
+
+        show1.setOnClickListener {
+            pass.inputType = InputType.TYPE_CLASS_TEXT
+            show1.visibility = View.INVISIBLE
+            hide1.visibility = View.VISIBLE
+        }//show1
+
+        hide1.setOnClickListener {
+            pass.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            show1.visibility = View.VISIBLE
+            hide1.visibility = View.INVISIBLE
+        }//hide1
+
+        show2.setOnClickListener {
+            pass2.inputType = InputType.TYPE_CLASS_TEXT
+            show2.visibility = View.INVISIBLE
+            hide2.visibility = View.VISIBLE
+        }//show2
+
+        hide2.setOnClickListener {
+            pass2.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
+            show2.visibility = View.VISIBLE
+            hide2.visibility = View.INVISIBLE
+        }//hide2
+
     }
 }
 
