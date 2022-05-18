@@ -105,6 +105,7 @@ class SignUpFragment : Fragment() {
 
         }//createNewUser
 
+        //asetsstudio
 
         ok.setOnClickListener {
 
@@ -148,8 +149,6 @@ class SignUpFragment : Fragment() {
             }
 
         }//btn
-
-
     }
 }
 
