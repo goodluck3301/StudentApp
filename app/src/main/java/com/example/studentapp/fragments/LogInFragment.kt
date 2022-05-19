@@ -1,15 +1,14 @@
 package com.example.gavarstateuniversityapp.fragments
 
+import android.media.Image
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.navigation.fragment.findNavController
 import com.example.studentapp.R
 import com.google.firebase.auth.FirebaseAuth
@@ -35,9 +34,11 @@ class LogInFragment : Fragment() {
 
         val toSignUp = view.findViewById<TextView>(R.id.toLoginPage)
 
-        val email    = view.findViewById<EditText>(R.id.emailLogin)
-        val pass     = view.findViewById<EditText>(R.id.passwdLogin)
-        val ok       = view.findViewById<Button>  (R.id.okLogin)
+        val showLogin = view.findViewById<ImageView>(R.id.showLogin)
+        val hideLogin = view.findViewById<ImageView>(R.id.hideLogin)
+        val email     = view.findViewById<EditText>(R.id.emailLogin)
+        val pass      = view.findViewById<EditText>(R.id.passwdLogin)
+        val ok        = view.findViewById<Button>  (R.id.okLogin)
 
 
         toSignUp.setOnClickListener {
@@ -60,7 +61,6 @@ class LogInFragment : Fragment() {
                     Log.e("TAG", "Error getting documents $exception")
                 }
         }
-
 
 
         ok.setOnClickListener {
@@ -97,6 +97,21 @@ class LogInFragment : Fragment() {
                     }
             }
         }//Ok
+
+
+
+
+        showLogin.setOnClickListener {
+            pass.inputType = InputType.TYPE_CLASS_TEXT
+            showLogin.visibility = View.INVISIBLE
+            hideLogin.visibility = View.VISIBLE
+        }//show1
+
+        hideLogin.setOnClickListener {
+            pass.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            showLogin.visibility = View.VISIBLE
+            hideLogin.visibility = View.INVISIBLE
+        }//hide1
 
 
     }

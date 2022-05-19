@@ -5,4 +5,8 @@
     <string name="toLoginPage">Մուտք գործել</string>
     <string name="ok">Հաստատել</string>
     <string name="name">Name</string>
+    <string name="creatNewAcc">Ստեղծել նոր հաշիվ</string>
+    <string name="e_mailText">E-mail</string>
+    <string name="noHaveAcc">Չունեմ հաշիվ։</string>
+    <string name="creatNewAccLogin">Ստեղծել նոր հաշիվ։</string>
 </resources>
