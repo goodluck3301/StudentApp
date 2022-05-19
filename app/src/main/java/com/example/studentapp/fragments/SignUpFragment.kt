@@ -32,26 +32,6 @@ class SignUpFragment : Fragment() {
     private lateinit var ok   :Button
     private lateinit var firebaseAuth: FirebaseAuth
 
-
-    val EMAIL_ADDRESS_PATTERN: Pattern = Pattern.compile(
-        "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
-                "\\@" +
-                "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
-                "(" +
-                "\\." +
-                "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
-                ")+"
-    )
-    fun checkEmail(str: String): Boolean{
-        return EMAIL_ADDRESS_PATTERN.matcher(str).matches()
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }// onCreate()
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -84,32 +64,11 @@ class SignUpFragment : Fragment() {
         }
 
 
-        val EMAIL_REGEX = "^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})";
+        val EMAIL_REGEX = "^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})"
+
         fun isEmailValid(email: String): Boolean {
             return EMAIL_REGEX.toRegex().matches(email);
         }
-
-
-        fun createNewUser() {
-            val firebaseUser = FirebaseAuth.getInstance().currentUser
-            val db = Firebase.firestore
-
-            val user = hashMapOf(
-                "name" to name.text.toString(),
-                "score" to 0
-            )
-
-            db.collection("users")
-                .add(user)
-                .addOnSuccessListener {
-                    Log.d(TAG, "DocumentSnapshot written with ID: ")
-                }
-                .addOnFailureListener { e ->
-                    Log.w(TAG, "Error adding document", e)
-                }
-
-        }//createNewUser
-
         //asetsstudio
 
         ok.setOnClickListener {
@@ -151,18 +110,17 @@ class SignUpFragment : Fragment() {
                             if (it.isSuccessful) {
                                 Toast.makeText( context, "send", Toast.LENGTH_SHORT )
                                     .show()
+                                createNewUser()
+                                findNavController()
+                                    .navigate(
+                                        SignUpFragmentDirections
+                                            .actionSignUpFragmentToGeneralFragment()
+                                    )
                             } else {
                                 Toast.makeText( context, it.exception.toString(), Toast.LENGTH_SHORT )
                                     .show()
                             }
                         }
-                    createNewUser()
-                    findNavController()
-                        .navigate(
-                            SignUpFragmentDirections
-                                .actionSignUpFragmentToHomeFragment()
-                        )
-
                 } else {
                     Toast.makeText(
                         context,
@@ -203,31 +161,48 @@ class SignUpFragment : Fragment() {
         }//show2
 
     }
-}
 
+    private fun createNewUser() {
+        val db = Firebase.firestore
+        val user = hashMapOf(
+            "name" to name.text.toString(),
+            "score" to 0
+        )
 
-fun passValid(pass:EditText):Boolean{
-    val errorText = when {
-        /* Rule 1 */
-        !pass.text.contains(Regex("[A-Z]")) -> {
-            pass.error = "Password must contain one capital letter"
-            false
-        }
-        /* Rule 2 */
-        !pass.text.contains(Regex("[0-9]")) -> {
-            pass.error = "Password must contain one digit"
-            false
-        }
-        /* Rule 3, not counting space as special character */
-        !pass.text.contains(Regex("[^a-zA-Z0-9 ]")) -> {
-            pass.error = "Password must contain one special character"
-            false
-        }
-        else -> true
-    }
-    return errorText
-}
+        db.collection("users")
+            .add(user)
+            .addOnSuccessListener {
+                Log.d(TAG, "DocumentSnapshot written with ID: ")
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error adding document", e)
+            }
 
+    }//createNewUser
+
+    private fun passValid(pass:EditText):Boolean{
+        val errorText = when {
+            /* Rule 1 */
+            !pass.text.contains(Regex("[A-Z]")) -> {
+                pass.error = "Password must contain one capital letter"
+                false
+            }
+            /* Rule 2 */
+            !pass.text.contains(Regex("[0-9]")) -> {
+                pass.error = "Password must contain one digit"
+                false
+            }
+            /* Rule 3, not counting space as special character */
+            !pass.text.contains(Regex("[^a-zA-Z0-9 ]")) -> {
+                pass.error = "Password must contain one special character"
+                false
+            }
+            else -> true
+        }
+        return errorText
+    }//fun password Validation
+
+}//class fragment
 
 fun checkForInternet(context: Context): Boolean {
 
@@ -241,3 +216,4 @@ fun checkForInternet(context: Context): Boolean {
         else -> false
     }
 }
+

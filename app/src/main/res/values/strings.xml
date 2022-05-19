@@ -11,4 +11,9 @@
     <string name="creatNewAccLogin">Ստեղծել նոր հաշիվ։</string>
     <string name="goSignUpPage">Մուտք գործել հաշիվ</string>
     <string name="show_hide">Show/Hide</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menuHome">Home</string>
+    <string name="menuBooks">Books</string>
+    <string name="menuQuizz">Quizz</string>
 </resources>

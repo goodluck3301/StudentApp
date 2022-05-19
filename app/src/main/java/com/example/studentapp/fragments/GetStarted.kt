@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.studentapp.R
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -24,6 +25,7 @@ import kotlinx.coroutines.launch
 class GetStarted : Fragment() {
 
     private val activityScope = CoroutineScope(Dispatchers.Main)
+    private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,9 +37,10 @@ class GetStarted : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        firebaseAuth = FirebaseAuth.getInstance()
+
         val welcome = view.findViewById<TextView>(R.id.textView)
         val image   = view.findViewById<ImageView>(R.id.imageView)
-
 
         val imageAn = ObjectAnimator
             .ofFloat(image, "translationY", -180f, 0f) //150f,-80f
@@ -60,10 +63,21 @@ class GetStarted : Fragment() {
 
 
 
+
     }//onViewCreated()
 
     override fun onResume() {
         super.onResume()
+        if (firebaseAuth.currentUser != null) {
+            activityScope.launch {
+                delay(5000)
+                findNavController()
+                    .navigate(
+                        GetStartedDirections
+                            .actionGetStartedToGeneralFragment()
+                    )
+            }
+        } else {
             activityScope.launch {
                 delay(5000)
                 findNavController()
@@ -72,6 +86,8 @@ class GetStarted : Fragment() {
                             .actionGetStartedToSignUpFragment()
                     )
             }
-        }
+        }//else
+
+        }//onResume
 }
 

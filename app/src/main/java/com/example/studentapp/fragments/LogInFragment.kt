@@ -73,7 +73,7 @@ class LogInFragment : Fragment() {
                             findNavController()
                                 .navigate(
                                     LogInFragmentDirections
-                                        .actionLogInFragmentToHomeFragment()
+                                        .actionLogInFragmentToGeneralFragment()
                                 )
                         }
                     }
