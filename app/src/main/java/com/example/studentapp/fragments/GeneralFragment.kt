@@ -42,8 +42,6 @@ class GeneralFragment : Fragment() {
             }
             true
         }
-
-
     }
 
     private fun openFragment(fragment: Fragment) {

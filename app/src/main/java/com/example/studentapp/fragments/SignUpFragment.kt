@@ -13,6 +13,8 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.studentapp.GeneralFunctions
+import com.example.studentapp.GeneralFunctions.checkForInternet
 import com.example.studentapp.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
@@ -41,6 +43,8 @@ class SignUpFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_sign_up, container, false)
     }
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -64,11 +68,9 @@ class SignUpFragment : Fragment() {
         }
 
 
-        val EMAIL_REGEX = "^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})"
 
-        fun isEmailValid(email: String): Boolean {
-            return EMAIL_REGEX.toRegex().matches(email);
-        }
+
+
         //asetsstudio
 
         ok.setOnClickListener {
@@ -162,6 +164,11 @@ class SignUpFragment : Fragment() {
 
     }
 
+    private fun isEmailValid(email: String): Boolean {
+        val EMAIL_REGEX = "^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})"
+        return EMAIL_REGEX.toRegex().matches(email);
+    }
+
     private fun createNewUser() {
         val db = Firebase.firestore
         val user = hashMapOf(
@@ -204,16 +211,4 @@ class SignUpFragment : Fragment() {
 
 }//class fragment
 
-fun checkForInternet(context: Context): Boolean {
-
-    val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-    val network = connectivityManager.activeNetwork ?: return false
-    val activeNetwork = connectivityManager.getNetworkCapabilities(network) ?: return false
-
-    return when {
-        activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
-        activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
-        else -> false
-    }
-}
 

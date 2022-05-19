@@ -49,8 +49,6 @@ class GetStarted : Fragment() {
         imageAn.repeatCount = 0
         imageAn.duration = 5000
 
-
-
         val welcome1 = ObjectAnimator
             .ofFloat(welcome, "translationY", 180f, 0f) //150f,-80f
 
@@ -60,8 +58,6 @@ class GetStarted : Fragment() {
 
         welcome1.start()
         imageAn.start()
-
-
 
 
     }//onViewCreated()
