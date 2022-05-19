@@ -12,9 +12,9 @@
 
     <ImageView
         android:id="@+id/imglogin"
-        android:layout_marginTop="32dp"
         android:layout_width="wrap_content"
-        android:layout_height="300dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="32dp"
         android:src="@drawable/veclogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -25,13 +25,14 @@
         android:id="@+id/textViewLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Մուտք գործել հաշիվ"
+        android:text="@string/goSignUpPage"
         android:textColor="#6DA3B8"
-        android:textSize="18dp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/emailLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imglogin" />
+        app:layout_constraintTop_toBottomOf="@+id/imglogin"
+        app:layout_constraintVertical_bias="0.32" />
 
 
     <androidx.constraintlayout.helper.widget.Flow
@@ -40,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:orientation="vertical"
-        app:constraint_referenced_ids="emailLogin,passwdLogin,liinearLogin"
+        app:constraint_referenced_ids="emailLogin,passwdLogin,linearLogin"
         app:flow_verticalGap="8dp"
         app:layout_constraintBottom_toTopOf="@+id/okLogin"
         app:layout_constraintTop_toBottomOf="@+id/textViewLogin"
@@ -53,16 +54,17 @@
         android:layout_height="50dp"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="32dp"
-        android:singleLine="true"
-        android:maxLength="30"
         android:background="@drawable/ed_text_design"
         android:drawableStart="@drawable/costum_mail_icon"
         android:hint="@string/e_mailText"
+        android:maxLength="30"
         android:paddingStart="8dp"
         android:paddingEnd="16dp"
+        android:singleLine="true"
         android:textAlignment="center"
         android:textColor="#262626"
         android:textColorHint="#AFADAD"
+        app:layout_constraintBottom_toTopOf="@+id/flow3"
         app:layout_constraintTop_toBottomOf="@+id/textViewLogin"
         tools:layout_editor_absoluteX="16dp" />
 
@@ -71,20 +73,20 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="8dp"
         android:background="@drawable/ed_text_design"
         android:drawableStart="@drawable/costum_lock_icon"
         android:hint="@string/password"
         android:inputType="textPassword"
-        android:singleLine="true"
         android:maxLength="30"
         android:paddingStart="8dp"
         android:paddingEnd="16dp"
+        android:singleLine="true"
         android:textAlignment="center"
         android:textColor="#262626"
         android:textColorHint="#AFADAD"
-
-        />
+        app:layout_constraintBottom_toTopOf="@+id/flow3"
+        app:layout_constraintTop_toBottomOf="@+id/emailLogin"
+        tools:layout_editor_absoluteX="16dp" />
 
     <ImageView
         android:id="@+id/showLogin"
@@ -101,12 +103,15 @@
 
 
     <LinearLayout
-        android:id="@+id/liinearLogin"
+        android:id="@+id/linearLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/okLogin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwdLogin">
 
         <TextView
 
@@ -119,11 +124,12 @@
             app:layout_constraintTop_toBottomOf="@+id/repeatPaswdS" />
 
         <TextView
-            android:id="@+id/toLoginPage"
+            android:id="@+id/toSignUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/creatNewAccLogin"
             android:textColor="#6B69E2"
+            android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="@+id/repeatPaswdS"
             app:layout_constraintStart_toStartOf="@+id/repeatPaswdS"
             app:layout_constraintTop_toBottomOf="@+id/repeatPaswdS" />
@@ -134,6 +140,7 @@
         android:id="@+id/okLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/btn2_style"
         android:paddingHorizontal="8dp"
         android:text="@string/ok"
@@ -141,8 +148,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/passwdLogin"
         app:layout_constraintStart_toStartOf="@+id/passwdLogin"
-        app:layout_constraintTop_toBottomOf="@+id/liinearLogin"
-        app:layout_constraintVertical_bias="0.29000002" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLogin"
+        app:layout_constraintVertical_bias="0.26999998" />
 
 
 

@@ -23,7 +23,7 @@ import kotlinx.coroutines.launch
 
 class GetStarted : Fragment() {
 
-    val activityScope = CoroutineScope(Dispatchers.Main)
+    private val activityScope = CoroutineScope(Dispatchers.Main)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,12 +58,14 @@ class GetStarted : Fragment() {
         welcome1.start()
         imageAn.start()
 
+
+
     }//onViewCreated()
 
     override fun onResume() {
         super.onResume()
             activityScope.launch {
-                delay(4500)
+                delay(5000)
                 findNavController()
                     .navigate(
                         GetStartedDirections

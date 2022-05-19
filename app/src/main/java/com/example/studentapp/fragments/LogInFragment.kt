@@ -1,5 +1,6 @@
 package com.example.gavarstateuniversityapp.fragments
 
+import android.annotation.SuppressLint
 import android.media.Image
 import android.os.Bundle
 import android.text.InputType
@@ -29,11 +30,11 @@ class LogInFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_log_in, container, false)
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val toSignUp = view.findViewById<TextView>(R.id.toLoginPage)
-
+        val toSignUp = view.findViewById<TextView>(R.id.toSignUp)
         val showLogin = view.findViewById<ImageView>(R.id.showLogin)
         val email     = view.findViewById<EditText>(R.id.emailLogin)
         val pass      = view.findViewById<EditText>(R.id.passwdLogin)
@@ -48,26 +49,8 @@ class LogInFragment : Fragment() {
                )
         }//toSignUp
 
-        fun readUserData(userId: String) {
-            val db = Firebase.firestore
-           db.collection("users")
-                .document(userId)
-                .get()
-                .addOnSuccessListener { querySnapshot ->
-                    Log.e("TAG","success")
-                }
-                .addOnFailureListener { exception ->
-                    Log.e("TAG", "Error getting documents $exception")
-                }
-        }
-
-
         ok.setOnClickListener {
-            if (email.text.isEmpty())
-                email.error = "Text area is Empty."
-            if (pass.text.isEmpty())
-                pass.error  = "Text area is Empty."
-
+            textIsNotEmpty(email,pass)
 
             var internet  = false
             if (context?.let { it1 -> checkForInternet(it1) } == true) {
@@ -95,9 +78,8 @@ class LogInFragment : Fragment() {
                         }
                     }
             }
-        }//Ok
-
-
+        }// btn Ok
+        
         var showHideBool = false
         showLogin.setOnClickListener {
             if (!showHideBool) {
@@ -109,11 +91,29 @@ class LogInFragment : Fragment() {
                 pass.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
                 showLogin.setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_visibility_24))
             }
-        }//show1
+        }//show/hide password
 
 
+    } //onViewCreated
 
+    private fun readUserData(userId: String) {
+        val db = Firebase.firestore
+        db.collection("users")
+            .document(userId)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                Log.e("TAG","success")
+            }
+            .addOnFailureListener { exception ->
+                Log.e("TAG", "Error getting documents $exception")
+            }
+    }
 
+    private fun textIsNotEmpty(email:EditText, pass:EditText) {
+        if (email.text.isEmpty())
+            email.error = "Text area is Empty."
+        if (pass.text.isEmpty())
+            pass.error  = "Text area is Empty."
     }
 
 }

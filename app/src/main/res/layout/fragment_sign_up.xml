@@ -10,199 +10,199 @@
     android:paddingHorizontal="16dp"
     >
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="250dp"
-        android:src="@drawable/vec22"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/creatNewAcc"
-        android:textColor="#6DA3B8"
-        android:textSize="18sp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView2"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
-
-
-    <androidx.constraintlayout.helper.widget.Flow
-        android:id="@+id/flow1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:constraint_referenced_ids="name, emailS,passwdS,repeatPaswdS, textView3"
-        app:flow_verticalGap="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/okS"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="0.26"
-        tools:ignore="MissingConstraints,UnknownIdInLayout"
-        tools:layout_editor_absoluteX="16dp" >
-
-
-
-    </androidx.constraintlayout.helper.widget.Flow>
-
-    <EditText
-        android:id="@+id/name"
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/ed_text_design"
-        android:drawableStart="@drawable/costum_person_icon"
-        android:hint="@string/name"
-        android:maxLength="30"
-        android:paddingStart="8dp"
-        android:paddingEnd="16dp"
-        android:singleLine="true"
-        android:textAlignment="center"
-        android:textColor="#262626"
-        android:textColorHint="#AFADAD"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        tools:layout_editor_absoluteX="16dp" />
-
-
-    <EditText
-        android:id="@+id/emailS"
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/ed_text_design"
-        android:drawableStart="@drawable/costum_mail_icon"
-        android:hint="@string/e_mailText"
-        android:maxLength="30"
-        android:paddingStart="8dp"
-        android:paddingEnd="16dp"
-        android:singleLine="true"
-        android:textAlignment="center"
-        android:textColor="#262626"
-        android:textColorHint="#AFADAD"
-        app:layout_constraintTop_toBottomOf="@+id/name"
-        tools:layout_editor_absoluteX="16dp"
-        tools:ignore="MissingConstraints" />
-
-    <EditText
-        android:id="@+id/passwdS"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/ed_text_design"
-        android:drawableStart="@drawable/costum_lock_icon"
-        android:drawableLeft="@drawable/ic_baseline_lock_24"
-        android:hint="@string/password"
-        android:inputType="text|textPassword|textWebPassword"
-        android:maxLength="30"
-        android:paddingLeft="8dp"
-        android:paddingRight="16dp"
-        android:singleLine="true"
-        android:textAlignment="center"
-        android:textColor="#262626"
-        android:textColorHint="#AFADAD"
-
-        app:layout_constraintTop_toBottomOf="@+id/emailS"
-        tools:ignore="RtlHardcoded"
-        tools:layout_editor_absoluteX="16dp" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/repeatPaswdS"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginHorizontal="24dp"
-        android:background="@drawable/ed_text_design"
-        android:drawableStart="@drawable/costum_lock_icon"
-        android:hint="@string/password"
-        android:layout_marginTop="8dp"
-        android:inputType="textPassword"
-        android:maxLength="30"
-        android:paddingStart="8dp"
-        android:paddingEnd="16dp"
-        android:singleLine="true"
-        android:textAlignment="center"
-        android:textColor="#262626"
-        android:textColorHint="#AFADAD"
-        app:layout_constraintTop_toBottomOf="@+id/passwdS"
-        tools:layout_editor_absoluteX="16dp" />
-
-
-    <ImageView
-        android:id="@+id/show"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:visibility="visible"
-        android:src="@drawable/ic_baseline_visibility_24"
-        app:layout_constraintBottom_toBottomOf="@+id/passwdS"
-        app:layout_constraintEnd_toEndOf="@+id/passwdS"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/passwdS"
-        app:layout_constraintTop_toTopOf="@+id/passwdS" />
-
-
-    <ImageView
-        android:id="@+id/show2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_visibility_24"
-        android:visibility="visible"
-        app:layout_constraintHorizontal_bias="1.0"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/repeatPaswdS"
-        app:layout_constraintEnd_toEndOf="@+id/repeatPaswdS"
-        app:layout_constraintStart_toStartOf="@+id/repeatPaswdS"
-        app:layout_constraintTop_toTopOf="@+id/repeatPaswdS" />
-
-
-    <LinearLayout
-        android:id="@+id/textView3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/repeatPaswdS">
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="180dp"
+            android:src="@drawable/vec22"
+            app:layout_constraintBottom_toTopOf="@+id/textView2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
         <TextView
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/iHaveAcc"
-            android:textColor="#685BFB"
-            app:layout_constraintEnd_toEndOf="@+id/repeatPaswdS"
-            app:layout_constraintStart_toStartOf="@+id/repeatPaswdS"
-            app:layout_constraintTop_toBottomOf="@+id/repeatPaswdS" />
+            android:text="@string/creatNewAcc"
+            android:textColor="#6DA3B8"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/flow1"
+            app:layout_constraintEnd_toEndOf="@+id/imageView2"
+            app:layout_constraintStart_toStartOf="@+id/imageView2"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2"
+            app:layout_constraintVertical_bias="0.07999998" />
 
-        <TextView
-            android:id="@+id/toLoginPage"
+
+        <androidx.constraintlayout.helper.widget.Flow
+            android:id="@+id/flow1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/toLoginPage"
-            android:textColor="#6B69E2"
+            android:orientation="vertical"
+            app:constraint_referenced_ids="name, emailS,passwdS,repeatPaswdS, textView3"
+            app:flow_horizontalGap="2dp"
+            app:flow_verticalGap="4dp"
+            app:layout_constraintBottom_toTopOf="@+id/okS"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView3"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            tools:ignore="MissingConstraints,UnknownIdInLayout" />
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="24dp"
+            android:background="@drawable/ed_text_design"
+            android:drawableStart="@drawable/costum_person_icon"
+            android:hint="@string/name"
+            android:maxLength="30"
+            android:paddingStart="8dp"
+            android:paddingEnd="16dp"
+            android:singleLine="true"
+            android:textAlignment="center"
+            android:textColor="#262626"
+            android:textColorHint="#AFADAD"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            tools:ignore="Autofill,TextFields,TextContrastCheck"
+            tools:layout_editor_absoluteX="16dp" />
+
+
+        <EditText
+            android:id="@+id/emailS"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="24dp"
+            android:background="@drawable/ed_text_design"
+            android:drawableStart="@drawable/costum_mail_icon"
+            android:hint="@string/e_mailText"
+            android:maxLength="30"
+            android:paddingStart="8dp"
+            android:paddingEnd="16dp"
+            android:singleLine="true"
+            android:textAlignment="center"
+            android:textColor="#262626"
+            android:textColorHint="#AFADAD"
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            tools:ignore="Autofill,MissingConstraints,TextFields"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <EditText
+            android:id="@+id/passwdS"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="24dp"
+            android:background="@drawable/ed_text_design"
+            android:drawableStart="@drawable/costum_lock_icon"
+            android:drawableLeft="@drawable/ic_baseline_lock_24"
+            android:hint="@string/password"
+            android:inputType="text|textPassword|textWebPassword"
+            android:maxLength="30"
+            android:paddingLeft="8dp"
+            android:paddingRight="16dp"
+            android:singleLine="true"
+            android:textAlignment="center"
+            android:textColor="#262626"
+            android:textColorHint="#AFADAD"
+            app:layout_constraintEnd_toStartOf="@+id/flow1"
+            app:layout_constraintTop_toBottomOf="@+id/emailS"
+            tools:ignore="Autofill,RtlHardcoded,DuplicateSpeakableTextCheck" />
+
+        <EditText
+            android:id="@+id/repeatPaswdS"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/ed_text_design"
+            android:drawableStart="@drawable/costum_lock_icon"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:maxLength="30"
+            android:paddingStart="8dp"
+            android:paddingEnd="16dp"
+            android:singleLine="true"
+            android:textAlignment="center"
+            android:textColor="#262626"
+            android:textColorHint="#AFADAD"
+            app:layout_constraintTop_toBottomOf="@+id/passwdS"
+            tools:layout_editor_absoluteX="16dp" />
+
+
+        <ImageView
+            android:id="@+id/show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@string/show_hide"
+            android:src="@drawable/ic_baseline_visibility_24"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/passwdS"
+            app:layout_constraintEnd_toEndOf="@+id/passwdS"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/passwdS"
+            app:layout_constraintTop_toTopOf="@+id/passwdS" />
+
+
+        <ImageView
+            android:id="@+id/show2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@string/show_hide"
+            android:src="@drawable/ic_baseline_visibility_24"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/repeatPaswdS"
+            app:layout_constraintEnd_toEndOf="@+id/repeatPaswdS"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/repeatPaswdS"
+            app:layout_constraintTop_toTopOf="@+id/repeatPaswdS" />
+
+
+        <LinearLayout
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/repeatPaswdS">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/iHaveAcc"
+                android:textColor="#685BFB"
+                app:layout_constraintEnd_toEndOf="@+id/repeatPaswdS"
+                app:layout_constraintStart_toStartOf="@+id/repeatPaswdS"
+                app:layout_constraintTop_toBottomOf="@+id/repeatPaswdS" />
+
+            <TextView
+                android:id="@+id/toLoginPage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/toLoginPage"
+                android:layout_marginStart="8dp"
+                android:textColor="#6B69E2"
+                app:layout_constraintEnd_toEndOf="@+id/repeatPaswdS"
+                app:layout_constraintStart_toStartOf="@+id/repeatPaswdS"
+                app:layout_constraintTop_toBottomOf="@+id/repeatPaswdS" />
+        </LinearLayout>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/okS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn2_style"
+            android:paddingHorizontal="16dp"
+            android:text="@string/ok"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/repeatPaswdS"
             app:layout_constraintStart_toStartOf="@+id/repeatPaswdS"
-            app:layout_constraintTop_toBottomOf="@+id/repeatPaswdS" />
-    </LinearLayout>
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/okS"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/btn2_style"
-        android:paddingHorizontal="16dp"
-        android:text="@string/ok"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/repeatPaswdS"
-        app:layout_constraintStart_toStartOf="@+id/repeatPaswdS"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
-        app:layout_constraintVertical_bias="0.22000003" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

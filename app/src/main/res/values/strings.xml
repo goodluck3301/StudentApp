@@ -1,12 +1,14 @@
 <resources>
     <string name="app_name">Student App</string>
     <string name="password">Password</string>
-    <string name="iHaveAcc">Արդեն իսկ ունեմ հաշիվ։</string>
-    <string name="toLoginPage">Մուտք գործել</string>
+    <string name="iHaveAcc">Արդեն իսկ ունեմ հաշիվ։ </string>
+    <string name="toLoginPage"> Մուտք գործել</string>
     <string name="ok">Հաստատել</string>
     <string name="name">Name</string>
     <string name="creatNewAcc">Ստեղծել նոր հաշիվ</string>
     <string name="e_mailText">E-mail</string>
     <string name="noHaveAcc">Չունեմ հաշիվ։</string>
     <string name="creatNewAccLogin">Ստեղծել նոր հաշիվ։</string>
+    <string name="goSignUpPage">Մուտք գործել հաշիվ</string>
+    <string name="show_hide">Show/Hide</string>
 </resources>
