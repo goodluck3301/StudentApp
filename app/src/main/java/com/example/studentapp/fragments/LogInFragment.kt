@@ -35,7 +35,6 @@ class LogInFragment : Fragment() {
         val toSignUp = view.findViewById<TextView>(R.id.toLoginPage)
 
         val showLogin = view.findViewById<ImageView>(R.id.showLogin)
-        val hideLogin = view.findViewById<ImageView>(R.id.hideLogin)
         val email     = view.findViewById<EditText>(R.id.emailLogin)
         val pass      = view.findViewById<EditText>(R.id.passwdLogin)
         val ok        = view.findViewById<Button>  (R.id.okLogin)
@@ -99,19 +98,20 @@ class LogInFragment : Fragment() {
         }//Ok
 
 
-
-
+        var showHideBool = false
         showLogin.setOnClickListener {
-            pass.inputType = InputType.TYPE_CLASS_TEXT
-            showLogin.visibility = View.INVISIBLE
-            hideLogin.visibility = View.VISIBLE
+            if (!showHideBool) {
+                showHideBool = true
+                pass.inputType = InputType.TYPE_CLASS_TEXT
+                showLogin.setImageDrawable(resources.getDrawable(R.drawable.ic_focused_visibility_off_24))
+            }else {
+                showHideBool = false
+                pass.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                showLogin.setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_visibility_24))
+            }
         }//show1
 
-        hideLogin.setOnClickListener {
-            pass.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-            showLogin.visibility = View.VISIBLE
-            hideLogin.visibility = View.INVISIBLE
-        }//hide1
+
 
 
     }

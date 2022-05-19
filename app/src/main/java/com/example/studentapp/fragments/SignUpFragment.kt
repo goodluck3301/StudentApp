@@ -11,10 +11,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.gavarstateuniversityapp.viewmodel.AuthViewModel
 import com.example.studentapp.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
@@ -25,9 +23,7 @@ import java.util.regex.Pattern
 class SignUpFragment : Fragment() {
 
     private lateinit var show1:ImageView
-    private lateinit var hide1:ImageView
     private lateinit var show2:ImageView
-    private lateinit var hide2:ImageView
 
     private lateinit var name:EditText
     private lateinit var email:EditText
@@ -37,7 +33,7 @@ class SignUpFragment : Fragment() {
     private lateinit var firebaseAuth: FirebaseAuth
 
 
-    val EMAIL_ADDRESS_PATTERN = Pattern.compile(
+    val EMAIL_ADDRESS_PATTERN: Pattern = Pattern.compile(
         "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
                 "\\@" +
                 "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
@@ -55,6 +51,7 @@ class SignUpFragment : Fragment() {
 
     }// onCreate()
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -68,9 +65,7 @@ class SignUpFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         show1 = view.findViewById(R.id.show)
-        hide1 = view.findViewById(R.id.hide)
         show2 = view.findViewById(R.id.show2)
-        hide2 = view.findViewById(R.id.hide2)
 
         name  = view.findViewById(R.id.name)
         email = view.findViewById(R.id.emailS)
@@ -141,7 +136,6 @@ class SignUpFragment : Fragment() {
                 passBool = true
             else {
                 show1.visibility = View.INVISIBLE
-                hide1.visibility = View.INVISIBLE
             }
             if (name.text.toString().isNotEmpty())
                 nameBool = true
@@ -180,29 +174,33 @@ class SignUpFragment : Fragment() {
 
         }//btn
 
+        var showHideBool1 = false
         show1.setOnClickListener {
-            pass.inputType = InputType.TYPE_CLASS_TEXT
-            show1.visibility = View.INVISIBLE
-            hide1.visibility = View.VISIBLE
+
+            if (!showHideBool1) {
+                showHideBool1 = true
+                pass.inputType = InputType.TYPE_CLASS_TEXT
+                show1.setImageDrawable(resources.getDrawable(R.drawable.ic_focused_visibility_off_24))
+            }else {
+                showHideBool1 = false
+                pass.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                show1.setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_visibility_24))
+            }
         }//show1
 
-        hide1.setOnClickListener {
-            pass.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-            show1.visibility = View.VISIBLE
-            hide1.visibility = View.INVISIBLE
-        }//hide1
 
+        var showHideBool2 = false
         show2.setOnClickListener {
-            pass2.inputType = InputType.TYPE_CLASS_TEXT
-            show2.visibility = View.INVISIBLE
-            hide2.visibility = View.VISIBLE
+            if (!showHideBool2) {
+                showHideBool2 = true
+                pass2.inputType = InputType.TYPE_CLASS_TEXT
+                show2.setImageDrawable(resources.getDrawable(R.drawable.ic_focused_visibility_off_24))
+            }else {
+                showHideBool2 = false
+                pass2.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                show2.setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_visibility_24))
+            }
         }//show2
-
-        hide2.setOnClickListener {
-            pass2.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
-            show2.visibility = View.VISIBLE
-            hide2.visibility = View.INVISIBLE
-        }//hide2
 
     }
 }

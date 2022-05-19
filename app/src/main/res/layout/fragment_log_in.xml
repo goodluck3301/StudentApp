@@ -87,19 +87,6 @@
         />
 
     <ImageView
-        android:id="@+id/hideLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:visibility="invisible"
-        android:src="@drawable/ic_focused_visibility_off_24"
-        app:layout_constraintBottom_toBottomOf="@+id/passwdLogin"
-        app:layout_constraintEnd_toEndOf="@+id/passwdLogin"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/passwdLogin"
-        app:layout_constraintTop_toTopOf="@+id/passwdLogin" />
-
-    <ImageView
         android:id="@+id/showLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
