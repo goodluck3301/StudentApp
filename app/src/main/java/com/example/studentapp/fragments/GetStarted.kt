@@ -59,7 +59,6 @@ class GetStarted : Fragment() {
         welcome1.start()
         imageAn.start()
 
-
     }//onViewCreated()
 
     override fun onResume() {

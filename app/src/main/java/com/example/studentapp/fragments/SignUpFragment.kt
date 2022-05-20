@@ -1,5 +1,6 @@
 package com.example.gavarstateuniversityapp.fragments
 
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.net.ConnectivityManager
@@ -45,6 +46,7 @@ class SignUpFragment : Fragment() {
 
 
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -172,7 +174,8 @@ class SignUpFragment : Fragment() {
     private fun createNewUser() {
         val db = Firebase.firestore
         val user = hashMapOf(
-            "name" to name.text.toString(),
+            "name"  to name.text.toString(),
+            "email" to email.text.toString(),
             "score" to 0
         )
 

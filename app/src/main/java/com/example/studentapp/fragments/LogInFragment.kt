@@ -17,7 +17,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-
 class LogInFragment : Fragment() {
 
     private lateinit var firebaseAuth: FirebaseAuth
@@ -26,7 +25,6 @@ class LogInFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         firebaseAuth = FirebaseAuth.getInstance()
         return inflater.inflate(R.layout.fragment_log_in, container, false)
     }
@@ -93,8 +91,6 @@ class LogInFragment : Fragment() {
                 showLogin.setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_visibility_24))
             }
         }//show/hide password
-
-
     } //onViewCreated
 
     private fun readUserData(userId: String) {
