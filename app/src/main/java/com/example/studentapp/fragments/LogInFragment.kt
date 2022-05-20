@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.navigation.fragment.findNavController
+import com.example.studentapp.GeneralFunctions
 import com.example.studentapp.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
@@ -53,7 +54,7 @@ class LogInFragment : Fragment() {
             textIsNotEmpty(email,pass)
 
             var internet  = false
-            if (context?.let { it1 -> checkForInternet(it1) } == true) {
+            if (context?.let { it1 -> GeneralFunctions.checkForInternet(it1) } == true) {
                 internet = true
             } else
                 Toast.makeText(
