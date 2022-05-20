@@ -1,0 +1,1 @@
+package com.example.studentapp.modelsdata class BookModel(    val bookId     :Int,    val bookImgURI:String,    val bookURL   :String,    val bookTitle :String,    val bookDesc  :String)
