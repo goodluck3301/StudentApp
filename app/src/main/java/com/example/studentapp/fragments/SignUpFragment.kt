@@ -174,9 +174,10 @@ class SignUpFragment : Fragment() {
     private fun createNewUser() {
         val db = Firebase.firestore
         val user = hashMapOf(
-            "name"  to name.text.toString(),
-            "email" to email.text.toString(),
-            "score" to 0
+            "name"           to name.text.toString(),
+            "email"          to email.text.toString(),
+            "userURLtoImage" to "https://p7.hiclipart.com/preview/652/446/341/computer-icons-login-avatar-avatar.jpg",
+            "score"          to 0
         )
 
         db.collection("users")
