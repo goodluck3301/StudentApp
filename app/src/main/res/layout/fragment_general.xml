@@ -22,8 +22,9 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/menuLine"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         app:itemTextColor="@color/black"
+        app:itemIconSize="30dp"
         android:background="@drawable/menu_gradient_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/nav_menu"

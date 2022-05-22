@@ -10,6 +10,7 @@ import android.widget.TextView
 import com.example.studentapp.R
 import com.example.studentapp.database.UserDatabase
 import com.example.studentapp.database.UserInfo
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -64,18 +65,23 @@ class AccountPageFragment : Fragment() {
                 .whereLessThan("email", it.uid)
                 .get()
                 .addOnSuccessListener { result ->
-                    CoroutineScope(Dispatchers.IO).launch {
-                        var usersInfo:UserInfo
 
-                        for (document in result) {
-                            usersInfo =   UserInfo(
+                    var usersInfo: UserInfo
+                    for (document in result) {
+                        if ((document.get("idUser").toString()) == FirebaseAuth.getInstance().uid) {
+                            usersInfo = UserInfo(
                                 document.get("name").toString(),
                                 document.get("score").toString(),
                                 document.get("email").toString(),
                                 document.get("userURLtoImage").toString()
                             )
-                            if (  database.userDao().isNotExists(document.get("email").toString()) )
-                                database.userDao().insertData(usersInfo)
+                            CoroutineScope(Dispatchers.IO).launch {
+                                if (database.userDao()
+                                        .isNotExists(document.get("email").toString())
+                                ) {
+                                    database.userDao().insertData(usersInfo)
+                                }
+                            }
                         }
                     }
                 }
