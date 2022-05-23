@@ -16,4 +16,5 @@
     <string name="menuHome">Home</string>
     <string name="menuBooks">Books</string>
     <string name="menuQuizz">Quizz</string>
+    <string name="questionstype">QuestionsType</string>
 </resources>

@@ -1,0 +1,1 @@
+package com.example.studentapp.modelsdata class QuestionsTypeModel(    var questionsId: Int,    var typeName: String,    var imageId: Int)

@@ -48,7 +48,6 @@ class AccountPageFragment : Fragment() {
         GlobalScope.launch(Dispatchers.Main) {
             text.text = DB.username
         }
-
     }// onViewCreated()
 
     private fun getDatabaseInfo () {
@@ -65,7 +64,6 @@ class AccountPageFragment : Fragment() {
                 .whereLessThan("email", it.uid)
                 .get()
                 .addOnSuccessListener { result ->
-
                     var usersInfo: UserInfo
                     for (document in result) {
                         if ((document.get("idUser").toString()) == FirebaseAuth.getInstance().uid) {
