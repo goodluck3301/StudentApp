@@ -2,6 +2,7 @@ package com.example.gavarstateuniversityapp.fragments
 
 import android.annotation.SuppressLint
 import android.media.Image
+import android.opengl.Visibility
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
@@ -13,6 +14,7 @@ import android.widget.*
 import androidx.navigation.fragment.findNavController
 import com.example.studentapp.GeneralFunctions
 import com.example.studentapp.R
+import com.example.studentapp.databinding.FragmentLogInBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -20,13 +22,16 @@ import com.google.firebase.ktx.Firebase
 class LogInFragment : Fragment() {
 
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var binding:FragmentLogInBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         firebaseAuth = FirebaseAuth.getInstance()
-        return inflater.inflate(R.layout.fragment_log_in, container, false)
+        binding = FragmentLogInBinding.inflate(inflater)
+        return binding.root
+    //return inflater.inflate(R.layout.fragment_log_in, container, false)
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -66,6 +71,7 @@ class LogInFragment : Fragment() {
                     .signInWithEmailAndPassword(email.text.toString(), pass.text.toString())
                     .addOnCompleteListener {
                         if (it.isSuccessful) {
+                            binding.progressLogin.visibility = View.VISIBLE
                             val user = firebaseAuth.currentUser
                             readUserData(user!!.uid)
                             Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
@@ -74,8 +80,9 @@ class LogInFragment : Fragment() {
                                     LogInFragmentDirections
                                         .actionLogInFragmentToGeneralFragment()
                                 )
-                        }
+                        }else { binding.progressLogin.visibility = View.GONE }
                     }
+                binding.progressLogin.visibility = View.GONE
             }
         }// btn Ok
         

@@ -17,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.studentapp.GeneralFunctions
 import com.example.studentapp.GeneralFunctions.checkForInternet
 import com.example.studentapp.R
+import com.example.studentapp.databinding.FragmentSignUpBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -34,6 +35,7 @@ class SignUpFragment : Fragment() {
     private lateinit var pass2:EditText
     private lateinit var ok   :Button
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var binding: FragmentSignUpBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +43,9 @@ class SignUpFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         firebaseAuth = FirebaseAuth.getInstance()
-        return inflater.inflate(R.layout.fragment_sign_up, container, false)
+        binding = FragmentSignUpBinding.inflate(inflater)
+        return binding.root
+    //return inflater.inflate(R.layout.fragment_sign_up, container, false)
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -107,6 +111,7 @@ class SignUpFragment : Fragment() {
                         .createUserWithEmailAndPassword(email.text.toString(), pass.text.toString())
                         .addOnCompleteListener {
                             if (it.isSuccessful) {
+                                binding.progressbarSignUP.visibility = View.VISIBLE
                                 Toast.makeText( context, "send", Toast.LENGTH_SHORT )
                                     .show()
                                 createNewUser()
@@ -116,11 +121,13 @@ class SignUpFragment : Fragment() {
                                             .actionSignUpFragmentToGeneralFragment()
                                     )
                             } else {
+                                binding.progressbarSignUP.visibility = View.GONE
                                 Toast.makeText( context, it.exception.toString(), Toast.LENGTH_SHORT )
                                     .show()
                             }
                         }
                 } else {
+                    binding.progressbarSignUP.visibility = View.GONE
                     Toast.makeText(
                         context,
                         "Error",
