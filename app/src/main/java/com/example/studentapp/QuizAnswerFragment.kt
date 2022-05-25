@@ -21,7 +21,7 @@ import com.example.studentapp.models.Questions
 class QuizAnswerFragment : Fragment() {
 
     private lateinit var binding: FragmentQuizAnswerBinding
-    lateinit var list: ArrayList<Questions>
+    private lateinit var list: MutableList<Questions>
     private var mCurrentPosition: Int = 1
     private var mSelectedOptionPosition: Int = 0
 
@@ -29,30 +29,37 @@ class QuizAnswerFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         list =
             com.example.studentapp.questions.Questions.list[com.example.studentapp.questions.Questions.index]
+        list.shuffle()
         binding = FragmentQuizAnswerBinding.inflate(inflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //Toast.makeText(context, "Quiz page", Toast.LENGTH_LONG).show()
 
         setQuestion()
 
         binding.tvOptionOne.setOnClickListener {
+
             selectedOptionView(binding.tvOptionOne, 1)
+
         }
         binding.tvOptionTwo.setOnClickListener {
+
             selectedOptionView(binding.tvOptionTwo, 2)
+
         }
         binding.tvOptionThree.setOnClickListener {
+
             selectedOptionView(binding.tvOptionThree, 3)
+
         }
         binding.tvOptionFour.setOnClickListener {
+
             selectedOptionView(binding.tvOptionFour, 4)
+
         }
         binding.btnSubmit.setOnClickListener {
             if (mSelectedOptionPosition == 0) {

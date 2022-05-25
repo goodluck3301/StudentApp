@@ -40,7 +40,6 @@ class QuizPageFragment : Fragment() {
 
         binding = FragmentQuizPageBinding.inflate(inflater)
         return binding.root
-        //return inflater.inflate(R.layout.fragment_quiz_page, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

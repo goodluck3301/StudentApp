@@ -44,8 +44,6 @@ class SignUpFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_sign_up, container, false)
     }
 
-
-
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -68,9 +66,6 @@ class SignUpFragment : Fragment() {
                         .actionSignUpFragmentToLogInFragment()
                 )
         }
-
-
-
 
 
         //asetsstudio
@@ -178,7 +173,7 @@ class SignUpFragment : Fragment() {
             "email" to email.text.toString(),
             "userURLtoImage" to "https://p7.hiclipart.com/preview/652/446/341/computer-icons-login-avatar-avatar.jpg",
             "score" to 0,
-            "idUser" to firebaseAuth.uid
+            "idUser" to firebaseAuth.uid.toString()
         )
 
         db.collection("users")
