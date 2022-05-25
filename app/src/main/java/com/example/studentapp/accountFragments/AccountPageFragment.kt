@@ -17,6 +17,9 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.*
 
 
+
+
+
 @DelicateCoroutinesApi
 class AccountPageFragment : Fragment() {
 
@@ -62,17 +65,15 @@ class AccountPageFragment : Fragment() {
                 .addOnSuccessListener { result ->
                     var usersInfo: UserInfo
                     for (document in result) {
-                        if ((document.get("idUser")
-                                .toString()) == (FirebaseAuth.getInstance().uid).toString()
-                        ) {
+                        if ((document.get("idUser").toString()) == (FirebaseAuth.getInstance().uid).toString()) {
 
                             //text.text = document.get("name").toString()
-                            usersInfo = UserInfo(
-                                document.get("name").toString(),
-                                document.get("score").toString(),
-                                document.get("email").toString(),
-                                document.get("userURLtoImage").toString()
-                            )
+                              usersInfo = UserInfo(
+                                  document.get("name").toString(),
+                                  document.get("score").toString(),
+                                  document.get("email").toString(),
+                                  document.get("userURLtoImage").toString()
+                              )
 
                             CoroutineScope(Dispatchers.IO).launch {
                                 if (database.userDao()

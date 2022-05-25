@@ -29,8 +29,7 @@ class QuizAnswerFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        list =
-            com.example.studentapp.questions.Questions.list[com.example.studentapp.questions.Questions.index]
+        list = com.example.studentapp.questions.Questions.list[com.example.studentapp.questions.Questions.index]
         list.shuffle()
         binding = FragmentQuizAnswerBinding.inflate(inflater)
         return binding.root
@@ -43,22 +42,22 @@ class QuizAnswerFragment : Fragment() {
 
         binding.tvOptionOne.setOnClickListener {
 
-            selectedOptionView(binding.tvOptionOne, 1)
+                selectedOptionView(binding.tvOptionOne, 1)
 
         }
         binding.tvOptionTwo.setOnClickListener {
 
-            selectedOptionView(binding.tvOptionTwo, 2)
+                selectedOptionView(binding.tvOptionTwo, 2)
 
         }
         binding.tvOptionThree.setOnClickListener {
 
-            selectedOptionView(binding.tvOptionThree, 3)
+                selectedOptionView(binding.tvOptionThree, 3)
 
         }
         binding.tvOptionFour.setOnClickListener {
 
-            selectedOptionView(binding.tvOptionFour, 4)
+                selectedOptionView(binding.tvOptionFour, 4)
 
         }
         binding.btnSubmit.setOnClickListener {
