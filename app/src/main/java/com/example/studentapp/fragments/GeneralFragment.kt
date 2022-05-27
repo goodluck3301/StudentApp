@@ -16,7 +16,7 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 
 class GeneralFragment : Fragment() {
 
-    lateinit var binding: FragmentGeneralBinding
+    private lateinit var binding: FragmentGeneralBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,13 +25,10 @@ class GeneralFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentGeneralBinding.inflate(inflater)
         return binding.root
-        //return inflater.inflate(R.layout.fragment_general, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        //val menu = view.findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.menuLine)
 
         val homeFragment = HomePageFragment()
         val books = Books()

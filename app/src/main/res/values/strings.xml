@@ -17,4 +17,14 @@
     <string name="menuBooks">Books</string>
     <string name="menuQuizz">Quizz</string>
     <string name="questionstype">QuestionsType</string>
+    <string name="profile">Պրոֆիլ</string>
+    <string name="full_name">Անուն</string>
+    <string name="examplemail_mail_ru">examplemail@mail.ru</string>
+    <string name="all_score">Միավորներ</string>
+    <string name="post_count">Նյութերի քանակ</string>
+    <string name="todo">TODO</string>
+    <string name="zero">0</string>
+    <string name="change_name">Փոխել անունը</string>
+    <string name="save_cahnge">Հիշել</string>
+    <string name="cancle_change">Փակել</string>
 </resources>
