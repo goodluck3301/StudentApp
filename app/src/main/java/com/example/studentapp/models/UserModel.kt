@@ -1,0 +1,1 @@
+package com.example.studentapp.modelsdata class UserModel (    val userName:String,    val userScore:String,    val userImgUri:String,        )

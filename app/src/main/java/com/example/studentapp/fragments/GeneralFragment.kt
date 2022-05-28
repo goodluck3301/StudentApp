@@ -11,7 +11,7 @@ import com.example.studentapp.accountFragments.Books
 import com.example.studentapp.accountFragments.HomePageFragment
 import com.example.studentapp.accountFragments.QuizPageFragment
 import com.example.studentapp.databinding.FragmentGeneralBinding
-import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.*
 
 
 class GeneralFragment : Fragment() {

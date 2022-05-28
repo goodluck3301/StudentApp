@@ -7,6 +7,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable-v24/ic_edit_white.xml" value="0.1135" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable-v24/ic_person_gray.xml" value="0.1135" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable-v24/item_design.xml" value="0.3235" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable-v24/item_top_user_design.xml" value="0.2565" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable-v24/shape_rect01.xml" value="0.1135" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable-v24/shape_toolbar02.xml" value="0.1135" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/btn2_style.xml" value="0.25" />
@@ -43,7 +44,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/fragment_books.xml" value="0.24427083333333333" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/fragment_general.xml" value="0.25" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/fragment_get_started.xml" value="0.33" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/fragment_home_page.xml" value="0.24427083333333333" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/fragment_log_in.xml" value="0.33" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/fragment_quiz_answer.xml" value="0.3625" />
@@ -51,6 +52,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/fragment_sign_up.xml" value="0.3201219512195122" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/item_quiz_type.xml" value="0.5247524752475248" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/score_view.xml" value="0.3625" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/top_user_item.xml" value="0.67" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/menu/nav_menu.xml" value="0.46511627906976744" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2675" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1935" />
