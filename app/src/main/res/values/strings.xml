@@ -27,4 +27,6 @@
     <string name="change_name">Փոխել անունը</string>
     <string name="save_cahnge">Հիշել</string>
     <string name="cancle_change">Փակել</string>
+    <string name="okey">Լավ</string>
+    <string name="game_finished">game finished</string>
 </resources>

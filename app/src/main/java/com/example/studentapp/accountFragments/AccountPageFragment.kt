@@ -177,7 +177,3 @@ class AccountPageFragment : Fragment() {
     }// readDataFirestore()
 
 }//class
-
-//     https://firebasestorage.googleapis.com/v0/b/mobileapp-93e3f.appspot.com/o/images%2F23652b20-910f-4cf1-8c46-f85897d886c2.png?alt=media&token=525f0e86-45a0-4a29-9749-0677a33a3a53
-//     https://firebasestorage.googleapis.com/v0/b/mobileapp-93e3f.appspot.com/o?images%2F23652b20-910f-4cf1-8c46-f85897d886c2.png&uploadType=resumable&upload_id=ADPycdvAy_RftnylyjudmXI6L2B96N7UI3wVdH3jUIJYSoETqHM7C5VxPevpMyvoMHMk-9hM569d1jqwubarqLUK_vDeLw&upload_protocol=resumable
-//

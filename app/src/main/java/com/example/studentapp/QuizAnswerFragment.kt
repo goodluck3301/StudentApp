@@ -1,21 +1,34 @@
 package com.example.studentapp
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.provider.SyncStateContract
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
 import com.example.studentapp.accountFragments.QuizPageFragment
 import com.example.studentapp.databinding.FragmentQuizAnswerBinding
-import com.example.studentapp.databinding.FragmentQuizPageBinding
 import com.example.studentapp.models.Questions
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.SetOptions
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import kotlin.properties.Delegates
 
 
 class QuizAnswerFragment : Fragment() {
@@ -24,11 +37,19 @@ class QuizAnswerFragment : Fragment() {
     private lateinit var list: MutableList<Questions>
     private var mCurrentPosition: Int = 1
     private var mSelectedOptionPosition: Int = 0
+    private var score:Int = 0
+    private var getScore by Delegates.notNull<Int>()
+    private lateinit var showScore: View
+    private lateinit var docId: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        CoroutineScope(Dispatchers.IO).launch {
+            readDataFirestore()
+        }
+
         list =
             com.example.studentapp.questions.Questions.list[com.example.studentapp.questions.Questions.index]
         list.shuffle()
@@ -36,32 +57,63 @@ class QuizAnswerFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n", "InflateParams")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setQuestion()
 
         binding.tvOptionOne.setOnClickListener {
-
             selectedOptionView(binding.tvOptionOne, 1)
-
         }
+
         binding.tvOptionTwo.setOnClickListener {
-
             selectedOptionView(binding.tvOptionTwo, 2)
-
         }
+
         binding.tvOptionThree.setOnClickListener {
-
             selectedOptionView(binding.tvOptionThree, 3)
-
         }
+
         binding.tvOptionFour.setOnClickListener {
-
             selectedOptionView(binding.tvOptionFour, 4)
-
         }
+
         binding.btnSubmit.setOnClickListener {
+            var message = ""
+            val scoreShowText = "Դուք հավաքել եք $score միավոր 10-ից"
+            when (score) {
+                in 0..4 -> message += "$scoreShowText\n Վատ արդյունք"
+                in 5..7 -> message += "$scoreShowText\n Միջին արդյունք"
+                in 8..9 -> message += "$scoreShowText\n Լավ արդյունք"
+                10 -> message += "$scoreShowText\n Գերազանց արդյունք"
+            }
+
+            if (mCurrentPosition == 10) {
+
+                CoroutineScope(Dispatchers.IO).launch {
+                    val hashMap = hashMapOf<String, Any>()
+                    hashMap["score"] = (score+getScore).toString()
+                    updateUserInfo(hashMap)
+                }
+                showScore =
+                    LayoutInflater
+                        .from(context)
+                        .inflate(R.layout.score_view, null)
+
+                val mBuilder = AlertDialog.Builder(context)
+                    .setView(showScore)
+                    .setTitle("Ամփոփում")
+                    .setMessage(message)
+                    .setIcon(R.drawable.signvec)
+                val mAlertDialog = mBuilder.show()
+
+
+
+                mAlertDialog.findViewById<Button>(R.id.okayBtn).setOnClickListener {
+                    mAlertDialog.dismiss()
+                }
+            }
             if (mSelectedOptionPosition == 0) {
                 mCurrentPosition++
 
@@ -72,7 +124,7 @@ class QuizAnswerFragment : Fragment() {
                     else -> {
                         Toast.makeText(
                             context,
-                            "Դուք հաջողությամբ ավարտել եք թեստը", Toast.LENGTH_SHORT
+                            "Դուք ավարտել եք թեստը", Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
@@ -80,6 +132,9 @@ class QuizAnswerFragment : Fragment() {
                 val question = list?.get(mCurrentPosition - 1)
                 if (question!!.correctOption != mSelectedOptionPosition) {
                     answerView(mSelectedOptionPosition, R.drawable.wrong_option_border_bg)
+                } else {
+                    score++
+                    //Toast.makeText(context, score.toString(), Toast.LENGTH_LONG).show()
                 }
                 answerView(question.correctOption, R.drawable.correct_option_border_bg)
                 if (mCurrentPosition == list!!.size) {
@@ -90,15 +145,12 @@ class QuizAnswerFragment : Fragment() {
                         isAddToBackStackAllowed
                         commit()
                     }
-
                 } else {
                     binding.btnSubmit.text = "Հոջորդը"
                 }
                 mSelectedOptionPosition = 0
             }
         }
-
-
     }
 
     @SuppressLint("SetTextI18n")
@@ -150,7 +202,6 @@ class QuizAnswerFragment : Fragment() {
             option.background =
                 context?.let { ContextCompat.getDrawable(it, R.drawable.default_option_border_bg) }
         }
-
     }
 
 
@@ -158,34 +209,59 @@ class QuizAnswerFragment : Fragment() {
         when (answer) {
             1 -> {
                 binding.tvOptionOne.background = context?.let {
-                    ContextCompat.getDrawable(
-                        it, drawableView
-                    )
+                    ContextCompat.getDrawable(it, drawableView)
                 }
             }
             2 -> {
                 binding.tvOptionTwo.background = context?.let {
-                    ContextCompat.getDrawable(
-                        it, drawableView
-                    )
+                    ContextCompat.getDrawable(it, drawableView)
                 }
             }
             3 -> {
                 binding.tvOptionThree.background = context?.let {
-                    ContextCompat.getDrawable(
-                        it, drawableView
-                    )
+                    ContextCompat.getDrawable(it, drawableView)
                 }
             }
             4 -> {
                 binding.tvOptionFour.background = context?.let {
-                    ContextCompat.getDrawable(
-                        it, drawableView
-                    )
+                    ContextCompat.getDrawable(it, drawableView)
                 }
             }
         }
     }//answerView()
 
+    private fun readDataFirestore() {
+        val db = Firebase.firestore
+        Firebase.auth.currentUser?.let {
+            db.collection("users")
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        if ((document.get("idUser")
+                                .toString()) == (FirebaseAuth.getInstance().uid).toString()
+                        ) {
+                            docId = document.id
+                            score = document.get("score").toString().toInt()
+                            getScore = score
+                            //Toast.makeText(context,score.toString(),Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }
+        }
+            ?.addOnFailureListener { exception ->
+                Log.w("TAG", "Error getting documents.", exception)
+            }
+    }// readDataFirestore()
+
+
+    private fun updateUserInfo(newUserData: Map<String, Any>) =
+        CoroutineScope(Dispatchers.IO).launch {
+            if (docId.isNotEmpty()) {
+                val db = Firebase.firestore
+                db.collection("users")
+                    .document(docId)
+                    .set(newUserData, SetOptions.merge())
+            }
+        }// updateUserInfo
 
 }
