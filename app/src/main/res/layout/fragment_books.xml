@@ -6,17 +6,11 @@
     android:layout_width="match_parent"
     android:background="@drawable/gradient_bg_color"
     android:layout_height="match_parent"
-    tools:context=".accountFragments.Books">
+    tools:context=".accountFragments.Material">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Books"
-        android:textColor="@color/purple_500"
-        android:textSize="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.recyclerview.widget.RecyclerView
+       android:id="@+id/materialRec"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

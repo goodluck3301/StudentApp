@@ -15,11 +15,11 @@
         android:layout_margin="10dp"
         android:gravity="center"
         android:text="Թեստային Հարց"
+        android:textAlignment="center"
+        android:textAllCaps="false"
         android:textColor="#363A43"
-        android:textSize="22sp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_option_one"
+        android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@+id/ll_progress_details"
-        app:layout_constraintVertical_bias="0.25"
         tools:layout_editor_absoluteX="10dp" />
 
     <LinearLayout
@@ -31,7 +31,7 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/tv_option_one"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.32"
+        app:layout_constraintVertical_bias="0.0"
         tools:layout_editor_absoluteX="0dp">
 
         <ProgressBar
@@ -70,8 +70,8 @@
         android:padding="15dp"
         android:textColor="#7A8089"
         android:textSize="18sp"
-        app:layout_constraintTop_toTopOf="@+id/guideline2"
-        tools:layout_editor_absoluteX="3dp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_question"
+        tools:layout_editor_absoluteX="10dp"
         tools:text="Apple" />
 
     <TextView
@@ -121,24 +121,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:layout_marginTop="24dp"
         android:background="#B386F1"
         android:text="@string/ok"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_option_four"
-        app:layout_constraintVertical_bias="0.39"
         tools:layout_editor_absoluteX="10dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintGuide_begin="259dp"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

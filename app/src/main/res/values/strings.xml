@@ -30,4 +30,11 @@
     <string name="okey">Լավ</string>
     <string name="game_finished">game finished</string>
     <string name="top_user_name">UserName</string>
+    <string name="decription">Decription</string>
+    <string name="title">Title</string>
+    <string name="openLinkText">իմանալ ավելին․․․</string>
+    <string name="account_string">Պրոֆիլ</string>
+    <string name="quiz_string">Թեստեր</string>
+    <string name="material_string">Նյութեր</string>
+    <string name="top10_string">Թոփ 10</string>
 </resources>

@@ -7,11 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.studentapp.R
 import com.example.studentapp.accountFragments.AccountPageFragment
-import com.example.studentapp.accountFragments.Books
+import com.example.studentapp.accountFragments.Material
 import com.example.studentapp.accountFragments.HomePageFragment
 import com.example.studentapp.accountFragments.QuizPageFragment
 import com.example.studentapp.databinding.FragmentGeneralBinding
-import kotlinx.coroutines.*
 
 
 class GeneralFragment : Fragment() {
@@ -31,7 +30,7 @@ class GeneralFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val homeFragment = HomePageFragment()
-        val books = Books()
+        val books = Material()
         val quiz = QuizPageFragment()
         val account = AccountPageFragment()
 

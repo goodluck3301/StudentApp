@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -22,6 +21,7 @@
         android:background="@drawable/shape_toolbar02"
         app:layout_constraintTop_toTopOf="parent">
 
+        <!--
         <ImageButton
             android:id="@+id/backBtn"
             android:layout_width="50dp"
@@ -30,7 +30,7 @@
             android:background="@android:color/transparent"
             android:contentDescription="@string/todo"
             android:src="@drawable/ic_back_white" />
-
+-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,9 +45,9 @@
 
     <View
         android:id="@+id/view2"
-        android:layout_marginHorizontal="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
         android:background="@drawable/shape_rect01"
         app:layout_constraintTop_toBottomOf="@+id/image" />
 
@@ -89,10 +89,10 @@
         android:id="@+id/profileName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="@string/full_name"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="@+id/cardView2"
         app:layout_constraintStart_toStartOf="@+id/cardView2"
         app:layout_constraintTop_toBottomOf="@+id/cardView2" />
@@ -119,8 +119,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/all_score"
-        android:textStyle="bold"
-        />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/postCount"

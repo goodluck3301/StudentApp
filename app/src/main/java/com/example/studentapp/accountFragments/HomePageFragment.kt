@@ -30,7 +30,7 @@ class HomePageFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var adapter: TopUsersAdapter
     private var allUserList = mutableListOf<UserModel>()
-    private var newUserList = mutableListOf<UserModel>()
+    //private var newUserList = mutableListOf<UserModel>()
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
@@ -52,16 +52,16 @@ class HomePageFragment : Fragment() {
             if (!GeneralFunctions.check && context?.let { GeneralFunctions.checkForInternet(it) } == true) {
                 GeneralFunctions.check = true
                 binding.progressBar3.visibility = View.VISIBLE
-                delay(5000)
+                delay(2000)
                 binding.progressBar3.visibility = View.GONE
-                newUserList.reverse()
+                //newUserList.reverse()
                 startAdapter()
             } else
-                newUserList.reverse()
+                //newUserList.reverse()
             startAdapter()
         }
 
-        if (context?.let { GeneralFunctions.checkForInternet(it) } == true)
+        if (context?.let { GeneralFunctions.checkForInternet(it) } == false)
             Toast.makeText(
                 context,
                 "Կապ չի գտնվել, հնարավոր է տվյալների ոչ լիարժեք բեռնում :(",
@@ -70,7 +70,7 @@ class HomePageFragment : Fragment() {
     }
 
     private fun startAdapter() {
-        adapter = TopUsersAdapter(context, newUserList)
+        adapter = TopUsersAdapter(context, allUserList)
         binding.topUserRecycleView.layoutManager = LinearLayoutManager(context)
         binding.topUserRecycleView.adapter = adapter
     }
@@ -93,7 +93,8 @@ class HomePageFragment : Fragment() {
                                     document.get("userURLtoImage").toString(),
                                 )
                                 )
-                        allUserList.sortBy { it.userScore.toInt() }
+                        allUserList.sortByDescending { it.userScore.toInt() }
+                        //allUserList.sortBy { it.userScore.toInt() }
                     }
                     // }
                     var newList = mutableListOf<UserModel>()
@@ -102,7 +103,7 @@ class HomePageFragment : Fragment() {
                             newList.add(e)
                         }
                     }
-                    newUserList = newList
+                  //  newUserList = newList
                 }
                 .addOnFailureListener { exception ->
                     Log.w("TAG", "Error getting documents.", exception)

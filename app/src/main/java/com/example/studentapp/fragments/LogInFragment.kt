@@ -18,11 +18,14 @@ import com.example.studentapp.databinding.FragmentLogInBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class LogInFragment : Fragment() {
 
     private lateinit var firebaseAuth: FirebaseAuth
-    private lateinit var binding:FragmentLogInBinding
+    private lateinit var binding: FragmentLogInBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,32 +34,25 @@ class LogInFragment : Fragment() {
         firebaseAuth = FirebaseAuth.getInstance()
         binding = FragmentLogInBinding.inflate(inflater)
         return binding.root
-    //return inflater.inflate(R.layout.fragment_log_in, container, false)
+        //return inflater.inflate(R.layout.fragment_log_in, container, false)
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val toSignUp = view.findViewById<TextView>(R.id.toSignUp)
-        val showLogin = view.findViewById<ImageView>(R.id.showLogin)
-        val email     = view.findViewById<EditText>(R.id.emailLogin)
-        val pass      = view.findViewById<EditText>(R.id.passwdLogin)
-        val ok        = view.findViewById<Button>  (R.id.okLogin)
-
-
-        toSignUp.setOnClickListener {
-           findNavController()
-               .navigate(
-                   LogInFragmentDirections
-                       .actionLogInFragmentToSignUpFragment()
-               )
+        binding.toSignUp.setOnClickListener {
+            findNavController()
+                .navigate(
+                    LogInFragmentDirections
+                        .actionLogInFragmentToSignUpFragment()
+                )
         }//toSignUp
 
-        ok.setOnClickListener {
-            textIsNotEmpty(email,pass)
+        binding.okLogin.setOnClickListener {
+            textIsNotEmpty(binding.emailLogin, binding.passwdLogin)
 
-            var internet  = false
+            var internet = false
             if (context?.let { it1 -> GeneralFunctions.checkForInternet(it1) } == true) {
                 internet = true
             } else
@@ -66,58 +62,54 @@ class LogInFragment : Fragment() {
                     Toast.LENGTH_LONG
                 ).show()
 
-            if (internet && email.text.isNotEmpty() && pass.text.isNotEmpty()) {
-                firebaseAuth
-                    .signInWithEmailAndPassword(email.text.toString(), pass.text.toString())
-                    .addOnCompleteListener {
-                        if (it.isSuccessful) {
-                            binding.progressLogin.visibility = View.VISIBLE
-                            val user = firebaseAuth.currentUser
-                            readUserData(user!!.uid)
-                            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
-                            findNavController()
-                                .navigate(
-                                    LogInFragmentDirections
-                                        .actionLogInFragmentToGeneralFragment()
-                                )
-                        }else { binding.progressLogin.visibility = View.GONE }
-                    }
-                binding.progressLogin.visibility = View.GONE
+            CoroutineScope(Dispatchers.Main).launch {
+
+
+                if (internet && binding.emailLogin.text.isNotEmpty() && binding.passwdLogin.text.isNotEmpty()) {
+                    firebaseAuth
+                        .signInWithEmailAndPassword(
+                            binding.emailLogin.text.toString(),
+                            binding.passwdLogin.text.toString()
+                        )
+                        .addOnCompleteListener {
+                            if (it.isSuccessful) {
+                                binding.progressLogin.visibility = View.VISIBLE
+                                val user = firebaseAuth.currentUser
+                                //readUserData(user!!.uid)
+                                // Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+                                findNavController()
+                                    .navigate(
+                                        LogInFragmentDirections
+                                            .actionLogInFragmentToGeneralFragment()
+                                    )
+                            } else {
+                                binding.progressLogin.visibility = View.GONE
+                            }
+                        }
+                    binding.progressLogin.visibility = View.GONE
+                }
             }
         }// btn Ok
-        
+
         var showHideBool = false
-        showLogin.setOnClickListener {
+        binding.showLogin.setOnClickListener {
             if (!showHideBool) {
                 showHideBool = true
-                pass.inputType = InputType.TYPE_CLASS_TEXT
-                showLogin.setImageDrawable(resources.getDrawable(R.drawable.ic_focused_visibility_off_24))
-            }else {
+                binding.passwdLogin.inputType = InputType.TYPE_CLASS_TEXT
+                binding.showLogin.setImageDrawable(resources.getDrawable(R.drawable.ic_focused_visibility_off_24))
+            } else {
                 showHideBool = false
-                pass.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-                showLogin.setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_visibility_24))
+                binding.passwdLogin.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                binding.showLogin.setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_visibility_24))
             }
         }//show/hide password
     } //onViewCreated
 
-    private fun readUserData(userId: String) {
-        val db = Firebase.firestore
-        db.collection("users")
-            .document(userId)
-            .get()
-            .addOnSuccessListener { querySnapshot ->
-                Log.e("TAG","success")
-            }
-            .addOnFailureListener { exception ->
-                Log.e("TAG", "Error getting documents $exception")
-            }
-    }
-
-    private fun textIsNotEmpty(email:EditText, pass:EditText) {
-        if (email.text.isEmpty())
-            email.error = "Text area is Empty."
-        if (pass.text.isEmpty())
-            pass.error  = "Text area is Empty."
+    private fun textIsNotEmpty(email: EditText, pass: EditText) {
+        if (binding.emailLogin.text.isEmpty())
+            binding.emailLogin.error = "Text area is Empty."
+        if (binding.passwdLogin.text.isEmpty())
+            binding.passwdLogin.error = "Text area is Empty."
     }
 
 }

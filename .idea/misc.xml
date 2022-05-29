@@ -34,13 +34,14 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/ic_name_focused.xml" value="0.3015" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/ic_person_focused_24.xml" value="0.3015" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/line.xml" value="0.2565" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/media_item_bg.xml" value="0.2565" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/menu_gradient_bg.xml" value="0.25" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/selected_option_border_bg.xml" value="0.1425" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/wrong_option_border_bg.xml" value="0.1425" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout-v26/fragment_general.xml" value="0.24427083333333333" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/edit_profil_dialog.xml" value="0.25" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/fragment_account_page.xml" value="0.5412130637636081" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/fragment_account_page.xml" value="0.3681506849315068" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/fragment_books.xml" value="0.24427083333333333" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/fragment_general.xml" value="0.25" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/fragment_get_started.xml" value="0.33" />
@@ -51,9 +52,10 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/fragment_quiz_page.xml" value="0.3625" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/fragment_sign_up.xml" value="0.3201219512195122" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/item_quiz_type.xml" value="0.5247524752475248" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/material_item.xml" value="0.33" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/score_view.xml" value="0.3625" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/top_user_item.xml" value="0.67" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/menu/nav_menu.xml" value="0.46511627906976744" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/menu/nav_menu.xml" value="0.4375" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2675" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1935" />
       </map>

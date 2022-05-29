@@ -5,7 +5,6 @@ import android.app.AlertDialog
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
-import android.provider.SyncStateContract
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,7 +14,6 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import com.bumptech.glide.Glide
 import com.example.studentapp.accountFragments.QuizPageFragment
 import com.example.studentapp.databinding.FragmentQuizAnswerBinding
 import com.example.studentapp.models.Questions
@@ -26,7 +24,6 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlin.properties.Delegates
 
@@ -45,7 +42,7 @@ class QuizAnswerFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         CoroutineScope(Dispatchers.IO).launch {
             readDataFirestore()
         }
@@ -80,14 +77,8 @@ class QuizAnswerFragment : Fragment() {
         }
 
         binding.btnSubmit.setOnClickListener {
-            var message = ""
+
             val scoreShowText = "Դուք հավաքել եք $score միավոր 10-ից"
-            when (score) {
-                in 0..4 -> message += "$scoreShowText\n Վատ արդյունք"
-                in 5..7 -> message += "$scoreShowText\n Միջին արդյունք"
-                in 8..9 -> message += "$scoreShowText\n Լավ արդյունք"
-                10 -> message += "$scoreShowText\n Գերազանց արդյունք"
-            }
 
             if (mCurrentPosition == 10) {
 
@@ -100,6 +91,13 @@ class QuizAnswerFragment : Fragment() {
                     LayoutInflater
                         .from(context)
                         .inflate(R.layout.score_view, null)
+                var message = ""
+                when (score) {
+                    in 0..4 -> message += "$scoreShowText\n Վատ արդյունք"
+                    in 5..7 -> message += "$scoreShowText\n Միջին արդյունք"
+                    in 8..9 -> message += "$scoreShowText\n Լավ արդյունք"
+                    10 -> message += "$scoreShowText\n Գերազանց արդյունք"
+                }
 
                 val mBuilder = AlertDialog.Builder(context)
                     .setView(showScore)
@@ -107,8 +105,6 @@ class QuizAnswerFragment : Fragment() {
                     .setMessage(message)
                     .setIcon(R.drawable.signvec)
                 val mAlertDialog = mBuilder.show()
-
-
 
                 mAlertDialog.findViewById<Button>(R.id.okayBtn).setOnClickListener {
                     mAlertDialog.dismiss()
@@ -118,7 +114,7 @@ class QuizAnswerFragment : Fragment() {
                 mCurrentPosition++
 
                 when {
-                    mCurrentPosition <= list!!.size -> {
+                    mCurrentPosition <= list.size -> {
                         setQuestion()
                     }
                     else -> {
@@ -129,15 +125,15 @@ class QuizAnswerFragment : Fragment() {
                     }
                 }
             } else {
-                val question = list?.get(mCurrentPosition - 1)
-                if (question!!.correctOption != mSelectedOptionPosition) {
+                val question = list[mCurrentPosition - 1]
+                if (question.correctOption != mSelectedOptionPosition) {
                     answerView(mSelectedOptionPosition, R.drawable.wrong_option_border_bg)
                 } else {
                     score++
                     //Toast.makeText(context, score.toString(), Toast.LENGTH_LONG).show()
                 }
                 answerView(question.correctOption, R.drawable.correct_option_border_bg)
-                if (mCurrentPosition == list!!.size) {
+                if (mCurrentPosition == list.size) {
                     binding.btnSubmit.text = "Ավարտել"
                     val fragment = QuizPageFragment()
                     fragmentManager?.beginTransaction()?.apply {
@@ -156,10 +152,10 @@ class QuizAnswerFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun setQuestion() {
 
-        val question = list!!.get(mCurrentPosition - 1)
+        val question = list[mCurrentPosition - 1]
 
         defaultOptionsView()
-        if (mCurrentPosition == list!!.size) {
+        if (mCurrentPosition == list.size) {
             binding.btnSubmit.text = "Ավարտել"
         } else {
             binding.btnSubmit.text = "Հաստատել"
@@ -241,8 +237,7 @@ class QuizAnswerFragment : Fragment() {
                                 .toString()) == (FirebaseAuth.getInstance().uid).toString()
                         ) {
                             docId = document.id
-                            score = document.get("score").toString().toInt()
-                            getScore = score
+                            getScore = document.get("score").toString().toInt()
                             //Toast.makeText(context,score.toString(),Toast.LENGTH_LONG).show()
                         }
                     }
