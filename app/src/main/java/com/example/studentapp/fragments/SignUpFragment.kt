@@ -29,14 +29,14 @@ import java.util.regex.Pattern
 
 class SignUpFragment : Fragment() {
 
-    private lateinit var show1: ImageView
-    private lateinit var show2: ImageView
+  //  private lateinit var show1: ImageView
+ //   private lateinit var show2: ImageView
 
-    private lateinit var name: EditText
-    private lateinit var email: EditText
-    private lateinit var pass: EditText
-    private lateinit var pass2: EditText
-    private lateinit var ok: Button
+  //  private lateinit var name: EditText
+ //   private lateinit var email: EditText
+   // private lateinit var pass: EditText
+   // private lateinit var pass2: EditText
+   // private lateinit var ok: Button
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var binding: FragmentSignUpBinding
 
@@ -54,18 +54,18 @@ class SignUpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        show1 = view.findViewById(R.id.show)
-        show2 = view.findViewById(R.id.show2)
+   //     show1 = view.findViewById(R.id.show)
+  //      show2 = view.findViewById(R.id.show2)
 
-        name = view.findViewById(R.id.name)
-        email = view.findViewById(R.id.emailS)
-        pass = view.findViewById(R.id.passwdS)
-        pass2 = view.findViewById(R.id.repeatPaswdS)
-        ok = view.findViewById(R.id.okS)
-        val toLoginPage = view.findViewById<TextView>(R.id.toLoginPage)
+     //   name = view.findViewById(R.id.name)
+     //   email = view.findViewById(R.id.emailS)
+    //    pass = view.findViewById(R.id.passwdS)
+     //   pass2 = view.findViewById(R.id.repeatPaswdS)
+    //    ok = view.findViewById(R.id.okS)
+        //val toLoginPage = view.findViewById<TextView>(R.id.toLoginPage)
 
 
-        toLoginPage.setOnClickListener {
+        binding.toLoginPage.setOnClickListener {
             findNavController()
                 .navigate(
                     SignUpFragmentDirections
@@ -76,7 +76,7 @@ class SignUpFragment : Fragment() {
 
         //asetsstudio
 
-        ok.setOnClickListener {
+       binding.okS.setOnClickListener {
 
             var internet = false
             var emailBool = false
@@ -89,28 +89,28 @@ class SignUpFragment : Fragment() {
                 Toast.makeText(
                     context, "Համացանցը չի գտնվել :(", Toast.LENGTH_LONG
                 ).show()
-            if (isEmailValid(email.text.toString()))
+            if (isEmailValid(binding.emailS.text.toString()))
                 emailBool = true
             else
-                email.error = "Սխալ Էլ․ փոստի անվանում"
-            if (passValid(pass))
+                binding.emailS.error = "Սխալ Էլ․ փոստի անվանում"
+            if (passValid(binding.passwdS))
                 passBool = true
             else {
-                show1.visibility = View.INVISIBLE
+                binding.show.visibility = View.INVISIBLE
             }
-            if (name.text.toString().isNotEmpty())
+            if (binding.name.text.toString().isNotEmpty())
                 nameBool = true
             else
-                name.error = "Լրացրեք!"
+                binding.name.error = "Լրացրեք!"
 
 
             if (emailBool && passBool && nameBool && internet) {
-                if (email.text.isNotEmpty() && pass.text.toString() == pass2.text.toString()) {
+                if (binding.emailS.text.isNotEmpty() && binding.passwdS.text.toString() == binding.repeatPaswdS.text.toString()) {
                     firebaseAuth
-                        .createUserWithEmailAndPassword(email.text.toString(), pass.text.toString())
+                        .createUserWithEmailAndPassword(binding.emailS.text.toString(), binding.passwdS.text.toString())
                         .addOnCompleteListener {
                             if (it.isSuccessful) {
-                                addDataRealDatabase(name.text.toString(),email.text.toString())
+                                addDataRealDatabase(binding.name.text.toString(),binding.emailS.text.toString())
                                 binding.progressbarSignUP.visibility = View.VISIBLE
                                 Toast.makeText(context, "send", Toast.LENGTH_SHORT)
                                     .show()
@@ -139,30 +139,30 @@ class SignUpFragment : Fragment() {
         }//btn
 
         var showHideBool1 = false
-        show1.setOnClickListener {
+        binding.show.setOnClickListener {
 
             if (!showHideBool1) {
                 showHideBool1 = true
-                pass.inputType = InputType.TYPE_CLASS_TEXT
-                show1.setImageDrawable(resources.getDrawable(R.drawable.ic_focused_visibility_off_24))
+                binding.passwdS.inputType = InputType.TYPE_CLASS_TEXT
+                binding.show.setImageDrawable(resources.getDrawable(R.drawable.ic_focused_visibility_off_24))
             } else {
                 showHideBool1 = false
-                pass.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-                show1.setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_visibility_24))
+                binding.passwdS.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                binding.show.setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_visibility_24))
             }
         }//show1
 
 
         var showHideBool2 = false
-        show2.setOnClickListener {
+        binding.show2.setOnClickListener {
             if (!showHideBool2) {
                 showHideBool2 = true
-                pass2.inputType = InputType.TYPE_CLASS_TEXT
-                show2.setImageDrawable(resources.getDrawable(R.drawable.ic_focused_visibility_off_24))
+               binding.repeatPaswdS.inputType = InputType.TYPE_CLASS_TEXT
+                binding.show2.setImageDrawable(resources.getDrawable(R.drawable.ic_focused_visibility_off_24))
             } else {
                 showHideBool2 = false
-                pass2.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-                show2.setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_visibility_24))
+                binding.repeatPaswdS.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                binding.show2.setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_visibility_24))
             }
         }//show2
 
@@ -176,8 +176,8 @@ class SignUpFragment : Fragment() {
     private fun createNewUser() {
         val db = Firebase.firestore
         val user = hashMapOf(
-            "name" to name.text.toString(),
-            "email" to email.text.toString(),
+            "name" to binding.name.text.toString(),
+            "email" to binding.emailS.text.toString(),
             "score" to 0,
             "idUser" to firebaseAuth.uid.toString(),
         )

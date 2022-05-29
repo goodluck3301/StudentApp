@@ -66,27 +66,33 @@ class LogInFragment : Fragment() {
 
 
                 if (internet && binding.emailLogin.text.isNotEmpty() && binding.passwdLogin.text.isNotEmpty()) {
-                    firebaseAuth
-                        .signInWithEmailAndPassword(
-                            binding.emailLogin.text.toString(),
-                            binding.passwdLogin.text.toString()
-                        )
-                        .addOnCompleteListener {
-                            if (it.isSuccessful) {
-                                binding.progressLogin.visibility = View.VISIBLE
-                                val user = firebaseAuth.currentUser
-                                //readUserData(user!!.uid)
-                                // Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
-                                findNavController()
-                                    .navigate(
-                                        LogInFragmentDirections
-                                            .actionLogInFragmentToGeneralFragment()
-                                    )
-                            } else {
-                                binding.progressLogin.visibility = View.GONE
+                    try {
+
+
+                        firebaseAuth
+                            .signInWithEmailAndPassword(
+                                binding.emailLogin.text.toString(),
+                                binding.passwdLogin.text.toString()
+                            )
+                            .addOnCompleteListener {
+                                if (it.isSuccessful) {
+                                    binding.progressLogin.visibility = View.VISIBLE
+                                   // val user = firebaseAuth.currentUser
+                                    //readUserData(user!!.uid)
+                                    // Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+                                    findNavController()
+                                        .navigate(
+                                            LogInFragmentDirections
+                                                .actionLogInFragmentToGeneralFragment()
+                                        )
+                                } else {
+                                    binding.progressLogin.visibility = View.GONE
+                                }
                             }
-                        }
-                    binding.progressLogin.visibility = View.GONE
+                        binding.progressLogin.visibility = View.GONE
+                    } catch (e: Exception) {
+                        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }// btn Ok

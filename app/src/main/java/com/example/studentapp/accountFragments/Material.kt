@@ -61,7 +61,9 @@ class Material : Fragment() {
                     CoroutineScope(Dispatchers.IO).launch {
                         for (document in result) {
                             dataList = mutableListOf()
-                            if ((localDb.materialDao().isNotExists(document.get("materialTitle").toString()))) {
+                            if ((localDb.materialDao()
+                                    .isNotExists(document.get("materialTitle").toString()))
+                            ) {
                                 localDb.materialDao().insertData(
                                     MaterialsData(
                                         document.get("materialImgURI").toString(),
