@@ -28,7 +28,6 @@ class QuizPageFragment : Fragment() {
     private lateinit var adapter: QuizAdapter
     private lateinit var questionsDb: QuestionsDatabase
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,7 +45,6 @@ class QuizPageFragment : Fragment() {
         CoroutineScope(Dispatchers.Main).launch {
             adapter = context?.let {
                 QuizAdapter(Questions.questionsTypeList) {
-                  //  qListFromDatabase = Questions.emptyList
                     CoroutineScope(Dispatchers.IO).launch {
                         qListFromDatabase = questionsDb.questionDao()
                             .getItemAnswer(Questions.index.toString()) as MutableList<com.example.studentapp.models.Questions>

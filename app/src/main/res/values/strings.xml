@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">Student App</string>
-    <string name="password">Password</string>
+    <string name="app_name">Students</string>
+    <string name="password">Գաղտնաբառ</string>
     <string name="iHaveAcc">Արդեն իսկ ունեմ հաշիվ։ </string>
     <string name="toLoginPage"> Մուտք գործել</string>
     <string name="ok">Հաստատել</string>
-    <string name="name">Name</string>
+    <string name="name">Անուն</string>
     <string name="creatNewAcc">Ստեղծել նոր հաշիվ</string>
     <string name="e_mailText">E-mail</string>
     <string name="noHaveAcc">Չունեմ հաշիվ։</string>
@@ -29,7 +29,7 @@
     <string name="cancle_change">Փակել</string>
     <string name="okey">Լավ</string>
     <string name="game_finished">game finished</string>
-    <string name="top_user_name">UserName</string>
+    <string name="top_user_name">Մուտքանուն</string>
     <string name="decription">Decription</string>
     <string name="title">Title</string>
     <string name="openLinkText">իմանալ ավելին․․․</string>
@@ -37,4 +37,9 @@
     <string name="quiz_string">Թեստեր</string>
     <string name="material_string">Նյութեր</string>
     <string name="top10_string">Թոփ 10</string>
+    <string name="log_out">Դուրս Գալ</string>
+    <string name="about_program">Ծրագրի մասին</string>
+    <string name="about_program_text">Ծրագիրը նախատեսված է դպրոցականների և ուսանողների համար, իր մեջ պարունակելով թեստեր տարբեր թեմաներից և գիտությանն վերաբերող նորություներց։</string>
+    <string name="ok_lav">Լավ</string>
+    <string name="close">X</string>
 </resources>

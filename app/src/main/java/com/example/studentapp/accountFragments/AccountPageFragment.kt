@@ -12,13 +12,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
+import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.example.studentapp.GeneralFunctions
 import com.example.studentapp.R
 import com.example.studentapp.databinding.FragmentAccountPageBinding
+import com.example.studentapp.fragments.GeneralFragment
+import com.example.studentapp.fragments.GeneralFragmentDirections
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.SetOptions
@@ -40,6 +42,7 @@ class AccountPageFragment : Fragment() {
     private lateinit var docId: String
     private var selectPhotoUri: Uri? = null
     private lateinit var changeDialog: View
+    private lateinit var aboutDialog: View
     private lateinit var imgUri: String
 
     override fun onCreateView(
@@ -48,6 +51,7 @@ class AccountPageFragment : Fragment() {
     ): View? {
         firebaseAuth = FirebaseAuth.getInstance()
         readDataFirestore()
+        getAllMaterialsCount()
         binding = FragmentAccountPageBinding.inflate(inflater)
         return binding.root
     }//
@@ -97,11 +101,29 @@ class AccountPageFragment : Fragment() {
                     mAlertDialog.dismiss()
                 }
             }//save
-
-
         }// profileEditBtn
-    }// onViewCreated()
 
+        binding.about.setOnClickListener {
+            aboutDialog =
+                LayoutInflater
+                    .from(context)
+                    .inflate(R.layout.dialog_about, null)
+
+            AlertDialog.Builder(context)
+                .setView(aboutDialog)
+                .setTitle("Ծրագրի մասին")
+                .show()
+        }
+
+        binding.logOut.setOnClickListener {
+            GeneralFunctions.check = false
+            GeneralFunctions.check1 = false
+            Firebase.auth.signOut()
+            findNavController().navigate(
+                GeneralFragmentDirections.actionGeneralFragmentToLogInFragment()
+            )
+        }
+    }// onViewCreated()
 
 
     private fun uploadImageToFirebaseStorage() {
@@ -117,9 +139,8 @@ class AccountPageFragment : Fragment() {
                 val hashMap = hashMapOf<String, Any>()
                 hashMap["userURLtoImage"] = imgUri
                 updateUserInfo(hashMap)
-                //Toast.makeText(context, imgUri, Toast.LENGTH_LONG).show()
             }
-    }//-----
+    }
 
     private var checkImage = false
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -176,4 +197,20 @@ class AccountPageFragment : Fragment() {
         }
     }// readDataFirestore()
 
+    private fun getAllMaterialsCount() {
+        val db = Firebase.firestore
+        Firebase.auth.currentUser?.let {
+            db.collection("materials")
+                .get()
+                .addOnSuccessListener { result ->
+                    var materialsCount = 0
+                    for (document in result)
+                        materialsCount++
+                    binding.materialSize.text = materialsCount.toString()
+                }
+                .addOnFailureListener { exception ->
+                    Log.w("TAG", "Error getting documents.", exception)
+                }
+        }
+    }
 }//class

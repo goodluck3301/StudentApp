@@ -72,7 +72,6 @@ class HomePageFragment : Fragment() {
             db.collection("users")
                 .get()
                 .addOnSuccessListener { result ->
-                    //  CoroutineScope(Dispatchers.IO).launch {
                     allUserList = mutableListOf()
                     for (document in result) {
                         allUserList += (

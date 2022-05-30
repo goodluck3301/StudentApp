@@ -1,24 +1,30 @@
 package com.example.studentapp
 
 import android.os.*
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.studentapp.database.MaterialDatabase
+import com.example.studentapp.database.MaterialsData
+import com.example.studentapp.questions.Questions
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var vibrator: Vibrator
     private var doubleBackToExitPressedOnce = false
     private val mHandler: Handler? = Handler()
-  //  private lateinit var questionsDb: QuestionsDatabase
     private val mRunnable =
         Runnable { doubleBackToExitPressedOnce = false }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-      //  questionsDb = QuestionsDatabase.getDatabase(this)
-       // getQuestions()
     }
 
     override fun onDestroy() {

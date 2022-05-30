@@ -1,5 +1,6 @@
 package com.example.studentapp.accountFragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -7,13 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.studentapp.R
+import com.example.studentapp.GeneralFunctions
 import com.example.studentapp.adapter.MaterialsAdapter
 import com.example.studentapp.database.MaterialDatabase
 import com.example.studentapp.database.MaterialsData
 import com.example.studentapp.databinding.FragmentBooksBinding
-import com.example.studentapp.models.MaterialModel
-import com.example.studentapp.models.UserModel
+import com.example.studentapp.questions.Questions
+import com.example.studentapp.questions.Questions.TopDataList
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -24,7 +25,6 @@ class Material : Fragment() {
     private lateinit var binding: FragmentBooksBinding
     private lateinit var adapter: MaterialsAdapter
     private lateinit var localDb: MaterialDatabase
-    private var dataList = mutableListOf<MaterialsData>()
 
     @OptIn(DelicateCoroutinesApi::class)
     override fun onCreateView(
@@ -33,23 +33,44 @@ class Material : Fragment() {
     ): View? {
         binding = FragmentBooksBinding.inflate(inflater)
         localDb = context?.let { MaterialDatabase.getDatabase(it) }!!
-        GlobalScope.launch(Dispatchers.IO) { getMaterials() }
-
+        getMaterials()
         CoroutineScope(Dispatchers.IO).launch {
-            dataList += (
+            TopDataList = (
                     localDb
                         .materialDao()
                         .getAll()
                     ).toMutableList()
         }
 
-        adapter = context?.let { MaterialsAdapter(it, dataList) }!!
+        return binding.root
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        CoroutineScope(Dispatchers.Main).launch {
+            binding.progressBar4.visibility = View.VISIBLE
+
+            if (!GeneralFunctions.check1) {
+                binding.progressBar4.visibility = View.VISIBLE
+                GeneralFunctions.check1 = true
+               // delay(5000)
+                startAdapter()
+                adapter.notifyDataSetChanged()
+                binding.progressBar4.visibility = View.GONE
+            } else {
+                binding.progressBar4.visibility = View.GONE
+                startAdapter()
+                adapter.notifyDataSetChanged()
+            }
+        }
+    }
+
+    private fun startAdapter() {
+        adapter = context?.let { MaterialsAdapter(it, TopDataList) }!!
         binding.materialRec.adapter = adapter
         binding.materialRec.layoutManager = LinearLayoutManager(context)
-
-
-        return binding.root
-
     }
 
     private fun getMaterials() {
@@ -60,7 +81,7 @@ class Material : Fragment() {
                 .addOnSuccessListener { result ->
                     CoroutineScope(Dispatchers.IO).launch {
                         for (document in result) {
-                            dataList = mutableListOf()
+                            Questions.TopDataList = mutableListOf()
                             if ((localDb.materialDao()
                                     .isNotExists(document.get("materialTitle").toString()))
                             ) {
@@ -81,10 +102,4 @@ class Material : Fragment() {
                 }
         }
     }// getMaterials()
-
-    override fun onResume() {
-        super.onResume()
-
-    }
-
 }

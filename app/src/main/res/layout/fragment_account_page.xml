@@ -139,7 +139,7 @@
         app:layout_constraintTop_toBottomOf="@+id/allScore" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/materialSize"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/zero"
@@ -157,5 +157,31 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/about"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/about_program"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/view2"
+        app:layout_constraintHorizontal_bias="0.62"
+        app:layout_constraintStart_toStartOf="@+id/logOut"
+        app:layout_constraintTop_toBottomOf="@+id/scoreProfile"
+        app:layout_constraintVertical_bias="0.86" />
+
+    <TextView
+        android:id="@+id/logOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/log_out"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/view2"
+        app:layout_constraintHorizontal_bias="0.7"
+        app:layout_constraintStart_toEndOf="@+id/about"
+        app:layout_constraintTop_toBottomOf="@+id/scoreProfile"
+        app:layout_constraintVertical_bias="0.86" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
