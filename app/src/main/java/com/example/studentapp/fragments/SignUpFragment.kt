@@ -29,14 +29,6 @@ import java.util.regex.Pattern
 
 class SignUpFragment : Fragment() {
 
-  //  private lateinit var show1: ImageView
- //   private lateinit var show2: ImageView
-
-  //  private lateinit var name: EditText
- //   private lateinit var email: EditText
-   // private lateinit var pass: EditText
-   // private lateinit var pass2: EditText
-   // private lateinit var ok: Button
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var binding: FragmentSignUpBinding
 
@@ -44,7 +36,6 @@ class SignUpFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         firebaseAuth = FirebaseAuth.getInstance()
         binding = FragmentSignUpBinding.inflate(inflater)
         return binding.root
@@ -54,17 +45,6 @@ class SignUpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-   //     show1 = view.findViewById(R.id.show)
-  //      show2 = view.findViewById(R.id.show2)
-
-     //   name = view.findViewById(R.id.name)
-     //   email = view.findViewById(R.id.emailS)
-    //    pass = view.findViewById(R.id.passwdS)
-     //   pass2 = view.findViewById(R.id.repeatPaswdS)
-    //    ok = view.findViewById(R.id.okS)
-        //val toLoginPage = view.findViewById<TextView>(R.id.toLoginPage)
-
-
         binding.toLoginPage.setOnClickListener {
             findNavController()
                 .navigate(
@@ -72,7 +52,6 @@ class SignUpFragment : Fragment() {
                         .actionSignUpFragmentToLogInFragment()
                 )
         }
-
 
         //asetsstudio
 
@@ -135,7 +114,6 @@ class SignUpFragment : Fragment() {
                     ).show()
                 }
             }
-
         }//btn
 
         var showHideBool1 = false
@@ -209,8 +187,6 @@ class SignUpFragment : Fragment() {
         }
         return errorText
     }//fun password Validation
-
-
 
 
     private fun addDataRealDatabase(name:String, email: String) {

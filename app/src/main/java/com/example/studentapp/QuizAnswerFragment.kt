@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat
 import com.example.studentapp.accountFragments.QuizPageFragment
 import com.example.studentapp.databinding.FragmentQuizAnswerBinding
 import com.example.studentapp.models.Questions
+import com.example.studentapp.questions.Questions.qListFromDatabase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.SetOptions
@@ -31,13 +32,14 @@ import kotlin.properties.Delegates
 class QuizAnswerFragment : Fragment() {
 
     private lateinit var binding: FragmentQuizAnswerBinding
-    private lateinit var list: MutableList<Questions>
+    private var list = mutableListOf<Questions>()
     private var mCurrentPosition: Int = 1
     private var mSelectedOptionPosition: Int = 0
-    private var score:Int = 0
+    private var score: Int = 0
     private var getScore by Delegates.notNull<Int>()
     private lateinit var showScore: View
     private lateinit var docId: String
+    private var check = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,8 +49,15 @@ class QuizAnswerFragment : Fragment() {
             readDataFirestore()
         }
 
-        list =
-            com.example.studentapp.questions.Questions.list[com.example.studentapp.questions.Questions.index]
+        // list =
+        //    com.example.studentapp.questions.Questions.list[com.example.studentapp.questions.Questions.index]
+
+        qListFromDatabase.shuffle()
+
+        qListFromDatabase.forEachIndexed { i, e ->
+            if (i <= 9)
+                list.add(e)
+        }
         list.shuffle()
         binding = FragmentQuizAnswerBinding.inflate(inflater)
         return binding.root
@@ -59,32 +68,43 @@ class QuizAnswerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setQuestion()
+/*
+        Toast.makeText(
+            context,
+            qListFromDatabase.first().question,
+            Toast.LENGTH_LONG
+        ).show()
+*/
 
         binding.tvOptionOne.setOnClickListener {
-            selectedOptionView(binding.tvOptionOne, 1)
+            if (check)
+                selectedOptionView(binding.tvOptionOne, 1)
         }
 
         binding.tvOptionTwo.setOnClickListener {
-            selectedOptionView(binding.tvOptionTwo, 2)
+            if (check)
+                selectedOptionView(binding.tvOptionTwo, 2)
         }
 
         binding.tvOptionThree.setOnClickListener {
-            selectedOptionView(binding.tvOptionThree, 3)
+            if (check)
+                selectedOptionView(binding.tvOptionThree, 3)
         }
 
         binding.tvOptionFour.setOnClickListener {
-            selectedOptionView(binding.tvOptionFour, 4)
+            if (check)
+                selectedOptionView(binding.tvOptionFour, 4)
         }
 
         binding.btnSubmit.setOnClickListener {
-
+            check = !check
             val scoreShowText = "Դուք հավաքել եք $score միավոր 10-ից"
 
             if (mCurrentPosition == 10) {
 
                 CoroutineScope(Dispatchers.IO).launch {
                     val hashMap = hashMapOf<String, Any>()
-                    hashMap["score"] = (score+getScore).toString()
+                    hashMap["score"] = (score + getScore).toString()
                     updateUserInfo(hashMap)
                 }
                 showScore =
@@ -151,24 +171,28 @@ class QuizAnswerFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun setQuestion() {
+        try {
 
-        val question = list[mCurrentPosition - 1]
 
-        defaultOptionsView()
-        if (mCurrentPosition == list.size) {
-            binding.btnSubmit.text = "Ավարտել"
-        } else {
-            binding.btnSubmit.text = "Հաստատել"
+            val question = list[mCurrentPosition - 1]
+
+            defaultOptionsView()
+            if (mCurrentPosition == list.size) {
+                binding.btnSubmit.text = "Ավարտել"
+            } else {
+                binding.btnSubmit.text = "Հաստատել"
+            }
+
+            binding.progressBar.progress = mCurrentPosition
+            binding.tvProgress.text = "$mCurrentPosition" + "/" + binding.progressBar.max
+
+            binding.tvQuestion.text = question.question
+            binding.tvOptionOne.text = question.optionOne
+            binding.tvOptionTwo.text = question.optionTwo
+            binding.tvOptionThree.text = question.optionThree
+            binding.tvOptionFour.text = question.optionFour
+        } catch (e: Exception) {
         }
-
-        binding.progressBar.progress = mCurrentPosition
-        binding.tvProgress.text = "$mCurrentPosition" + "/" + binding.progressBar.max
-
-        binding.tvQuestion.text = question.question
-        binding.tvOptionOne.text = question.optionOne
-        binding.tvOptionTwo.text = question.optionTwo
-        binding.tvOptionThree.text = question.optionThree
-        binding.tvOptionFour.text = question.optionFour
     }
 
     private fun selectedOptionView(tv: TextView, selectedOptionNum: Int) {

@@ -50,25 +50,21 @@ class LogInFragment : Fragment() {
         }//toSignUp
 
         binding.okLogin.setOnClickListener {
-            textIsNotEmpty(binding.emailLogin, binding.passwdLogin)
+            try {
+                textIsNotEmpty(binding.emailLogin, binding.passwdLogin)
 
-            var internet = false
-            if (context?.let { it1 -> GeneralFunctions.checkForInternet(it1) } == true) {
-                internet = true
-            } else
-                Toast.makeText(
-                    context,
-                    "Համացանցը չի գտնվել :(",
-                    Toast.LENGTH_LONG
-                ).show()
+                var internet = false
+                if (context?.let { it1 -> GeneralFunctions.checkForInternet(it1) } == true) {
+                    internet = true
+                } else
+                    Toast.makeText(
+                        context,
+                        "Համացանցը չի գտնվել :(",
+                        Toast.LENGTH_LONG
+                    ).show()
 
-            CoroutineScope(Dispatchers.Main).launch {
-
-
-                if (internet && binding.emailLogin.text.isNotEmpty() && binding.passwdLogin.text.isNotEmpty()) {
-                    try {
-
-
+                CoroutineScope(Dispatchers.Main).launch {
+                    if (internet && binding.emailLogin.text.isNotEmpty() && binding.passwdLogin.text.isNotEmpty()) {
                         firebaseAuth
                             .signInWithEmailAndPassword(
                                 binding.emailLogin.text.toString(),
@@ -77,9 +73,6 @@ class LogInFragment : Fragment() {
                             .addOnCompleteListener {
                                 if (it.isSuccessful) {
                                     binding.progressLogin.visibility = View.VISIBLE
-                                   // val user = firebaseAuth.currentUser
-                                    //readUserData(user!!.uid)
-                                    // Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
                                     findNavController()
                                         .navigate(
                                             LogInFragmentDirections
@@ -90,10 +83,11 @@ class LogInFragment : Fragment() {
                                 }
                             }
                         binding.progressLogin.visibility = View.GONE
-                    } catch (e: Exception) {
-                        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+
                     }
                 }
+            } catch (e: Exception) {
+                Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
             }
         }// btn Ok
 

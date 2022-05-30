@@ -8,35 +8,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.FragmentContainer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
 import com.example.studentapp.GeneralFunctions
-import com.example.studentapp.R
 import com.example.studentapp.adapter.TopUsersAdapter
 import com.example.studentapp.databinding.FragmentHomeBinding
 import com.example.studentapp.models.UserModel
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.auth.User
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.squareup.okhttp.Dispatcher
 import kotlinx.coroutines.*
-
 
 class HomePageFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var adapter: TopUsersAdapter
     private var allUserList = mutableListOf<UserModel>()
-    //private var newUserList = mutableListOf<UserModel>()
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentHomeBinding.inflate(inflater)
 
         return binding.root
@@ -52,13 +44,11 @@ class HomePageFragment : Fragment() {
             if (!GeneralFunctions.check && context?.let { GeneralFunctions.checkForInternet(it) } == true) {
                 GeneralFunctions.check = true
                 binding.progressBar3.visibility = View.VISIBLE
-                delay(2000)
+                delay(5000)
                 binding.progressBar3.visibility = View.GONE
-                //newUserList.reverse()
                 startAdapter()
             } else
-                //newUserList.reverse()
-            startAdapter()
+                startAdapter()
         }
 
         if (context?.let { GeneralFunctions.checkForInternet(it) } == false)
@@ -74,7 +64,6 @@ class HomePageFragment : Fragment() {
         binding.topUserRecycleView.layoutManager = LinearLayoutManager(context)
         binding.topUserRecycleView.adapter = adapter
     }
-
 
     @SuppressLint("NotifyDataSetChanged")
     private fun readDataFirestore() {
@@ -94,16 +83,14 @@ class HomePageFragment : Fragment() {
                                 )
                                 )
                         allUserList.sortByDescending { it.userScore.toInt() }
-                        //allUserList.sortBy { it.userScore.toInt() }
                     }
-                    // }
-                    var newList = mutableListOf<UserModel>()
+
+                    val newList = mutableListOf<UserModel>()
                     allUserList.forEachIndexed { i, e ->
                         if (i <= 9) {
                             newList.add(e)
                         }
                     }
-                  //  newUserList = newList
                 }
                 .addOnFailureListener { exception ->
                     Log.w("TAG", "Error getting documents.", exception)

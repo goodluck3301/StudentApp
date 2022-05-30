@@ -21,10 +21,10 @@ import kotlinx.coroutines.*
 
 class Material : Fragment() {
 
-    lateinit var binding: FragmentBooksBinding
-    lateinit var adapter: MaterialsAdapter
-    lateinit var localDb: MaterialDatabase
-    var dataList = mutableListOf<MaterialsData>()
+    private lateinit var binding: FragmentBooksBinding
+    private lateinit var adapter: MaterialsAdapter
+    private lateinit var localDb: MaterialDatabase
+    private var dataList = mutableListOf<MaterialsData>()
 
     @OptIn(DelicateCoroutinesApi::class)
     override fun onCreateView(

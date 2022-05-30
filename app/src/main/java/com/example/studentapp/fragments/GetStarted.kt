@@ -5,6 +5,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +16,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.studentapp.R
+import com.example.studentapp.database.questionsdb.QuestionsData
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -32,6 +37,7 @@ class GetStarted : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+      //  getQuestions()
         return inflater.inflate(R.layout.fragment_get_started, container, false)
     }
 
@@ -40,7 +46,7 @@ class GetStarted : Fragment() {
         firebaseAuth = FirebaseAuth.getInstance()
 
         val welcome = view.findViewById<TextView>(R.id.textView)
-        val image   = view.findViewById<ImageView>(R.id.imageView)
+        val image = view.findViewById<ImageView>(R.id.imageView)
 
         val imageAn = ObjectAnimator
             .ofFloat(image, "translationY", -180f, 0f) //150f,-80f
@@ -83,6 +89,8 @@ class GetStarted : Fragment() {
             }
         }//else
 
-        }//onResume
+    }//onResume
+
+
 }
 

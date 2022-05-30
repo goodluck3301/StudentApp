@@ -4,16 +4,21 @@ import android.os.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
+
 class MainActivity : AppCompatActivity() {
     private lateinit var vibrator: Vibrator
     private var doubleBackToExitPressedOnce = false
     private val mHandler: Handler? = Handler()
+  //  private lateinit var questionsDb: QuestionsDatabase
     private val mRunnable =
         Runnable { doubleBackToExitPressedOnce = false }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+      //  questionsDb = QuestionsDatabase.getDatabase(this)
+       // getQuestions()
     }
 
     override fun onDestroy() {
@@ -35,7 +40,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun vibration() {
-        vibrator = getSystemService(VIBRATOR_SERVICE) as Vibrator;
+        vibrator = getSystemService(VIBRATOR_SERVICE) as Vibrator
         if (Build.VERSION.SDK_INT >= 26) {
             vibrator.vibrate(
                 VibrationEffect
@@ -48,5 +53,4 @@ class MainActivity : AppCompatActivity() {
             vibrator.vibrate(200)
         }
     }
-
 }
