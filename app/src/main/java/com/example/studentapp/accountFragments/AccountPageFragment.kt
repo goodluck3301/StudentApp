@@ -23,6 +23,7 @@ import com.example.studentapp.fragments.GeneralFragment
 import com.example.studentapp.fragments.GeneralFragmentDirections
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -44,6 +45,12 @@ class AccountPageFragment : Fragment() {
     private lateinit var changeDialog: View
     private lateinit var aboutDialog: View
     private lateinit var imgUri: String
+
+    val fireStoreDatabase = FirebaseFirestore.getInstance()
+
+    val uid = FirebaseAuth.getInstance().currentUser?.uid.toString()
+    val mStaorageRef = FirebaseStorage.getInstance().reference
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -87,8 +94,9 @@ class AccountPageFragment : Fragment() {
 
                 if (checkImage) {
                     binding.updateProgressBar.visibility = View.VISIBLE
-                    uploadImageToFirebaseStorage()
+                  //  uploadImageToFirebaseStorage()
                     readDataFirestore()
+                    selectPhotoUri?.let { it1 -> getPhotoUrl(it1) }
                     mAlertDialog.dismiss()
                     binding.updateProgressBar.visibility = View.GONE
                 }
@@ -213,4 +221,25 @@ class AccountPageFragment : Fragment() {
                 }
         }
     }
+
+    fun getPhotoUrl(upLoadUri:Uri) {
+        val imageFileName = "users/profilPic${System.currentTimeMillis()}.png"
+        val upLoadTask = mStaorageRef.child(imageFileName)
+        upLoadTask.putFile(upLoadUri).addOnCompleteListener { Task1 ->
+            if (Task1.isSuccessful) {
+                upLoadTask.downloadUrl.addOnCompleteListener { Task2 ->
+                    if (Task2.isSuccessful) {
+                        val photoUrl = Task2.result.toString()
+                        val updateHasMap = hashMapOf<String, Any>(
+                            "userURLtoImage" to photoUrl,
+                        )
+                        updateUserInfo(updateHasMap)
+                    }
+                }
+            }
+        }
+    }
+
+
+
 }//class
