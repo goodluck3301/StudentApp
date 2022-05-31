@@ -1,11 +1,8 @@
 package com.example.gavarstateuniversityapp.fragments
 
 import android.annotation.SuppressLint
-import android.media.Image
-import android.opengl.Visibility
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -34,7 +31,6 @@ class LogInFragment : Fragment() {
         firebaseAuth = FirebaseAuth.getInstance()
         binding = FragmentLogInBinding.inflate(inflater)
         return binding.root
-        //return inflater.inflate(R.layout.fragment_log_in, container, false)
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -111,6 +107,5 @@ class LogInFragment : Fragment() {
         if (binding.passwdLogin.text.isEmpty())
             binding.passwdLogin.error = "Text area is Empty."
     }
-
 }
 

@@ -56,7 +56,7 @@
         android:layout_marginTop="32dp"
         android:background="@drawable/ed_text_design"
         android:drawableStart="@drawable/costum_mail_icon"
-        android:hint="@string/e_mailText"
+        android:hint="@string/e_mail_am"
         android:maxLength="30"
         android:paddingStart="8dp"
         android:paddingEnd="16dp"

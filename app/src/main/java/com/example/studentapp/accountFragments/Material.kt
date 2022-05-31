@@ -34,14 +34,20 @@ class Material : Fragment() {
         binding = FragmentBooksBinding.inflate(inflater)
         localDb = context?.let { MaterialDatabase.getDatabase(it) }!!
         getMaterials()
-        CoroutineScope(Dispatchers.IO).launch {
-            TopDataList = (
+        /*CoroutineScope(Dispatchers.IO).launch {
+            val newList = (
                     localDb
                         .materialDao()
                         .getAll()
                     ).toMutableList()
-        }
 
+            newList.forEach {
+                if (!TopDataList.contains(it)) {
+                    TopDataList.add(it)
+                }
+            }
+
+        }*/
         return binding.root
     }
 
@@ -55,7 +61,7 @@ class Material : Fragment() {
             if (!GeneralFunctions.check1) {
                 binding.progressBar4.visibility = View.VISIBLE
                 GeneralFunctions.check1 = true
-               // delay(5000)
+                // delay(5000)
                 startAdapter()
                 adapter.notifyDataSetChanged()
                 binding.progressBar4.visibility = View.GONE
@@ -68,6 +74,7 @@ class Material : Fragment() {
     }
 
     private fun startAdapter() {
+        TopDataList.sortBy { it.id }
         adapter = context?.let { MaterialsAdapter(it, TopDataList) }!!
         binding.materialRec.adapter = adapter
         binding.materialRec.layoutManager = LinearLayoutManager(context)
@@ -81,7 +88,7 @@ class Material : Fragment() {
                 .addOnSuccessListener { result ->
                     CoroutineScope(Dispatchers.IO).launch {
                         for (document in result) {
-                            Questions.TopDataList = mutableListOf()
+                            //  TopDataList = mutableListOf()
                             if ((localDb.materialDao()
                                     .isNotExists(document.get("materialTitle").toString()))
                             ) {
@@ -91,6 +98,7 @@ class Material : Fragment() {
                                         document.get("materialURL").toString(),
                                         document.get("materialTitle").toString(),
                                         document.get("materialDesc").toString(),
+                                        document.get("id").toString().toInt()
                                     )
                                 )
                             }
@@ -101,5 +109,5 @@ class Material : Fragment() {
                     Log.w("TAG", "Error getting documents.", exception)
                 }
         }
-    }// getMaterials()
+    }// getMaterials()*/
 }

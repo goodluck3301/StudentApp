@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "f16a5b145567980324ce0198b539e063",
+    "identityHash": "dbf052689d7b73c3c0fd21171536241f",
     "entities": [
       {
         "tableName": "materials",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`materialImgURI` TEXT, `materialURL` TEXT, `materialTitle` TEXT, `materialDesc` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`materialImgURI` TEXT, `materialURL` TEXT, `materialTitle` TEXT, `materialDesc` TEXT, `materialid` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT)",
         "fields": [
           {
             "fieldPath": "materialImgURI",
@@ -33,6 +33,12 @@
             "notNull": false
           },
           {
+            "fieldPath": "materialid",
+            "columnName": "materialid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
             "fieldPath": "id",
             "columnName": "id",
             "affinity": "INTEGER",
@@ -52,7 +58,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f16a5b145567980324ce0198b539e063')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'dbf052689d7b73c3c0fd21171536241f')"
     ]
   }
 }

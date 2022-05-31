@@ -1,9 +1,6 @@
 package com.example.gavarstateuniversityapp.fragments
 
 import android.animation.ObjectAnimator
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,11 +9,13 @@ import android.view.ViewGroup
 import android.view.animation.AnticipateOvershootInterpolator
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.studentapp.R
-import com.example.studentapp.database.questionsdb.QuestionsData
+import com.example.studentapp.database.MaterialDatabase
+import com.example.studentapp.database.MaterialsData
+import com.example.studentapp.questions.Questions
+import com.example.studentapp.questions.Questions.TopDataList
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -31,13 +30,21 @@ class GetStarted : Fragment() {
 
     private val activityScope = CoroutineScope(Dispatchers.Main)
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var localDb: MaterialDatabase
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-      //  getQuestions()
+        localDb = context?.let { MaterialDatabase.getDatabase(it) }!!
+        CoroutineScope(Dispatchers.IO).launch {
+            TopDataList = (
+                    localDb
+                        .materialDao()
+                        .getAll()
+                    ).toMutableList()
+        }
+        getMaterials()
         return inflater.inflate(R.layout.fragment_get_started, container, false)
     }
 
@@ -88,9 +95,38 @@ class GetStarted : Fragment() {
                     )
             }
         }//else
+    }//
 
-    }//onResume
-
+    private fun getMaterials() {
+        val db = Firebase.firestore
+        Firebase.auth.currentUser?.let {
+            db.collection("materials")
+                .get()
+                .addOnSuccessListener { result ->
+                    CoroutineScope(Dispatchers.IO).launch {
+                        for (document in result) {
+                           // Questions.TopDataList = mutableListOf()
+                            if ((localDb.materialDao()
+                                    .isNotExists(document.get("materialTitle").toString()))
+                            ) {
+                                localDb.materialDao().insertData(
+                                    MaterialsData(
+                                        document.get("materialImgURI").toString(),
+                                        document.get("materialURL").toString(),
+                                        document.get("materialTitle").toString(),
+                                        document.get("materialDesc").toString(),
+                                        document.get("id").toString().toInt(),
+                                    )
+                                )
+                            }
+                        }
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.w("TAG", "Error getting documents.", exception)
+                }
+        }
+    }// getMaterials()*/
 
 }
 

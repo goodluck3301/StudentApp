@@ -42,4 +42,5 @@
     <string name="about_program_text">Ծրագիրը նախատեսված է դպրոցականների և ուսանողների համար, իր մեջ պարունակելով թեստեր տարբեր թեմաներից և գիտությանն վերաբերող նորություներց։</string>
     <string name="ok_lav">Լավ</string>
     <string name="close">X</string>
+    <string name="e_mail_am">Էլ․ փոստ</string>
 </resources>

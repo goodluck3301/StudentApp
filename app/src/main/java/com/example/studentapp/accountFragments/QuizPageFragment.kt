@@ -92,6 +92,6 @@ class QuizPageFragment : Fragment() {
                     Log.w("TAG", "Error getting documents.", exception)
                 }
         }
-    }// getMaterials()
+    }
 
 }
