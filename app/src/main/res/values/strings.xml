@@ -39,8 +39,9 @@
     <string name="top10_string">Թոփ 10</string>
     <string name="log_out">Դուրս Գալ</string>
     <string name="about_program">Ծրագրի մասին</string>
-    <string name="about_program_text">Ծրագիրը նախատեսված է դպրոցականների և ուսանողների համար, իր մեջ պարունակելով թեստեր տարբեր թեմաներից և գիտությանն վերաբերող նորություներց։</string>
+    <string name="about_program_text">Ծրագիրը նախատեսված է դպրոցականների և ուսանողների համար, իր մեջ պարունակելով թեստեր` տարբեր թեմաներից և գիտությանն վերաբերող նորություներց։</string>
     <string name="ok_lav">Լավ</string>
     <string name="close">X</string>
     <string name="e_mail_am">Էլ․ փոստ</string>
+    <string name="quiz_answer_text">Թեստային Հարց</string>
 </resources>

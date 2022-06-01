@@ -34,28 +34,12 @@ class Material : Fragment() {
         binding = FragmentBooksBinding.inflate(inflater)
         getMaterials()
         localDb = context?.let { MaterialDatabase.getDatabase(it) }!!
-
-        /*CoroutineScope(Dispatchers.IO).launch {
-            val newList = (
-                    localDb
-                        .materialDao()
-                        .getAll()
-                    ).toMutableList()
-
-            newList.forEach {
-                if (!TopDataList.contains(it)) {
-                    TopDataList.add(it)
-                }
-            }
-
-        }*/
         return binding.root
     }
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -75,7 +59,6 @@ class Material : Fragment() {
             if (!GeneralFunctions.check1) {
                 binding.progressBar4.visibility = View.VISIBLE
                 GeneralFunctions.check1 = true
-                // delay(5000)
                 startAdapter()
                 adapter.notifyDataSetChanged()
                 binding.progressBar4.visibility = View.GONE

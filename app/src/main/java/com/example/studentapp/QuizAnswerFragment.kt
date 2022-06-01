@@ -49,11 +49,7 @@ class QuizAnswerFragment : Fragment() {
             readDataFirestore()
         }
 
-        // list =
-        //    com.example.studentapp.questions.Questions.list[com.example.studentapp.questions.Questions.index]
-
         qListFromDatabase.shuffle()
-
         qListFromDatabase.forEachIndexed { i, e ->
             if (i <= 9)
                 list.add(e)
@@ -68,13 +64,6 @@ class QuizAnswerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setQuestion()
-/*
-        Toast.makeText(
-            context,
-            qListFromDatabase.first().question,
-            Toast.LENGTH_LONG
-        ).show()
-*/
 
         binding.tvOptionOne.setOnClickListener {
             if (check)
@@ -172,10 +161,7 @@ class QuizAnswerFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun setQuestion() {
         try {
-
-
             val question = list[mCurrentPosition - 1]
-
             defaultOptionsView()
             if (mCurrentPosition == list.size) {
                 binding.btnSubmit.text = "Ավարտել"

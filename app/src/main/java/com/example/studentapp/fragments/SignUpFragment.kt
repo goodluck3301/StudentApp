@@ -53,9 +53,7 @@ class SignUpFragment : Fragment() {
                 )
         }
 
-        //asetsstudio
-
-       binding.okS.setOnClickListener {
+        binding.okS.setOnClickListener {
 
             var internet = false
             var emailBool = false
@@ -82,17 +80,20 @@ class SignUpFragment : Fragment() {
             else
                 binding.name.error = "Լրացրեք!"
 
-
             if (emailBool && passBool && nameBool && internet) {
                 if (binding.emailS.text.isNotEmpty() && binding.passwdS.text.toString() == binding.repeatPaswdS.text.toString()) {
                     firebaseAuth
-                        .createUserWithEmailAndPassword(binding.emailS.text.toString(), binding.passwdS.text.toString())
+                        .createUserWithEmailAndPassword(
+                            binding.emailS.text.toString(),
+                            binding.passwdS.text.toString()
+                        )
                         .addOnCompleteListener {
                             if (it.isSuccessful) {
-                                addDataRealDatabase(binding.name.text.toString(),binding.emailS.text.toString())
+                                addDataRealDatabase(
+                                    binding.name.text.toString(),
+                                    binding.emailS.text.toString()
+                                )
                                 binding.progressbarSignUP.visibility = View.VISIBLE
-                                Toast.makeText(context, "send", Toast.LENGTH_SHORT)
-                                    .show()
                                 createNewUser()
                                 findNavController()
                                     .navigate(
@@ -101,8 +102,6 @@ class SignUpFragment : Fragment() {
                                     )
                             } else {
                                 binding.progressbarSignUP.visibility = View.GONE
-                                Toast.makeText(context, it.exception.toString(), Toast.LENGTH_SHORT)
-                                    .show()
                             }
                         }
                 } else {
@@ -135,7 +134,7 @@ class SignUpFragment : Fragment() {
         binding.show2.setOnClickListener {
             if (!showHideBool2) {
                 showHideBool2 = true
-               binding.repeatPaswdS.inputType = InputType.TYPE_CLASS_TEXT
+                binding.repeatPaswdS.inputType = InputType.TYPE_CLASS_TEXT
                 binding.show2.setImageDrawable(resources.getDrawable(R.drawable.ic_focused_visibility_off_24))
             } else {
                 showHideBool2 = false
@@ -143,7 +142,6 @@ class SignUpFragment : Fragment() {
                 binding.show2.setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_visibility_24))
             }
         }//show2
-
     }
 
     private fun isEmailValid(email: String): Boolean {
@@ -168,17 +166,14 @@ class SignUpFragment : Fragment() {
 
     private fun passValid(pass: EditText): Boolean {
         val errorText = when {
-            /* Rule 1 */
             !pass.text.contains(Regex("[A-Z]")) -> {
                 pass.error = "Password must contain one capital letter"
                 false
             }
-            /* Rule 2 */
             !pass.text.contains(Regex("[0-9]")) -> {
                 pass.error = "Password must contain one digit"
                 false
             }
-            /* Rule 3, not counting space as special character */
             !pass.text.contains(Regex("[^a-zA-Z0-9 ]")) -> {
                 pass.error = "Password must contain one special character"
                 false
@@ -189,7 +184,7 @@ class SignUpFragment : Fragment() {
     }//fun password Validation
 
 
-    private fun addDataRealDatabase(name:String, email: String) {
+    private fun addDataRealDatabase(name: String, email: String) {
         val uid = firebaseAuth.uid
 
         val hashMap: HashMap<String, Any?> = HashMap()
@@ -207,7 +202,7 @@ class SignUpFragment : Fragment() {
                 Toast.makeText(context, e.message.toString(), Toast.LENGTH_SHORT).show()
             }
 
-    } // addDataRealDatabase()
+    }
 
 
 }//class fragment

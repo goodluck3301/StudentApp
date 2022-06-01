@@ -46,9 +46,6 @@ class AccountPageFragment : Fragment() {
     private lateinit var aboutDialog: View
     private lateinit var imgUri: String
 
-    val fireStoreDatabase = FirebaseFirestore.getInstance()
-
-    val uid = FirebaseAuth.getInstance().currentUser?.uid.toString()
     val mStaorageRef = FirebaseStorage.getInstance().reference
 
 
