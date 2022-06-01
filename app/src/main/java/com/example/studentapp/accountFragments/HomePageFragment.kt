@@ -15,7 +15,7 @@ import com.example.studentapp.database.MaterialDatabase
 import com.example.studentapp.database.MaterialsData
 import com.example.studentapp.databinding.FragmentHomeBinding
 import com.example.studentapp.models.UserModel
-import com.example.studentapp.questions.Questions
+import com.example.studentapp.questions.Data
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -34,28 +34,23 @@ class HomePageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater)
-
         localDb = context?.let { MaterialDatabase.getDatabase(it) }!!
-
-
-
+        readDataFirestore()
+        getMaterials()
+        CoroutineScope(Dispatchers.IO).launch {
+            Data.TopDataList = mutableListOf()
+            Data.TopDataList = (
+                    localDb
+                        .materialDao()
+                        .getAll()
+                    ).toMutableList()
+        }
         return binding.root
     }
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        readDataFirestore()
-        getMaterials()
-        CoroutineScope(Dispatchers.IO).launch {
-            Questions.TopDataList = mutableListOf()
-            Questions.TopDataList = (
-                    localDb
-                        .materialDao()
-                        .getAll()
-                    ).toMutableList()
-        }
 
         CoroutineScope(Dispatchers.Main).launch {
             if (!GeneralFunctions.check && context?.let { GeneralFunctions.checkForInternet(it) } == true) {

@@ -14,8 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.studentapp.R
 import com.example.studentapp.database.MaterialDatabase
 import com.example.studentapp.database.MaterialsData
-import com.example.studentapp.questions.Questions
-import com.example.studentapp.questions.Questions.TopDataList
+import com.example.studentapp.questions.Data.TopDataList
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore

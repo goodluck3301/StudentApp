@@ -7,14 +7,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.studentapp.GeneralFunctions
 import com.example.studentapp.adapter.MaterialsAdapter
 import com.example.studentapp.database.MaterialDatabase
 import com.example.studentapp.database.MaterialsData
 import com.example.studentapp.databinding.FragmentBooksBinding
-import com.example.studentapp.questions.Questions
-import com.example.studentapp.questions.Questions.TopDataList
+import com.example.studentapp.questions.Data.TopDataList
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -32,8 +32,9 @@ class Material : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentBooksBinding.inflate(inflater)
-        localDb = context?.let { MaterialDatabase.getDatabase(it) }!!
         getMaterials()
+        localDb = context?.let { MaterialDatabase.getDatabase(it) }!!
+
         /*CoroutineScope(Dispatchers.IO).launch {
             val newList = (
                     localDb
@@ -54,6 +55,19 @@ class Material : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                adapter.getFilter().filter(query)
+                return true
+            }
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adapter.getFilter().filter(newText);
+                return true
+            }
+        })
+
 
         CoroutineScope(Dispatchers.Main).launch {
             binding.progressBar4.visibility = View.VISIBLE

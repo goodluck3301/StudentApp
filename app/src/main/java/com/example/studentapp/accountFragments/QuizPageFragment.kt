@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.studentapp.QuizAnswerFragment
 import com.example.studentapp.R
@@ -14,13 +13,12 @@ import com.example.studentapp.adapter.QuizAdapter
 import com.example.studentapp.database.questionsdb.QuestionsData
 import com.example.studentapp.database.questionsdb.QuestionsDatabase
 import com.example.studentapp.databinding.FragmentQuizPageBinding
-import com.example.studentapp.questions.Questions
-import com.example.studentapp.questions.Questions.qListFromDatabase
+import com.example.studentapp.questions.Data
+import com.example.studentapp.questions.Data.qListFromDatabase
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.*
-import java.lang.Exception
 
 class QuizPageFragment : Fragment() {
 
@@ -44,10 +42,10 @@ class QuizPageFragment : Fragment() {
 
         CoroutineScope(Dispatchers.Main).launch {
             adapter = context?.let {
-                QuizAdapter(Questions.questionsTypeList) {
+                QuizAdapter(Data.questionsTypeList) {
                     CoroutineScope(Dispatchers.IO).launch {
                         qListFromDatabase = questionsDb.questionDao()
-                            .getItemAnswer(Questions.index.toString()) as MutableList<com.example.studentapp.models.Questions>
+                            .getItemAnswer(Data.index.toString()) as MutableList<com.example.studentapp.models.Questions>
                     }
                     val fragment = QuizAnswerFragment()
                     fragmentManager?.beginTransaction()?.apply {

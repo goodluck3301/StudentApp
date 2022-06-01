@@ -11,6 +11,7 @@ import com.example.studentapp.accountFragments.Material
 import com.example.studentapp.accountFragments.HomePageFragment
 import com.example.studentapp.accountFragments.QuizPageFragment
 import com.example.studentapp.databinding.FragmentGeneralBinding
+import com.example.studentapp.questions.Data
 
 
 class GeneralFragment : Fragment() {
@@ -30,7 +31,7 @@ class GeneralFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val homeFragment = HomePageFragment()
-        val books = Material()
+        val material = Material()
         val quiz = QuizPageFragment()
         val account = AccountPageFragment()
 
@@ -43,7 +44,7 @@ class GeneralFragment : Fragment() {
                     openFragment(homeFragment)
                 }
                 R.id.lybrary -> {
-                    openFragment(books)
+                    openFragment(material)
                 }
                 R.id.quizz -> {
                     openFragment(quiz)

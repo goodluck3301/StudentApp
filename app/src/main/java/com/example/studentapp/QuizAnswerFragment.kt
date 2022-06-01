@@ -17,7 +17,7 @@ import androidx.core.content.ContextCompat
 import com.example.studentapp.accountFragments.QuizPageFragment
 import com.example.studentapp.databinding.FragmentQuizAnswerBinding
 import com.example.studentapp.models.Questions
-import com.example.studentapp.questions.Questions.qListFromDatabase
+import com.example.studentapp.questions.Data.qListFromDatabase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.SetOptions
