@@ -11,11 +11,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.studentapp.GeneralFunctions.getMaterialsGeneral
 import com.example.studentapp.R
 import com.example.studentapp.database.MaterialDatabase
 import com.example.studentapp.database.MaterialsData
 import com.example.studentapp.database.questionsdb.QuestionsData
 import com.example.studentapp.database.questionsdb.QuestionsDatabase
+import com.example.studentapp.questions.Data
 import com.example.studentapp.questions.Data.TopDataList
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -40,15 +42,10 @@ class GetStarted : Fragment() {
     ): View? {
         localDb = context?.let { MaterialDatabase.getDatabase(it) }!!
         questionsDb = context?.let { QuestionsDatabase.getDatabase(it)}!!
-        CoroutineScope(Dispatchers.IO).launch {
-            TopDataList = (
-                    localDb
-                        .materialDao()
-                        .getAll()
-                    ).toMutableList()
-        }
+
         getQuestions()
         getMaterials()
+        getMaterialsGeneral(requireContext())
         return inflater.inflate(R.layout.fragment_get_started, container, false)
     }
 
@@ -80,8 +77,21 @@ class GetStarted : Fragment() {
 
     override fun onResume() {
         super.onResume()
+
+        getQuestions()
+        getMaterials()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            TopDataList = (
+                    localDb
+                        .materialDao()
+                        .getAll()
+                    ).toMutableList()
+        }
+
         if (firebaseAuth.currentUser != null) {
             activityScope.launch {
+                getMaterials()
                 delay(5000)
                 findNavController()
                     .navigate(
@@ -91,6 +101,7 @@ class GetStarted : Fragment() {
             }
         } else {
             activityScope.launch {
+                getMaterials()
                 delay(5000)
                 findNavController()
                     .navigate(
@@ -109,7 +120,6 @@ class GetStarted : Fragment() {
                 .addOnSuccessListener { result ->
                     CoroutineScope(Dispatchers.IO).launch {
                         for (document in result) {
-                            // Questions.TopDataList = mutableListOf()
                             if ((localDb.materialDao()
                                     .isNotExists(document.get("materialTitle").toString()))
                             ) {
@@ -119,7 +129,7 @@ class GetStarted : Fragment() {
                                         document.get("materialURL").toString(),
                                         document.get("materialTitle").toString(),
                                         document.get("materialDesc").toString(),
-                                        document.get("id").toString().toInt(),
+                                        document.get("id").toString().toInt()
                                     )
                                 )
                             }
@@ -163,5 +173,7 @@ class GetStarted : Fragment() {
                 }
         }
     }
+
+
 }
 

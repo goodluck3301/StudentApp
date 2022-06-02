@@ -85,7 +85,6 @@ class Material : Fragment() {
                 .addOnSuccessListener { result ->
                     CoroutineScope(Dispatchers.IO).launch {
                         for (document in result) {
-                            //  TopDataList = mutableListOf()
                             if ((localDb.materialDao()
                                     .isNotExists(document.get("materialTitle").toString()))
                             ) {

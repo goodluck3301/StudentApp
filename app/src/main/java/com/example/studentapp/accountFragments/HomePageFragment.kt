@@ -38,7 +38,6 @@ class HomePageFragment : Fragment() {
         readDataFirestore()
         getMaterials()
         CoroutineScope(Dispatchers.IO).launch {
-            Data.TopDataList = mutableListOf()
             Data.TopDataList = (
                     localDb
                         .materialDao()
@@ -72,6 +71,7 @@ class HomePageFragment : Fragment() {
     }
 
     private fun startAdapter() {
+        allUserList.sortByDescending { it.userScore.toInt() }
         adapter = TopUsersAdapter(context, allUserList)
         binding.topUserRecycleView.layoutManager = LinearLayoutManager(context)
         binding.topUserRecycleView.adapter = adapter
@@ -84,9 +84,9 @@ class HomePageFragment : Fragment() {
             db.collection("users")
                 .get()
                 .addOnSuccessListener { result ->
-                    allUserList = mutableListOf()
+                  var allUserList11 = mutableListOf<UserModel>()
                     for (document in result) {
-                        allUserList += (
+                        allUserList11 += (
                                 UserModel(
                                     document.get("name").toString(),
                                     document.get("score").toString(),
@@ -96,12 +96,13 @@ class HomePageFragment : Fragment() {
                         allUserList.sortByDescending { it.userScore.toInt() }
                     }
 
-                    val newList = mutableListOf<UserModel>()
-                    allUserList.forEachIndexed { i, e ->
+
+                    allUserList11.forEachIndexed { i, e ->
                         if (i <= 9) {
-                            newList.add(e)
+                            allUserList.add(e)
                         }
                     }
+                    allUserList11.sortByDescending { it.userScore.toInt() }
                 }
                 .addOnFailureListener { exception ->
                     Log.w("TAG", "Error getting documents.", exception)
@@ -117,7 +118,6 @@ class HomePageFragment : Fragment() {
                 .addOnSuccessListener { result ->
                     CoroutineScope(Dispatchers.IO).launch {
                         for (document in result) {
-                            //  TopDataList = mutableListOf()
                             if ((localDb.materialDao()
                                     .isNotExists(document.get("materialTitle").toString()))
                             ) {
