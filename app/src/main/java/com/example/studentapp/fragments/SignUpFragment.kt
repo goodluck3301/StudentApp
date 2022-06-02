@@ -155,6 +155,7 @@ class SignUpFragment : Fragment() {
             "name" to binding.name.text.toString(),
             "email" to binding.emailS.text.toString(),
             "score" to 0,
+            "userURLtoImage" to "",
             "idUser" to firebaseAuth.uid.toString(),
         )
 
