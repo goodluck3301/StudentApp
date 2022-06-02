@@ -54,7 +54,7 @@ class QuizAnswerFragment : Fragment() {
             if (i <= 9)
                 list.add(e)
         }
-       // qListFromDatabase = mutableListOf()
+
         list.shuffle()
         binding = FragmentQuizAnswerBinding.inflate(inflater)
         return binding.root
@@ -91,7 +91,6 @@ class QuizAnswerFragment : Fragment() {
             val scoreShowText = "Դուք հավաքել եք $score միավոր 10-ից"
 
             if (mCurrentPosition == 10) {
-
                 CoroutineScope(Dispatchers.IO).launch {
                     val hashMap = hashMapOf<String, Any>()
                     hashMap["score"] = (score + getScore).toString()
@@ -140,7 +139,6 @@ class QuizAnswerFragment : Fragment() {
                     answerView(mSelectedOptionPosition, R.drawable.wrong_option_border_bg)
                 } else {
                     score++
-                    //Toast.makeText(context, score.toString(), Toast.LENGTH_LONG).show()
                 }
                 answerView(question.correctOption, R.drawable.correct_option_border_bg)
                 if (mCurrentPosition == list.size) {

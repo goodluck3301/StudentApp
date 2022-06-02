@@ -85,6 +85,7 @@ class HomePageFragment : Fragment() {
                 .get()
                 .addOnSuccessListener { result ->
                   var allUserList11 = mutableListOf<UserModel>()
+                    allUserList = mutableListOf()
                     for (document in result) {
                         allUserList11 += (
                                 UserModel(
@@ -95,7 +96,6 @@ class HomePageFragment : Fragment() {
                                 )
                         allUserList.sortByDescending { it.userScore.toInt() }
                     }
-
 
                     allUserList11.forEachIndexed { i, e ->
                         if (i <= 9) {
