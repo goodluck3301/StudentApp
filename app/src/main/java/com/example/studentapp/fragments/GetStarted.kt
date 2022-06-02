@@ -14,6 +14,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.studentapp.R
 import com.example.studentapp.database.MaterialDatabase
 import com.example.studentapp.database.MaterialsData
+import com.example.studentapp.database.questionsdb.QuestionsData
+import com.example.studentapp.database.questionsdb.QuestionsDatabase
 import com.example.studentapp.questions.Data.TopDataList
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -30,6 +32,7 @@ class GetStarted : Fragment() {
     private val activityScope = CoroutineScope(Dispatchers.Main)
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var localDb: MaterialDatabase
+    private lateinit var questionsDb: QuestionsDatabase
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,6 +46,7 @@ class GetStarted : Fragment() {
                         .getAll()
                     ).toMutableList()
         }
+        getQuestions()
         getMaterials()
         return inflater.inflate(R.layout.fragment_get_started, container, false)
     }
@@ -104,7 +108,7 @@ class GetStarted : Fragment() {
                 .addOnSuccessListener { result ->
                     CoroutineScope(Dispatchers.IO).launch {
                         for (document in result) {
-                           // Questions.TopDataList = mutableListOf()
+                            // Questions.TopDataList = mutableListOf()
                             if ((localDb.materialDao()
                                     .isNotExists(document.get("materialTitle").toString()))
                             ) {
@@ -127,5 +131,36 @@ class GetStarted : Fragment() {
         }
     }// getMaterials()*/
 
+    private fun getQuestions() {
+        val db = Firebase.firestore
+        Firebase.auth.currentUser?.let {
+            db.collection("questions")
+                .get()
+                .addOnSuccessListener { result ->
+                    CoroutineScope(Dispatchers.IO).launch {
+                        for (document in result) {
+                            if ((questionsDb.questionDao()
+                                    .isNotExists(document.get("question").toString()))
+                            ) {
+                                questionsDb.questionDao().insertData(
+                                    QuestionsData(
+                                        document.get("id").toString(),
+                                        document.get("question").toString(),
+                                        document.get("optionOne").toString(),
+                                        document.get("optionTwo").toString(),
+                                        document.get("optionThree").toString(),
+                                        document.get("optionFour").toString(),
+                                        document.get("correctOption").toString(),
+                                    )
+                                )
+                            }
+                        }
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.w("TAG", "Error getting documents.", exception)
+                }
+        }
+    }
 }
 
