@@ -16,6 +16,7 @@ import com.example.studentapp.database.MaterialsData
 import com.example.studentapp.databinding.FragmentHomeBinding
 import com.example.studentapp.models.UserModel
 import com.example.studentapp.questions.Data
+import com.example.studentapp.questions.Data.TopDataList
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -59,7 +60,11 @@ class HomePageFragment : Fragment() {
                 binding.progressBar3.visibility = View.GONE
                 startAdapter()
             } else
-                startAdapter()
+                GeneralFunctions.check = true
+            binding.progressBar3.visibility = View.VISIBLE
+            delay(5000)
+            binding.progressBar3.visibility = View.GONE
+            startAdapter()
         }
 
         if (context?.let { GeneralFunctions.checkForInternet(it) } == false)
@@ -84,7 +89,7 @@ class HomePageFragment : Fragment() {
             db.collection("users")
                 .get()
                 .addOnSuccessListener { result ->
-                  var allUserList11 = mutableListOf<UserModel>()
+                    var allUserList11 = mutableListOf<UserModel>()
                     allUserList = mutableListOf()
                     for (document in result) {
                         allUserList11 += (
@@ -117,7 +122,17 @@ class HomePageFragment : Fragment() {
                 .get()
                 .addOnSuccessListener { result ->
                     CoroutineScope(Dispatchers.IO).launch {
+                        var list = mutableListOf<MaterialsData>()
                         for (document in result) {
+                            list.add(
+                                MaterialsData(
+                                    document.get("materialImgURI").toString(),
+                                    document.get("materialURL").toString(),
+                                    document.get("materialTitle").toString(),
+                                    document.get("materialDesc").toString(),
+                                    document.get("id").toString().toInt()
+                                )
+                            )
                             if ((localDb.materialDao()
                                     .isNotExists(document.get("materialTitle").toString()))
                             ) {
@@ -132,6 +147,7 @@ class HomePageFragment : Fragment() {
                                 )
                             }
                         }
+                        TopDataList = list
                     }
                 }
                 .addOnFailureListener { exception ->

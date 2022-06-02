@@ -28,8 +28,12 @@ class LogInFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        firebaseAuth = FirebaseAuth.getInstance()
         binding = FragmentLogInBinding.inflate(inflater)
+        try {
+            firebaseAuth = FirebaseAuth.getInstance()
+        } catch (e: Exception) {
+            Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
+        }
         return binding.root
     }
 

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.animation.AnticipateOvershootInterpolator
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.studentapp.GeneralFunctions.getMaterialsGeneral
@@ -36,6 +37,7 @@ class GetStarted : Fragment() {
     private lateinit var localDb: MaterialDatabase
     private lateinit var questionsDb: QuestionsDatabase
 
+    @NonNull
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,6 +51,7 @@ class GetStarted : Fragment() {
         return inflater.inflate(R.layout.fragment_get_started, container, false)
     }
 
+    @NonNull
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         firebaseAuth = FirebaseAuth.getInstance()
@@ -75,6 +78,7 @@ class GetStarted : Fragment() {
 
     }//onViewCreated()
 
+    @NonNull
     override fun onResume() {
         super.onResume()
 
@@ -112,6 +116,7 @@ class GetStarted : Fragment() {
         }//else
     }//
 
+    @NonNull
     private fun getMaterials() {
         val db = Firebase.firestore
         Firebase.auth.currentUser?.let {
@@ -142,6 +147,7 @@ class GetStarted : Fragment() {
         }
     }// getMaterials()*/
 
+    @NonNull
     private fun getQuestions() {
         val db = Firebase.firestore
         Firebase.auth.currentUser?.let {
