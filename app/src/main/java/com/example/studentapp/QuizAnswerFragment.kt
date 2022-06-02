@@ -54,6 +54,7 @@ class QuizAnswerFragment : Fragment() {
             if (i <= 9)
                 list.add(e)
         }
+       // qListFromDatabase = mutableListOf()
         list.shuffle()
         binding = FragmentQuizAnswerBinding.inflate(inflater)
         return binding.root

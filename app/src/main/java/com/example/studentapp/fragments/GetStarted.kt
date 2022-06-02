@@ -39,6 +39,7 @@ class GetStarted : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         localDb = context?.let { MaterialDatabase.getDatabase(it) }!!
+        questionsDb = context?.let { QuestionsDatabase.getDatabase(it)}!!
         CoroutineScope(Dispatchers.IO).launch {
             TopDataList = (
                     localDb
