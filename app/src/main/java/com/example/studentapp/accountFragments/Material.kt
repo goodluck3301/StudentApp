@@ -46,6 +46,7 @@ class Material : Fragment() {
                 adapter.getFilter().filter(query)
                 return true
             }
+
             override fun onQueryTextChange(newText: String?): Boolean {
                 adapter.getFilter().filter(newText);
                 return true
@@ -83,6 +84,14 @@ class Material : Fragment() {
             db.collection("materials")
                 .get()
                 .addOnSuccessListener { result ->
+
+                    if (context?.let { it1 -> GeneralFunctions.checkForInternet(it1) } == true) {
+                        CoroutineScope(Dispatchers.IO).launch {
+                            val list = localDb.materialDao().getAll()
+                            list.forEach { localDb.materialDao().delete(it) }
+                        }
+                    }
+
                     CoroutineScope(Dispatchers.IO).launch {
                         for (document in result) {
                             if ((localDb.materialDao()

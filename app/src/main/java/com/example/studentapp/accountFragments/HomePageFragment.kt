@@ -136,6 +136,7 @@ class HomePageFragment : Fragment() {
                                 )
                             }
                         }
+                        allUserList11.sortByDescending { it.userScore.toInt() }
                         allUserList11.forEachIndexed { i, e ->
                             if (i <= 9) {
                                 allUserList.add(e)
@@ -156,6 +157,7 @@ class HomePageFragment : Fragment() {
             allUserList11 =
                 topUserDatabase.topUserDao().getAll() as MutableList<TopUserData>
 
+            allUserList11.sortByDescending { it.userScore!!.toInt() }
             allUserList = mutableListOf()
             allUserList11.forEachIndexed { i, e ->
                 if (i <= 9) {
