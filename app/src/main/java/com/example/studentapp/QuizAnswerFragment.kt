@@ -40,6 +40,8 @@ class QuizAnswerFragment : Fragment() {
     private lateinit var showScore: View
     private lateinit var docId: String
     private var check = true
+    private var checkSubmit = false
+    private var checkSubmit2 = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -87,72 +89,78 @@ class QuizAnswerFragment : Fragment() {
         }
 
         binding.btnSubmit.setOnClickListener {
-            check = !check
-            val scoreShowText = "Դուք հավաքել եք $score միավոր 10-ից"
+            if (checkSubmit) {
+                check = !check
+                val scoreShowText = "Դուք հավաքել եք $score միավոր 10-ից"
 
-            if (mCurrentPosition == 10) {
-                CoroutineScope(Dispatchers.IO).launch {
-                    val hashMap = hashMapOf<String, Any>()
-                    hashMap["score"] = (score + getScore).toString()
-                    updateUserInfo(hashMap)
-                }
-                showScore =
-                    LayoutInflater
-                        .from(context)
-                        .inflate(R.layout.score_view, null)
-                var message = ""
-                when (score) {
-                    in 0..4 -> message += "$scoreShowText\n Վատ արդյունք"
-                    in 5..7 -> message += "$scoreShowText\n Միջին արդյունք"
-                    in 8..9 -> message += "$scoreShowText\n Լավ արդյունք"
-                    10 -> message += "$scoreShowText\n Գերազանց արդյունք"
-                }
-
-                val mBuilder = AlertDialog.Builder(context)
-                    .setView(showScore)
-                    .setTitle("Ամփոփում")
-                    .setMessage(message)
-                    .setIcon(R.drawable.signvec)
-                val mAlertDialog = mBuilder.show()
-
-                mAlertDialog.findViewById<Button>(R.id.okayBtn).setOnClickListener {
-                    mAlertDialog.dismiss()
-                }
-            }
-            if (mSelectedOptionPosition == 0) {
-                mCurrentPosition++
-
-                when {
-                    mCurrentPosition <= list.size -> {
-                        setQuestion()
+                if (mCurrentPosition == 10) {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        val hashMap = hashMapOf<String, Any>()
+                        hashMap["score"] = (score + getScore).toString()
+                        updateUserInfo(hashMap)
                     }
-                    else -> {
-                        Toast.makeText(
-                            context,
-                            "Դուք ավարտել եք թեստը", Toast.LENGTH_SHORT
-                        ).show()
+                    showScore =
+                        LayoutInflater
+                            .from(context)
+                            .inflate(R.layout.score_view, null)
+                    var message = ""
+                    when (score) {
+                        in 0..4 -> message += "$scoreShowText\n Վատ արդյունք"
+                        in 5..7 -> message += "$scoreShowText\n Միջին արդյունք"
+                        in 8..9 -> message += "$scoreShowText\n Լավ արդյունք"
+                        10 -> message += "$scoreShowText\n Գերազանց արդյունք"
                     }
+
+                    val mBuilder = AlertDialog.Builder(context)
+                        .setView(showScore)
+                        .setTitle("Ամփոփում")
+                        .setMessage(message)
+                        .setIcon(R.drawable.signvec)
+                    val mAlertDialog = mBuilder.show()
+
+                    mAlertDialog.findViewById<Button>(R.id.okayBtn).setOnClickListener {
+                        mAlertDialog.dismiss()
+                    }
+                }
+                if (mSelectedOptionPosition == 0) {
+                    mCurrentPosition++
+
+                    when {
+                        mCurrentPosition <= list.size -> {
+                            setQuestion()
+                            checkSubmit = false
+                        }
+                        else -> {
+                            Toast.makeText(
+                                context,
+                                "Դուք ավարտել եք թեստը", Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                } else {
+
+                    val question = list[mCurrentPosition - 1]
+                    if (question.correctOption != mSelectedOptionPosition) {
+                        answerView(mSelectedOptionPosition, R.drawable.wrong_option_border_bg)
+                    } else {
+                        score++
+                    }
+                    answerView(question.correctOption, R.drawable.correct_option_border_bg)
+                    if (mCurrentPosition == list.size) {
+                        binding.btnSubmit.text = "Ավարտել"
+                        val fragment = QuizPageFragment()
+                        fragmentManager?.beginTransaction()?.apply {
+                            replace(R.id.fragmentContainerView2, fragment)
+                            isAddToBackStackAllowed
+                            commit()
+                        }
+                    } else {
+                        binding.btnSubmit.text = "Հոջորդը"
+                    }
+                    mSelectedOptionPosition = 0
                 }
             } else {
-                val question = list[mCurrentPosition - 1]
-                if (question.correctOption != mSelectedOptionPosition) {
-                    answerView(mSelectedOptionPosition, R.drawable.wrong_option_border_bg)
-                } else {
-                    score++
-                }
-                answerView(question.correctOption, R.drawable.correct_option_border_bg)
-                if (mCurrentPosition == list.size) {
-                    binding.btnSubmit.text = "Ավարտել"
-                    val fragment = QuizPageFragment()
-                    fragmentManager?.beginTransaction()?.apply {
-                        replace(R.id.fragmentContainerView2, fragment)
-                        isAddToBackStackAllowed
-                        commit()
-                    }
-                } else {
-                    binding.btnSubmit.text = "Հոջորդը"
-                }
-                mSelectedOptionPosition = 0
+                Toast.makeText(context, "Ընտրեք որևէ պատասխան.", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -176,11 +184,11 @@ class QuizAnswerFragment : Fragment() {
             binding.tvOptionTwo.text = question.optionTwo
             binding.tvOptionThree.text = question.optionThree
             binding.tvOptionFour.text = question.optionFour
-        } catch (e: Exception) {
-        }
+        } catch (e: Exception) { }
     }
 
     private fun selectedOptionView(tv: TextView, selectedOptionNum: Int) {
+        checkSubmit = true
         defaultOptionsView()
         mSelectedOptionPosition = selectedOptionNum
         tv.setTextColor(Color.parseColor("#363A43"))
@@ -247,7 +255,6 @@ class QuizAnswerFragment : Fragment() {
                         ) {
                             docId = document.id
                             getScore = document.get("score").toString().toInt()
-                            //Toast.makeText(context,score.toString(),Toast.LENGTH_LONG).show()
                         }
                     }
                 }
