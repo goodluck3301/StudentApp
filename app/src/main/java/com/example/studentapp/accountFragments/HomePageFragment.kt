@@ -13,6 +13,8 @@ import com.example.studentapp.GeneralFunctions
 import com.example.studentapp.adapter.TopUsersAdapter
 import com.example.studentapp.database.MaterialDatabase
 import com.example.studentapp.database.MaterialsData
+import com.example.studentapp.database.topUsersDatabase.TopUserData
+import com.example.studentapp.database.topUsersDatabase.TopUserDatabase
 import com.example.studentapp.databinding.FragmentHomeBinding
 import com.example.studentapp.models.UserModel
 import com.example.studentapp.questions.Data
@@ -28,6 +30,7 @@ class HomePageFragment : Fragment() {
     private lateinit var adapter: TopUsersAdapter
     private var allUserList = mutableListOf<UserModel>()
     private lateinit var localDb: MaterialDatabase
+    private lateinit var topUserDatabase: TopUserDatabase
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
@@ -36,15 +39,25 @@ class HomePageFragment : Fragment() {
     ): View {
         binding = FragmentHomeBinding.inflate(inflater)
         localDb = context?.let { MaterialDatabase.getDatabase(it) }!!
-        readDataFirestore()
+        topUserDatabase = context?.let { TopUserDatabase.getDatabase(it) }!!
+
+        if (context?.let { GeneralFunctions.checkForInternet(it) } == true) {
+            CoroutineScope(Dispatchers.Main).launch {
+                readDataFirestore()
+            }
+        } else
+            getTopUserFromDatabase()
+
         getMaterials()
+
         CoroutineScope(Dispatchers.IO).launch {
-            Data.TopDataList = (
+            TopDataList = (
                     localDb
                         .materialDao()
                         .getAll()
                     ).toMutableList()
         }
+
         return binding.root
     }
 
@@ -62,7 +75,7 @@ class HomePageFragment : Fragment() {
             } else
                 GeneralFunctions.check = true
             binding.progressBar3.visibility = View.VISIBLE
-            delay(5000)
+            // delay(5000)
             binding.progressBar3.visibility = View.GONE
             startAdapter()
         }
@@ -84,36 +97,83 @@ class HomePageFragment : Fragment() {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun readDataFirestore() {
+
+        if (context?.let { GeneralFunctions.checkForInternet(it) } == true) {
+            CoroutineScope(Dispatchers.IO).launch {
+                val list = topUserDatabase.topUserDao().getAll() as MutableList<TopUserData>
+                list.forEach {
+                    topUserDatabase.topUserDao().delete(it)
+                }
+            }
+        }
         val db = Firebase.firestore
         Firebase.auth.currentUser?.let {
             db.collection("users")
                 .get()
                 .addOnSuccessListener { result ->
-                    var allUserList11 = mutableListOf<UserModel>()
-                    allUserList = mutableListOf()
-                    for (document in result) {
-                        allUserList11 += (
-                                UserModel(
-                                    document.get("name").toString(),
-                                    document.get("score").toString(),
-                                    document.get("userURLtoImage").toString(),
+                    CoroutineScope(Dispatchers.IO).launch {
+                        var allUserList11 = mutableListOf<UserModel>()
+                        allUserList = mutableListOf()
+                        for (document in result) {
+                            allUserList11 += (
+                                    UserModel(
+                                        document.get("name").toString(),
+                                        document.get("score").toString(),
+                                        document.get("userURLtoImage").toString(),
+                                    )
+                                    )
+                            allUserList.sortByDescending { it.userScore.toInt() }
+                            if (topUserDatabase.topUserDao()
+                                    .isNotExists(document.get("email").toString())
+                            ) {
+                                topUserDatabase.topUserDao().insertAll(
+                                    TopUserData(
+                                        document.get("name").toString(),
+                                        document.get("score").toString(),
+                                        document.get("email").toString(),
+                                        document.get("userURLtoImage").toString()
+                                    )
                                 )
-                                )
-                        allUserList.sortByDescending { it.userScore.toInt() }
-                    }
-
-                    allUserList11.forEachIndexed { i, e ->
-                        if (i <= 9) {
-                            allUserList.add(e)
+                            }
                         }
+                        allUserList11.forEachIndexed { i, e ->
+                            if (i <= 9) {
+                                allUserList.add(e)
+                            }
+                        }
+                        allUserList11.sortByDescending { it.userScore.toInt() }
                     }
-                    allUserList11.sortByDescending { it.userScore.toInt() }
                 }
                 .addOnFailureListener { exception ->
                     Log.w("TAG", "Error getting documents.", exception)
                 }
         }
     }// readDataFirestore()*/
+
+    private fun getTopUserFromDatabase() {
+        var allUserList11 = mutableListOf<TopUserData>()
+        CoroutineScope(Dispatchers.IO).launch {
+            allUserList11 =
+                topUserDatabase.topUserDao().getAll() as MutableList<TopUserData>
+
+            allUserList = mutableListOf()
+            allUserList11.forEachIndexed { i, e ->
+                if (i <= 9) {
+                    allUserList.add(
+                        UserModel(
+                            e.userName.toString(),
+                            e.userScore.toString(),
+                            e.userImgUri.toString()
+                        )
+                    )
+                }
+            }
+            allUserList11.sortByDescending { it.userScore!!.toInt() }
+            allUserList.sortByDescending { it.userScore.toInt() }
+
+        }
+    }
+
 
     private fun getMaterials() {
         val db = Firebase.firestore
@@ -154,5 +214,5 @@ class HomePageFragment : Fragment() {
                     Log.w("TAG", "Error getting documents.", exception)
                 }
         }
-    }// getMaterials()*/
+    }// getMaterials()
 }
