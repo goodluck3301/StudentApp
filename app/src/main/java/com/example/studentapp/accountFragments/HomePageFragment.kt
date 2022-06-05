@@ -69,7 +69,7 @@ class HomePageFragment : Fragment() {
             if (!GeneralFunctions.check && context?.let { GeneralFunctions.checkForInternet(it) } == true) {
                 GeneralFunctions.check = true
                 binding.progressBar3.visibility = View.VISIBLE
-                delay(5000)
+                delay(6000)
                 binding.progressBar3.visibility = View.GONE
                 startAdapter()
             } else

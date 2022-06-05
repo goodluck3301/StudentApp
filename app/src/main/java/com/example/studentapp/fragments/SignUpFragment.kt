@@ -104,6 +104,9 @@ class SignUpFragment : Fragment() {
                                 binding.progressbarSignUP.visibility = View.GONE
                             }
                         }
+                        .addOnFailureListener {
+                            Toast.makeText(context, "Սխալ մուտքագրված տվյալներ :(", Toast.LENGTH_SHORT).show()
+                        }
                 } else {
                     binding.progressbarSignUP.visibility = View.GONE
                     Toast.makeText(

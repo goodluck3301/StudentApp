@@ -41,7 +41,6 @@ class QuizAnswerFragment : Fragment() {
     private lateinit var docId: String
     private var check = true
     private var checkSubmit = false
-    private var checkSubmit2 = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

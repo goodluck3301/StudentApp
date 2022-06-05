@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.studentapp.GeneralFunctions
 import com.example.studentapp.adapter.MaterialsAdapter
@@ -56,7 +57,6 @@ class Material : Fragment() {
 
         CoroutineScope(Dispatchers.Main).launch {
             binding.progressBar4.visibility = View.VISIBLE
-
             if (!GeneralFunctions.check1) {
                 binding.progressBar4.visibility = View.VISIBLE
                 GeneralFunctions.check1 = true
@@ -72,7 +72,8 @@ class Material : Fragment() {
     }
 
     private fun startAdapter() {
-        TopDataList.sortBy { it.id }
+        TopDataList.sortBy { it.materialid}
+        TopDataList.reverse()
         adapter = context?.let { MaterialsAdapter(it, TopDataList) }!!
         binding.materialRec.adapter = adapter
         binding.materialRec.layoutManager = LinearLayoutManager(context)

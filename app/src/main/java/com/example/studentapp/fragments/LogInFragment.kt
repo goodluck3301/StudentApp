@@ -63,7 +63,7 @@ class LogInFragment : Fragment() {
                         Toast.LENGTH_LONG
                     ).show()
 
-                CoroutineScope(Dispatchers.Main).launch {
+            //    CoroutineScope(Dispatchers.Main).launch {
                     if (internet && binding.emailLogin.text.isNotEmpty() && binding.passwdLogin.text.isNotEmpty()) {
                         firebaseAuth
                             .signInWithEmailAndPassword(
@@ -82,10 +82,13 @@ class LogInFragment : Fragment() {
                                     binding.progressLogin.visibility = View.GONE
                                 }
                             }
+                            .addOnFailureListener {
+                                Toast.makeText(context, "Սխալ էլ․ փոստ կամ գաղտնաբառ", Toast.LENGTH_SHORT).show()
+                            }
                         binding.progressLogin.visibility = View.GONE
 
                     }
-                }
+           //     }
             } catch (e: Exception) {
                 Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
             }
