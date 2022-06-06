@@ -16,6 +16,7 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.example.gavarstateuniversityapp.fragments.LogInFragment
 import com.example.studentapp.GeneralFunctions
 import com.example.studentapp.R
 import com.example.studentapp.databinding.FragmentAccountPageBinding
@@ -124,9 +125,13 @@ class AccountPageFragment : Fragment() {
             GeneralFunctions.check = false
             GeneralFunctions.check1 = false
             Firebase.auth.signOut()
-            findNavController().navigate(
-                GeneralFragmentDirections.actionGeneralFragmentToLogInFragment()
-            )
+
+//            findNavController().navigate(
+//                GeneralFragmentDirections.actionGeneralFragmentToLogInFragment()
+//            )
+            fragmentManager?.beginTransaction()?.apply {
+                replace(R.id.fragmentContainerView, LogInFragment()).commit()
+            }
         }
     }// onViewCreated()
 
