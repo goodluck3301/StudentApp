@@ -43,7 +43,7 @@ class GetStarted : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         localDb = context?.let { MaterialDatabase.getDatabase(it) }!!
-        questionsDb = context?.let { QuestionsDatabase.getDatabase(it)}!!
+        questionsDb = context?.let { QuestionsDatabase.getDatabase(it) }!!
 
         getQuestions()
         getMaterials()
@@ -92,7 +92,6 @@ class GetStarted : Fragment() {
                         .getAll()
                     ).toMutableList()
         }
-
         if (firebaseAuth.currentUser != null) {
             activityScope.launch {
                 getMaterials()
