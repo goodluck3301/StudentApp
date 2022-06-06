@@ -154,7 +154,7 @@ class QuizAnswerFragment : Fragment() {
                             commit()
                         }
                     } else {
-                        binding.btnSubmit.text = "Հոջորդը"
+                        binding.btnSubmit.text = "Հաջորդը"
                     }
                     mSelectedOptionPosition = 0
                 }
