@@ -20,6 +20,7 @@ import com.example.studentapp.GeneralFunctions
 import com.example.studentapp.GeneralFunctions.checkForInternet
 import com.example.studentapp.R
 import com.example.studentapp.databinding.FragmentSignUpBinding
+import com.example.studentapp.fragments.GeneralFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.ktx.firestore
@@ -46,11 +47,14 @@ class SignUpFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.toLoginPage.setOnClickListener {
-            findNavController()
-                .navigate(
-                    SignUpFragmentDirections
-                        .actionSignUpFragmentToLogInFragment()
-                )
+//            findNavController()
+//                .navigate(
+//                    SignUpFragmentDirections
+//                        .actionSignUpFragmentToLogInFragment()
+//                )
+            fragmentManager?.beginTransaction()?.apply {
+                replace(R.id.fragmentContainerView, LogInFragment()).commit()
+            }
         }
 
         binding.okS.setOnClickListener {
@@ -95,11 +99,14 @@ class SignUpFragment : Fragment() {
                                 )
                                 binding.progressbarSignUP.visibility = View.VISIBLE
                                 createNewUser()
-                                findNavController()
-                                    .navigate(
-                                        SignUpFragmentDirections
-                                            .actionSignUpFragmentToGeneralFragment()
-                                    )
+//                                findNavController()
+//                                    .navigate(
+//                                        SignUpFragmentDirections
+//                                            .actionSignUpFragmentToGeneralFragment()
+//                                    )
+                                fragmentManager?.beginTransaction()?.apply {
+                                    replace(R.id.fragmentContainerView, GeneralFragment()).commit()
+                                }
                             } else {
                                 binding.progressbarSignUP.visibility = View.GONE
                             }

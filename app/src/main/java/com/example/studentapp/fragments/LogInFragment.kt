@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.studentapp.GeneralFunctions
 import com.example.studentapp.R
 import com.example.studentapp.databinding.FragmentLogInBinding
+import com.example.studentapp.fragments.GeneralFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -42,11 +43,14 @@ class LogInFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.toSignUp.setOnClickListener {
-            findNavController()
-                .navigate(
-                    LogInFragmentDirections
-                        .actionLogInFragmentToSignUpFragment()
-                )
+//            findNavController()
+//                .navigate(
+//                    LogInFragmentDirections
+//                        .actionLogInFragmentToSignUpFragment()
+//                )
+            fragmentManager?.beginTransaction()?.apply {
+                replace(R.id.fragmentContainerView, SignUpFragment()).commit()
+            }
         }//toSignUp
 
         binding.okLogin.setOnClickListener {
@@ -72,12 +76,15 @@ class LogInFragment : Fragment() {
                             )
                             .addOnCompleteListener {
                                 if (it.isSuccessful) {
-                                    binding.progressLogin.visibility = View.VISIBLE
-                                    findNavController()
-                                        .navigate(
-                                            LogInFragmentDirections
-                                                .actionLogInFragmentToGeneralFragment()
-                                        )
+//                                    binding.progressLogin.visibility = View.VISIBLE
+//                                    findNavController()
+//                                        .navigate(
+//                                            LogInFragmentDirections
+//                                                .actionLogInFragmentToGeneralFragment()
+//                                        )
+                                    fragmentManager?.beginTransaction()?.apply {
+                                        replace(R.id.fragmentContainerView, GeneralFragment()).commit()
+                                    }
                                 } else {
                                     binding.progressLogin.visibility = View.GONE
                                 }

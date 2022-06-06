@@ -18,6 +18,7 @@ import com.example.studentapp.database.MaterialDatabase
 import com.example.studentapp.database.MaterialsData
 import com.example.studentapp.database.questionsdb.QuestionsData
 import com.example.studentapp.database.questionsdb.QuestionsDatabase
+import com.example.studentapp.fragments.GeneralFragment
 import com.example.studentapp.questions.Data
 import com.example.studentapp.questions.Data.TopDataList
 import com.google.firebase.auth.FirebaseAuth
@@ -96,21 +97,27 @@ class GetStarted : Fragment() {
             activityScope.launch {
                 getMaterials()
                 delay(5000)
-                findNavController()
-                    .navigate(
-                        GetStartedDirections
-                            .actionGetStartedToGeneralFragment()
-                    )
+//                findNavController()
+//                    .navigate(
+//                        GetStartedDirections
+//                            .actionGetStartedToGeneralFragment()
+//                    )
+                fragmentManager?.beginTransaction()?.apply {
+                    replace(R.id.fragmentContainerView, GeneralFragment()).commit()
+                }
             }
         } else {
             activityScope.launch {
                 getMaterials()
                 delay(5000)
-                findNavController()
-                    .navigate(
-                        GetStartedDirections
-                            .actionGetStartedToSignUpFragment()
-                    )
+//                findNavController()
+//                    .navigate(
+//                        GetStartedDirections
+//                            .actionGetStartedToSignUpFragment()
+//                    )
+                fragmentManager?.beginTransaction()?.apply {
+                    replace(R.id.fragmentContainerView, SignUpFragment()).commit()
+                }
             }
         }//else
     }//
