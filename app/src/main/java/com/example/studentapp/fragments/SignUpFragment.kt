@@ -47,11 +47,6 @@ class SignUpFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.toLoginPage.setOnClickListener {
-//            findNavController()
-//                .navigate(
-//                    SignUpFragmentDirections
-//                        .actionSignUpFragmentToLogInFragment()
-//                )
             fragmentManager?.beginTransaction()?.apply {
                 replace(R.id.fragmentContainerView, LogInFragment()).commit()
             }
@@ -99,11 +94,6 @@ class SignUpFragment : Fragment() {
                                 )
                                 binding.progressbarSignUP.visibility = View.VISIBLE
                                 createNewUser()
-//                                findNavController()
-//                                    .navigate(
-//                                        SignUpFragmentDirections
-//                                            .actionSignUpFragmentToGeneralFragment()
-//                                    )
                                 fragmentManager?.beginTransaction()?.apply {
                                     replace(R.id.fragmentContainerView, GeneralFragment()).commit()
                                 }
@@ -194,7 +184,6 @@ class SignUpFragment : Fragment() {
         return errorText
     }//fun password Validation
 
-
     private fun addDataRealDatabase(name: String, email: String) {
         val uid = firebaseAuth.uid
 
@@ -212,10 +201,7 @@ class SignUpFragment : Fragment() {
             .addOnFailureListener { e ->
                 Toast.makeText(context, e.message.toString(), Toast.LENGTH_SHORT).show()
             }
-
     }
-
-
 }//class fragment
 
 

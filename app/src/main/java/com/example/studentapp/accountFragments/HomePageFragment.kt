@@ -75,7 +75,6 @@ class HomePageFragment : Fragment() {
             } else
                 GeneralFunctions.check = true
             binding.progressBar3.visibility = View.VISIBLE
-            // delay(5000)
             binding.progressBar3.visibility = View.GONE
             startAdapter()
         }
@@ -172,7 +171,6 @@ class HomePageFragment : Fragment() {
             }
             allUserList11.sortByDescending { it.userScore!!.toInt() }
             allUserList.sortByDescending { it.userScore.toInt() }
-
         }
     }
 

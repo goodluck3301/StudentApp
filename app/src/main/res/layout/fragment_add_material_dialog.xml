@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="4dp"
+    tools:context=".dialogs.AddMaterialDialog">
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/add_material_imager_card"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:cardCornerRadius="20dp"
+        app:flow_horizontalAlign="center"
+        app:flow_verticalAlign="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/add_material_imager"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:src="@drawable/no_image"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.cardview.widget.CardView>
+
+    <EditText
+        android:id="@+id/add_material_title"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/ed_text_design"
+        android:hint="@string/title_text"
+        android:maxLength="100"
+        android:paddingStart="2dp"
+        android:paddingEnd="2dp"
+        android:textAlignment="center"
+        android:textColor="#262626"
+        android:textColorHint="#AFADAD"
+        app:layout_constraintEnd_toEndOf="@+id/add_material_imager_card"
+        app:layout_constraintStart_toStartOf="@+id/add_material_imager_card"
+        app:layout_constraintTop_toBottomOf="@+id/add_material_imager_card"
+        tools:ignore="Autofill,TextFields,TextContrastCheck" />
+
+    <EditText
+        android:id="@+id/add_material_desc"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/ed_text_design"
+        android:hint="@string/desc_text"
+        android:paddingStart="8dp"
+        android:paddingEnd="16dp"
+        android:textAlignment="center"
+        android:textColor="#262626"
+        android:textColorHint="#AFADAD"
+        app:layout_constraintEnd_toEndOf="@+id/add_material_title"
+        app:layout_constraintStart_toStartOf="@+id/add_material_title"
+        app:layout_constraintTop_toBottomOf="@+id/add_material_title"
+        tools:ignore="Autofill,TextFields,TextContrastCheck" />
+
+
+    <EditText
+        android:id="@+id/add_material_url"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="8dp"
+        android:background="@drawable/ed_text_design"
+        android:hint="@string/material_url"
+        android:paddingStart="8dp"
+        android:paddingEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:textAlignment="center"
+        android:textColor="#262626"
+        android:textColorHint="#AFADAD"
+        app:layout_constraintEnd_toEndOf="@+id/add_material_desc"
+        app:layout_constraintStart_toStartOf="@+id/add_material_desc"
+        app:layout_constraintTop_toBottomOf="@+id/add_material_desc" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/sendDdata"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn2_style"
+        android:text="@string/verifi_material"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="@+id/add_material_desc"
+        app:layout_constraintStart_toEndOf="@+id/cancleDdata"
+        app:layout_constraintTop_toTopOf="@+id/cancleDdata" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/cancleDdata"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="6dp"
+        android:padding="12dp"
+        android:background="@drawable/btn2_style"
+        android:text="@string/cancle_material"
+        android:layout_marginTop="16dp"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/add_material_desc"
+        app:layout_constraintEnd_toStartOf="@+id/sendDdata"
+        app:layout_constraintStart_toStartOf="@+id/add_material_desc"
+        app:layout_constraintTop_toBottomOf="@+id/add_material_url" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

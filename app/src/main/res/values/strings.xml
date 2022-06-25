@@ -44,4 +44,12 @@
     <string name="close">X</string>
     <string name="e_mail_am">Էլ․ փոստ</string>
     <string name="quiz_answer_text">Թեստային Հարց</string>
+    <string name="pluse">+</string>
+    <string name="add">add</string>
+    <string name="title_text">Վերնագիր</string>
+    <string name="desc_text">Նկարագրություն</string>
+    <string name="cancle_material">Չեղարկել</string>
+    <string name="verifi_material">Հաստատել</string>
+    <string name="material_url">Նյութի աղբյուր</string>
+
 </resources>

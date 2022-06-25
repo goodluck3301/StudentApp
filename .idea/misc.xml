@@ -10,6 +10,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable-v24/item_top_user_design.xml" value="0.2565" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable-v24/shape_rect01.xml" value="0.1135" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable-v24/shape_toolbar02.xml" value="0.1135" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/add_material_dialog.xml" value="0.21" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/btn2_style.xml" value="0.25" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/btn_style.xml" value="0.25" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/correct_option_border_bg.xml" value="0.1425" />
@@ -23,6 +24,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.2675" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/ic_baseline_library_books_24.xml" value="0.28" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/ic_baseline_lock_24.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/ic_baseline_more_vert_24.xml" value="0.2765" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.3015" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/ic_baseline_remove_red_eye_24.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/ic_baseline_visibility_24.xml" value="0.247" />
@@ -33,6 +35,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/ic_mail_focused.xml" value="0.3015" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/ic_name_focused.xml" value="0.3015" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/ic_person_focused_24.xml" value="0.3015" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/ic_plus_24.xml" value="0.21" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/line.xml" value="0.2565" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/media_item_bg.xml" value="0.2565" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/menu_gradient_bg.xml" value="0.25" />
@@ -40,9 +43,11 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/drawable/wrong_option_border_bg.xml" value="0.1425" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout-v26/fragment_general.xml" value="0.24427083333333333" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/add_material_dialog.xml" value="0.3625" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/dialog_about.xml" value="0.3625" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/edit_profil_dialog.xml" value="0.33" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/fragment_account_page.xml" value="0.3681506849315068" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/fragment_add_material_dialog.xml" value="0.3625" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/fragment_books.xml" value="0.24427083333333333" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/fragment_general.xml" value="0.25" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/fragment_get_started.xml" value="0.33" />
@@ -57,6 +62,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/material_item.xml" value="0.33" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/score_view.xml" value="0.3625" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/top_user_item.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/menu/change_menu.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/menu/nav_menu.xml" value="0.4375" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2675" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1935" />

@@ -12,19 +12,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.URLUtil
 import android.widget.*
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.gavarstateuniversityapp.fragments.LogInFragment
 import com.example.studentapp.GeneralFunctions
 import com.example.studentapp.R
 import com.example.studentapp.databinding.FragmentAccountPageBinding
-import com.example.studentapp.fragments.GeneralFragment
-import com.example.studentapp.fragments.GeneralFragmentDirections
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -33,8 +30,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.*
-
 
 @DelicateCoroutinesApi
 class AccountPageFragment : Fragment() {
@@ -45,22 +40,19 @@ class AccountPageFragment : Fragment() {
     private var selectPhotoUri: Uri? = null
     private lateinit var changeDialog: View
     private lateinit var aboutDialog: View
-    private lateinit var imgUri: String
-
-    val mStaorageRef = FirebaseStorage.getInstance().reference
-
+    private val mStorageRef = FirebaseStorage.getInstance().reference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         firebaseAuth = FirebaseAuth.getInstance()
         readDataFirestore()
         getAllMaterialsCount()
         binding = FragmentAccountPageBinding.inflate(inflater)
-        return binding.root
-    }//
 
+        return binding.root
+    }
 
     @SuppressLint("InflateParams")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -92,7 +84,6 @@ class AccountPageFragment : Fragment() {
 
                 if (checkImage) {
                     binding.updateProgressBar.visibility = View.VISIBLE
-                  //  uploadImageToFirebaseStorage()
                     readDataFirestore()
                     selectPhotoUri?.let { it1 -> getPhotoUrl(it1) }
                     mAlertDialog.dismiss()
@@ -114,7 +105,6 @@ class AccountPageFragment : Fragment() {
                 LayoutInflater
                     .from(context)
                     .inflate(R.layout.dialog_about, null)
-
             AlertDialog.Builder(context)
                 .setView(aboutDialog)
                 .setTitle("Ծրագրի մասին")
@@ -125,34 +115,14 @@ class AccountPageFragment : Fragment() {
             GeneralFunctions.check = false
             GeneralFunctions.check1 = false
             Firebase.auth.signOut()
-
-//            findNavController().navigate(
-//                GeneralFragmentDirections.actionGeneralFragmentToLogInFragment()
-//            )
             fragmentManager?.beginTransaction()?.apply {
                 replace(R.id.fragmentContainerView, LogInFragment()).commit()
             }
         }
     }// onViewCreated()
 
-
-    private fun uploadImageToFirebaseStorage() {
-        if (selectPhotoUri == null) return
-
-        val ref = FirebaseStorage
-            .getInstance()
-            .getReference("/images/${UUID.randomUUID()}.png")
-
-        ref.putFile(selectPhotoUri!!)
-            .addOnSuccessListener {
-                imgUri = it.uploadSessionUri.toString()
-                val hashMap = hashMapOf<String, Any>()
-                hashMap["userURLtoImage"] = imgUri
-                updateUserInfo(hashMap)
-            }
-    }
-
     private var checkImage = false
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -167,7 +137,6 @@ class AccountPageFragment : Fragment() {
         }
     }
 
-
     private fun updateUserInfo(newUserData: Map<String, Any>) =
         CoroutineScope(Dispatchers.IO).launch {
             val db = Firebase.firestore
@@ -175,7 +144,6 @@ class AccountPageFragment : Fragment() {
                 .document(docId)
                 .set(newUserData, SetOptions.merge())
         }
-
 
     private fun readDataFirestore() {
         val db = Firebase.firestore
@@ -185,8 +153,10 @@ class AccountPageFragment : Fragment() {
                 .addOnSuccessListener { result ->
                     for (document in result) {
                         if ((document.get("idUser")
-                                .toString()) == (FirebaseAuth.getInstance().uid).toString()
-                        ) {
+                                .toString()) == (FirebaseAuth
+                                .getInstance()
+                                .uid).toString()
+                        ){
                             binding.profileName.text = document.get("name").toString()
                             binding.scoreProfile.text = document.get("score").toString()
                             binding.emailProfil.text = document.get("email").toString()
@@ -224,10 +194,10 @@ class AccountPageFragment : Fragment() {
         }
     }
 
-    fun getPhotoUrl(upLoadUri:Uri) {
+    private fun getPhotoUrl(upLoadUri:Uri) {
         val imageFileName = "users/profilPic${System.currentTimeMillis()}.png"
-        val upLoadTask = mStaorageRef.child(imageFileName)
-        upLoadTask.putFile(upLoadUri).addOnCompleteListener { Task1 ->
+        val upLoadTask = mStorageRef.child(imageFileName)
+        upLoadTask.putFile(upLoadUri).addOnCompleteListener { Task1  ->
             if (Task1.isSuccessful) {
                 upLoadTask.downloadUrl.addOnCompleteListener { Task2 ->
                     if (Task2.isSuccessful) {
@@ -241,7 +211,4 @@ class AccountPageFragment : Fragment() {
             }
         }
     }
-
-
-
-}//class
+}//

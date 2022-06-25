@@ -3,18 +3,20 @@ package com.example.studentapp.accountFragments
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.URLUtil
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.studentapp.GeneralFunctions
 import com.example.studentapp.adapter.MaterialsAdapter
 import com.example.studentapp.database.MaterialDatabase
 import com.example.studentapp.database.MaterialsData
 import com.example.studentapp.databinding.FragmentBooksBinding
+import com.example.studentapp.dialogs.AddMaterialDialog
 import com.example.studentapp.questions.Data.TopDataList
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -27,7 +29,6 @@ class Material : Fragment() {
     private lateinit var adapter: MaterialsAdapter
     private lateinit var localDb: MaterialDatabase
 
-    @OptIn(DelicateCoroutinesApi::class)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,13 +48,11 @@ class Material : Fragment() {
                 adapter.getFilter().filter(query)
                 return true
             }
-
             override fun onQueryTextChange(newText: String?): Boolean {
-                adapter.getFilter().filter(newText);
+                adapter.getFilter().filter(newText)
                 return true
             }
         })
-
 
         CoroutineScope(Dispatchers.Main).launch {
             binding.progressBar4.visibility = View.VISIBLE
@@ -69,7 +68,14 @@ class Material : Fragment() {
                 adapter.notifyDataSetChanged()
             }
         }
-    }
+
+        binding.addButtom.setOnClickListener {
+            val dialog = AddMaterialDialog()
+            dialog.show(parentFragmentManager,"tag")
+            getMaterials()
+            adapter.notifyDataSetChanged()
+        }
+    }//
 
     private fun startAdapter() {
         TopDataList.sortBy { it.materialid}
