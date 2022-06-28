@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "6b169966723706d3ab5322ce2ebccfe3",
+    "identityHash": "af3bd432d6d636aa1a9ecc3363e2e4e7",
     "entities": [
       {
         "tableName": "topUser",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`userName` TEXT, `userScore` TEXT, `email` TEXT, `userImgUri` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`userName` TEXT, `userScore` TEXT, `email` TEXT, `userImgUri` TEXT, `idUser` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)",
         "fields": [
           {
             "fieldPath": "userName",
@@ -33,6 +33,12 @@
             "notNull": false
           },
           {
+            "fieldPath": "idUser",
+            "columnName": "idUser",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
             "fieldPath": "id",
             "columnName": "id",
             "affinity": "INTEGER",
@@ -52,7 +58,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6b169966723706d3ab5322ce2ebccfe3')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'af3bd432d6d636aa1a9ecc3363e2e4e7')"
     ]
   }
 }

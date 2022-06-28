@@ -49,7 +49,6 @@ class QuizAnswerFragment : Fragment() {
         CoroutineScope(Dispatchers.IO).launch {
             readDataFirestore()
         }
-
         qListFromDatabase.shuffle()
         qListFromDatabase.forEachIndexed { i, e ->
             if (i <= 9)
@@ -168,6 +167,16 @@ class QuizAnswerFragment : Fragment() {
     private fun setQuestion() {
         try {
             val question = list[mCurrentPosition - 1]
+
+            if (question.optionThree == null) {
+                binding.tvOptionThree.visibility = View.GONE
+            }else
+                binding.tvOptionThree.visibility = View.VISIBLE
+            if (question.optionFour == null) {
+                binding.tvOptionFour.visibility = View.GONE
+            }else
+                binding.tvOptionFour.visibility = View.VISIBLE
+
             defaultOptionsView()
             if (mCurrentPosition == list.size) {
                 binding.btnSubmit.text = "Ավարտել"
@@ -183,6 +192,7 @@ class QuizAnswerFragment : Fragment() {
             binding.tvOptionTwo.text = question.optionTwo
             binding.tvOptionThree.text = question.optionThree
             binding.tvOptionFour.text = question.optionFour
+
         } catch (e: Exception) { }
     }
 

@@ -22,11 +22,11 @@ import com.example.studentapp.R
 import com.example.studentapp.databinding.FragmentSignUpBinding
 import com.example.studentapp.fragments.GeneralFragment
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.actionCodeSettings
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.regex.Pattern
-
 
 class SignUpFragment : Fragment() {
 
@@ -95,8 +95,9 @@ class SignUpFragment : Fragment() {
                                 binding.progressbarSignUP.visibility = View.VISIBLE
                                 createNewUser()
                                 fragmentManager?.beginTransaction()?.apply {
-                                    replace(R.id.fragmentContainerView, GeneralFragment()).commit()
+                                    replace(R.id.fragmentContainerView, LogInFragment()).commit()
                                 }
+                                isEmailSent()
                             } else {
                                 binding.progressbarSignUP.visibility = View.GONE
                             }
@@ -202,6 +203,14 @@ class SignUpFragment : Fragment() {
                 Toast.makeText(context, e.message.toString(), Toast.LENGTH_SHORT).show()
             }
     }
+
+    private fun isEmailSent(): Boolean {
+    var emailSent = false
+    firebaseAuth.currentUser?.sendEmailVerification()?.addOnCompleteListener {
+        emailSent = it.isSuccessful
+    }
+    return emailSent
+}
 }//class fragment
 
 

@@ -34,8 +34,8 @@ class Material : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentBooksBinding.inflate(inflater)
-        getMaterials()
         localDb = context?.let { MaterialDatabase.getDatabase(it) }!!
+        // getMaterials()
         return binding.root
     }
 
@@ -110,7 +110,8 @@ class Material : Fragment() {
                                         document.get("materialURL").toString(),
                                         document.get("materialTitle").toString(),
                                         document.get("materialDesc").toString(),
-                                        document.get("id").toString().toInt()
+                                        document.get("id").toString().toInt(),
+                                        document.get("idUser").toString(),
                                     )
                                 )
                             }

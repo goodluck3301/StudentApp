@@ -1,5 +1,6 @@
 package com.example.studentapp.dialogs
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ContentValues
 import android.content.Intent
@@ -12,18 +13,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import com.example.studentapp.adapter.MaterialsAdapter
+import com.example.studentapp.database.MaterialsData
 import com.example.studentapp.databinding.FragmentAddMaterialDialogBinding
+import com.example.studentapp.questions.Data
+import com.example.studentapp.questions.Data.TopDataList
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class AddMaterialDialog : DialogFragment() {
 
     private lateinit var binding: FragmentAddMaterialDialogBinding
     private var selectPhotoUri: Uri? = null
-    private var idMaterial = 0
     private lateinit var firebaseAuth: FirebaseAuth
     private val mStorageRef = FirebaseStorage.getInstance().reference
 
@@ -36,7 +44,9 @@ class AddMaterialDialog : DialogFragment() {
         firebaseAuth = FirebaseAuth.getInstance()
         return binding.root
     }
+
     private var checkImage = false
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -67,9 +77,6 @@ class AddMaterialDialog : DialogFragment() {
             checkImage = true
         }
     }
-////////////////////////////////////////
-//    URLUtil.isValidUrl("aaaa")
-///////////////////////////////////////
 
     private fun addMaterials(upLoadUri:Uri) {
         val db = Firebase.firestore
@@ -83,7 +90,7 @@ class AddMaterialDialog : DialogFragment() {
                 }
                 list.sort()
             }
-        var photoUrl = ""
+        var photoUrl:String
         val imageFileName = "materialsImage/material${System.currentTimeMillis()}.png"
         val upLoadTask = mStorageRef.child(imageFileName)
         upLoadTask.putFile(upLoadUri).addOnCompleteListener { Task1 ->
@@ -91,16 +98,15 @@ class AddMaterialDialog : DialogFragment() {
                 upLoadTask.downloadUrl.addOnCompleteListener { Task2 ->
                     if (Task2.isSuccessful) {
                         photoUrl = Task2.result.toString()
-//
-                        val material = hashMapOf(
-                            "materialTitle" to binding.addMaterialTitle.text.toString(),
-                            "materialDesc"  to binding.addMaterialDesc.text.toString(),
-                            "materialURL"   to binding.addMaterialUrl.text.toString(),
-                            "materialImgURI" to photoUrl,
-                            "id" to list.last()+1,
-                            "idUser" to firebaseAuth.uid.toString(),
-                        )
 
+                        val material = hashMapOf(
+                            "materialTitle"  to binding.addMaterialTitle.text.toString(),
+                            "materialDesc"   to binding.addMaterialDesc.text.toString(),
+                            "materialURL"    to binding.addMaterialUrl.text.toString(),
+                            "materialImgURI" to photoUrl,
+                            "id"             to list.last()+1,
+                            "idUser"         to firebaseAuth.uid.toString(),
+                        )
                         db.collection("materials")
                             .add(material)
                             .addOnSuccessListener { Log.d(ContentValues.TAG, "Successes") }
@@ -120,5 +126,4 @@ class AddMaterialDialog : DialogFragment() {
 
         return true
     }
-
 }//class

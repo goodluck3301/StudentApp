@@ -96,7 +96,6 @@ class HomePageFragment : Fragment() {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun readDataFirestore() {
-
         if (context?.let { GeneralFunctions.checkForInternet(it) } == true) {
             CoroutineScope(Dispatchers.IO).launch {
                 val list = topUserDatabase.topUserDao().getAll() as MutableList<TopUserData>
@@ -130,7 +129,8 @@ class HomePageFragment : Fragment() {
                                         document.get("name").toString(),
                                         document.get("score").toString(),
                                         document.get("email").toString(),
-                                        document.get("userURLtoImage").toString()
+                                        document.get("userURLtoImage").toString(),
+                                        document.get("idUser").toString(),
                                     )
                                 )
                             }
@@ -190,7 +190,8 @@ class HomePageFragment : Fragment() {
                                     document.get("materialURL").toString(),
                                     document.get("materialTitle").toString(),
                                     document.get("materialDesc").toString(),
-                                    document.get("id").toString().toInt()
+                                    document.get("id").toString().toInt(),
+                                    document.get("idUser").toString(),
                                 )
                             )
                             if ((localDb.materialDao()
@@ -202,7 +203,8 @@ class HomePageFragment : Fragment() {
                                         document.get("materialURL").toString(),
                                         document.get("materialTitle").toString(),
                                         document.get("materialDesc").toString(),
-                                        document.get("id").toString().toInt()
+                                        document.get("id").toString().toInt(),
+                                        document.get("idUser").toString(),
                                     )
                                 )
                             }

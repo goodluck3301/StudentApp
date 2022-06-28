@@ -140,7 +140,8 @@ class GetStarted : Fragment() {
                                         document.get("materialURL").toString(),
                                         document.get("materialTitle").toString(),
                                         document.get("materialDesc").toString(),
-                                        document.get("id").toString().toInt()
+                                        document.get("id").toString().toInt(),
+                                        document.get("idUser").toString(),
                                     )
                                 )
                             }

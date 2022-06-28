@@ -43,11 +43,6 @@ class LogInFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.toSignUp.setOnClickListener {
-//            findNavController()
-//                .navigate(
-//                    LogInFragmentDirections
-//                        .actionLogInFragmentToSignUpFragment()
-//                )
             fragmentManager?.beginTransaction()?.apply {
                 replace(R.id.fragmentContainerView, SignUpFragment()).commit()
             }
@@ -67,8 +62,9 @@ class LogInFragment : Fragment() {
                         Toast.LENGTH_LONG
                     ).show()
 
-            //    CoroutineScope(Dispatchers.Main).launch {
-                    if (internet && binding.emailLogin.text.isNotEmpty() && binding.passwdLogin.text.isNotEmpty()) {
+                if (internet && binding.emailLogin.text.isNotEmpty() && binding.passwdLogin.text.isNotEmpty()) {
+                    //////
+                    if (isRegistred()) {
                         firebaseAuth
                             .signInWithEmailAndPassword(
                                 binding.emailLogin.text.toString(),
@@ -76,28 +72,40 @@ class LogInFragment : Fragment() {
                             )
                             .addOnCompleteListener {
                                 if (it.isSuccessful) {
-//                                    binding.progressLogin.visibility = View.VISIBLE
-//                                    findNavController()
-//                                        .navigate(
-//                                            LogInFragmentDirections
-//                                                .actionLogInFragmentToGeneralFragment()
-//                                        )
                                     fragmentManager?.beginTransaction()?.apply {
-                                        replace(R.id.fragmentContainerView, GeneralFragment()).commit()
+                                        replace(
+                                            R.id.fragmentContainerView,
+                                            GeneralFragment()
+                                        ).commit()
                                     }
                                 } else {
                                     binding.progressLogin.visibility = View.GONE
                                 }
                             }
                             .addOnFailureListener {
-                                Toast.makeText(context, "Սխալ էլ․ փոստ կամ գաղտնաբառ", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(
+                                    context,
+                                    "Սխալ էլ․ փոստ կամ գաղտնաբառ",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                         binding.progressLogin.visibility = View.GONE
-
-                    }
-           //     }
+                    } else
+                        Toast
+                            .makeText(
+                                context,
+                                "Account is not verified",
+                                Toast.LENGTH_LONG
+                            )
+                            .show()
+                }
             } catch (e: Exception) {
-                Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+                Toast
+                    .makeText(
+                        context,
+                        "Error",
+                        Toast.LENGTH_SHORT
+                    ).show()
             }
         }// btn Ok
 
@@ -120,6 +128,10 @@ class LogInFragment : Fragment() {
             binding.emailLogin.error = "Text area is Empty."
         if (binding.passwdLogin.text.isEmpty())
             binding.passwdLogin.error = "Text area is Empty."
+    }
+
+    fun isRegistred(): Boolean {
+        return firebaseAuth.currentUser != null
     }
 }
 
