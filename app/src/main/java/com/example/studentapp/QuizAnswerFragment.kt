@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.graphics.Color
 import android.graphics.Typeface
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -46,6 +47,7 @@ class QuizAnswerFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         CoroutineScope(Dispatchers.IO).launch {
             readDataFirestore()
         }
@@ -63,6 +65,8 @@ class QuizAnswerFragment : Fragment() {
     @SuppressLint("SetTextI18n", "InflateParams")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val correctSound = MediaPlayer.create(context,R.raw.correct)
+        val wrongSound  = MediaPlayer.create(context,R.raw.wrong)
 
         setQuestion()
 
@@ -140,7 +144,9 @@ class QuizAnswerFragment : Fragment() {
                     val question = list[mCurrentPosition - 1]
                     if (question.correctOption != mSelectedOptionPosition) {
                         answerView(mSelectedOptionPosition, R.drawable.wrong_option_border_bg)
+                        wrongSound.start()
                     } else {
+                        correctSound.start()
                         score++
                     }
                     answerView(question.correctOption, R.drawable.correct_option_border_bg)
@@ -222,7 +228,8 @@ class QuizAnswerFragment : Fragment() {
             option.setTextColor(Color.parseColor("#7A8089"))
             option.typeface = Typeface.DEFAULT
             option.background =
-                context?.let { ContextCompat.getDrawable(it, R.drawable.default_option_border_bg) }
+                context?.let { ContextCompat.getDrawable(it, R.drawable.ed_text_design) }
+              //  context?.let { ContextCompat.getDrawable(it, R.drawable.default_option_border_bg) }
         }
     }
 

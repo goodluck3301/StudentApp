@@ -38,7 +38,6 @@ class GetStarted : Fragment() {
     private lateinit var localDb: MaterialDatabase
     private lateinit var questionsDb: QuestionsDatabase
 
-    @NonNull
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,7 +51,6 @@ class GetStarted : Fragment() {
         return inflater.inflate(R.layout.fragment_get_started, container, false)
     }
 
-    @NonNull
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         firebaseAuth = FirebaseAuth.getInstance()
@@ -76,10 +74,9 @@ class GetStarted : Fragment() {
 
         welcome1.start()
         imageAn.start()
-
     }//onViewCreated()
 
-    @NonNull
+
     override fun onResume() {
         super.onResume()
 
@@ -97,11 +94,6 @@ class GetStarted : Fragment() {
             activityScope.launch {
                 getMaterials()
                 delay(5000)
-//                findNavController()
-//                    .navigate(
-//                        GetStartedDirections
-//                            .actionGetStartedToGeneralFragment()
-//                    )
                 fragmentManager?.beginTransaction()?.apply {
                     replace(R.id.fragmentContainerView, GeneralFragment()).commit()
                 }
@@ -110,11 +102,6 @@ class GetStarted : Fragment() {
             activityScope.launch {
                 getMaterials()
                 delay(5000)
-//                findNavController()
-//                    .navigate(
-//                        GetStartedDirections
-//                            .actionGetStartedToSignUpFragment()
-//                    )
                 fragmentManager?.beginTransaction()?.apply {
                     replace(R.id.fragmentContainerView, SignUpFragment()).commit()
                 }
@@ -122,7 +109,7 @@ class GetStarted : Fragment() {
         }//else
     }//
 
-    @NonNull
+
     private fun getMaterials() {
         val db = Firebase.firestore
         Firebase.auth.currentUser?.let {
@@ -154,7 +141,7 @@ class GetStarted : Fragment() {
         }
     }// getMaterials()*/
 
-    @NonNull
+
     private fun getQuestions() {
         val db = Firebase.firestore
         Firebase.auth.currentUser?.let {
@@ -186,7 +173,5 @@ class GetStarted : Fragment() {
                 }
         }
     }
-
-
 }
 

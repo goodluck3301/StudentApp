@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D6CBF4"
+    android:background="#e1bee7"
     tools:context=".accountFragments.AccountPageFragment">
 
     <View
@@ -61,7 +61,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="@string/full_name"
+        android:text="..."
+        android:textColor="#7b1fa2"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/cardView2"
@@ -72,7 +73,8 @@
         android:id="@+id/emailProfil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/examplemail_mail_ru"
+        android:text="..."
+        android:textColor="#ce93d8"
         app:layout_constraintEnd_toEndOf="@+id/cardView2"
         app:layout_constraintStart_toStartOf="@+id/cardView2"
         app:layout_constraintTop_toBottomOf="@+id/profileName" />
@@ -89,7 +91,7 @@
         android:id="@+id/allScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#1F478F"
+        android:textColor="#6a1b9a"
         android:text="@string/all_score"
         android:textStyle="bold" />
 
@@ -97,7 +99,7 @@
         android:id="@+id/postCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#1F478F"
+        android:textColor="#6a1b9a"
         android:text="@string/post_count"
         android:textStyle="bold"
         tools:ignore="MissingConstraints" />
@@ -106,7 +108,7 @@
         android:id="@+id/scoreProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorAccent"
+        android:textColor="#4a148c"
         android:text="@string/zero"
         app:layout_constraintEnd_toEndOf="@+id/allScore"
         app:layout_constraintStart_toStartOf="@+id/allScore"
@@ -117,7 +119,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/zero"
-        android:textColor="@color/colorAccent"
+        android:textColor="#4a148c
+"
         app:layout_constraintEnd_toEndOf="@+id/postCount"
         app:layout_constraintStart_toStartOf="@+id/postCount"
         app:layout_constraintTop_toBottomOf="@+id/postCount" />
@@ -139,7 +142,7 @@
         android:layout_height="wrap_content"
         android:text="@string/about_program"
         android:textStyle="bold"
-        android:textColor="#9064DF"
+        android:textColor="#6a1b9a"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/view2"
         app:layout_constraintHorizontal_bias="0.62"
@@ -153,7 +156,7 @@
         android:layout_height="wrap_content"
         android:text="@string/log_out"
         android:textStyle="bold"
-        android:textColor="#9064DF"
+        android:textColor="#6a1b9a"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/view2"
         app:layout_constraintHorizontal_bias="0.7"

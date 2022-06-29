@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="4dp"
+    android:background="#f3e5f5"
     tools:context=".dialogs.AddMaterialDialog">
 
 
@@ -14,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         app:cardCornerRadius="20dp"
+        android:layout_margin="4dp"
         app:flow_horizontalAlign="center"
         app:flow_verticalAlign="center"
         app:layout_constraintEnd_toEndOf="parent"

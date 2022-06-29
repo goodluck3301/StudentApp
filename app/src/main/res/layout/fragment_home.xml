@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_bg_color"
+    android:background="#e1bee7"
     tools:context=".fragments.HomeFragment">
 
 
@@ -13,6 +13,7 @@
         android:id="@+id/topUserRecycleView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        tools:listitem="@layout/top_user_item"
         />
 
     <ProgressBar

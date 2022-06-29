@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/gradient_bg_color"
+    android:background="#e1bee7"
     android:layout_height="match_parent"
     tools:context=".accountFragments.Material">
 
@@ -14,7 +14,7 @@
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#C6FCFDFF"
+        android:background="#ce93d8"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView

@@ -23,9 +23,10 @@
         android:id="@+id/menuLine"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        app:itemTextColor="@color/black"
+        style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
+        app:itemTextColor="@color/white"
         app:itemIconSize="30dp"
-        android:background="@drawable/menu_gradient_bg"
+        android:background="#7200ca"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/nav_menu"
         />

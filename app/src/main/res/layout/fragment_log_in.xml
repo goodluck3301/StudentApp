@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.LogInFragment"
-    android:background="@drawable/gradient_bg_color"
+    android:background="#e1bee7"
     android:paddingHorizontal="16dp"
     >
 
@@ -26,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/goSignUpPage"
-        android:textColor="#6DA3B8"
+        android:textColor="#7b1fa2"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/emailLogin"
         app:layout_constraintEnd_toEndOf="parent"
@@ -118,7 +118,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/noHaveAcc"
-            android:textColor="#685BFB"
+            android:textColor="#6a1b9a"
             app:layout_constraintEnd_toEndOf="@+id/repeatPaswdS"
             app:layout_constraintStart_toStartOf="@+id/repeatPaswdS"
             app:layout_constraintTop_toBottomOf="@+id/repeatPaswdS" />
@@ -128,7 +128,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/creatNewAccLogin"
-            android:textColor="#6B69E2"
+            android:textColor="#6a1b9a"
             android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="@+id/repeatPaswdS"
             app:layout_constraintStart_toStartOf="@+id/repeatPaswdS"
@@ -145,11 +145,14 @@
         android:paddingHorizontal="8dp"
         android:text="@string/ok"
         android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/passwdLogin"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="@+id/passwdLogin"
         app:layout_constraintTop_toBottomOf="@+id/linearLogin"
-        app:layout_constraintVertical_bias="0.26999998" />
+        app:layout_constraintVertical_bias="0.3" />
 
     <ProgressBar
         android:id="@+id/progressLogin"

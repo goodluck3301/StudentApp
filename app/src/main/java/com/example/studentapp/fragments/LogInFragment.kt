@@ -8,17 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.navigation.fragment.findNavController
 import com.example.studentapp.GeneralFunctions
 import com.example.studentapp.R
 import com.example.studentapp.databinding.FragmentLogInBinding
 import com.example.studentapp.fragments.GeneralFragment
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+
 
 class LogInFragment : Fragment() {
 
@@ -64,7 +59,7 @@ class LogInFragment : Fragment() {
 
                 if (internet && binding.emailLogin.text.isNotEmpty() && binding.passwdLogin.text.isNotEmpty()) {
                     //////
-                    if (isRegistred()) {
+                    if (true) {
                         firebaseAuth
                             .signInWithEmailAndPassword(
                                 binding.emailLogin.text.toString(),
@@ -120,8 +115,8 @@ class LogInFragment : Fragment() {
                 binding.passwdLogin.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
                 binding.showLogin.setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_visibility_24))
             }
-        }//show/hide password
-    } //onViewCreated
+        }//
+    } //
 
     private fun textIsNotEmpty(email: EditText, pass: EditText) {
         if (binding.emailLogin.text.isEmpty())

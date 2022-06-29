@@ -12,20 +12,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.example.studentapp.adapter.MaterialsAdapter
 import com.example.studentapp.database.MaterialsData
 import com.example.studentapp.databinding.FragmentAddMaterialDialogBinding
-import com.example.studentapp.questions.Data
 import com.example.studentapp.questions.Data.TopDataList
+import com.example.studentapp.questions.Data.contextFragment
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 
 class AddMaterialDialog : DialogFragment() {
@@ -34,7 +31,7 @@ class AddMaterialDialog : DialogFragment() {
     private var selectPhotoUri: Uri? = null
     private lateinit var firebaseAuth: FirebaseAuth
     private val mStorageRef = FirebaseStorage.getInstance().reference
-
+    lateinit var adapter:MaterialsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,21 +43,28 @@ class AddMaterialDialog : DialogFragment() {
     }
 
     private var checkImage = false
+
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.addMaterialImager.setOnClickListener{
+        binding.addMaterialImager.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
             startActivityForResult(intent, 0)
         }
         binding.cancleDdata.setOnClickListener { dialog?.dismiss() }
         binding.sendDdata.setOnClickListener {
-            if(addMaterialValidation()){
+            if (addMaterialValidation()) {
                 sendData()
                 dialog?.dismiss()
-            }
+            } else
+                Toast
+                    .makeText(
+                        context,
+                        "Լրացրեք բաց թողնված հատվածը :(",
+                        Toast.LENGTH_SHORT)
+                    .show()
         }
     }
 
@@ -78,7 +82,8 @@ class AddMaterialDialog : DialogFragment() {
         }
     }
 
-    private fun addMaterials(upLoadUri:Uri) {
+    @SuppressLint("NotifyDataSetChanged")
+    private fun addMaterials(upLoadUri: Uri) {
         val db = Firebase.firestore
         var list = mutableListOf<Int>()
         db.collection("materials")
@@ -90,7 +95,7 @@ class AddMaterialDialog : DialogFragment() {
                 }
                 list.sort()
             }
-        var photoUrl:String
+        var photoUrl: String
         val imageFileName = "materialsImage/material${System.currentTimeMillis()}.png"
         val upLoadTask = mStorageRef.child(imageFileName)
         upLoadTask.putFile(upLoadUri).addOnCompleteListener { Task1 ->
@@ -100,30 +105,44 @@ class AddMaterialDialog : DialogFragment() {
                         photoUrl = Task2.result.toString()
 
                         val material = hashMapOf(
-                            "materialTitle"  to binding.addMaterialTitle.text.toString(),
-                            "materialDesc"   to binding.addMaterialDesc.text.toString(),
-                            "materialURL"    to binding.addMaterialUrl.text.toString(),
+                            "materialTitle" to binding.addMaterialTitle.text.toString(),
+                            "materialDesc" to binding.addMaterialDesc.text.toString(),
+                            "materialURL" to binding.addMaterialUrl.text.toString(),
                             "materialImgURI" to photoUrl,
-                            "id"             to list.last()+1,
-                            "idUser"         to firebaseAuth.uid.toString(),
+                            "id" to list.last() + 1,
+                            "idUser" to firebaseAuth.uid.toString(),
                         )
+
                         db.collection("materials")
                             .add(material)
-                            .addOnSuccessListener { Log.d(ContentValues.TAG, "Successes") }
+                            .addOnSuccessListener {
+                                adapter=  contextFragment?.let { it1 -> MaterialsAdapter(it1, TopDataList) }!!
+                                TopDataList +=
+                                    MaterialsData(
+                                        photoUrl,
+                                        binding.addMaterialUrl.text.toString(),
+                                        binding.addMaterialTitle.text.toString(),
+                                        binding.addMaterialDesc.text.toString(),
+                                        list.last() + 1,
+                                        firebaseAuth.uid.toString(),
+                                    )
+                                Log.d(ContentValues.TAG, "Successes")
+                                adapter.notifyDataSetChanged()
+                            }
                             .addOnFailureListener { e -> Log.w(ContentValues.TAG, "Error", e) }
                     }
                 }
             }
         }
-
     }//add user
 
-    private fun sendData(){
+    private fun sendData() {
         selectPhotoUri?.let { addMaterials(it) }
     }
 
-    private fun addMaterialValidation():Boolean {
-
-        return true
+    private fun addMaterialValidation(): Boolean {
+        return binding.addMaterialUrl.text.isNotEmpty()
+                && binding.addMaterialTitle.text.isNotEmpty()
+                && binding.addMaterialDesc.text.isNotEmpty()
     }
 }//class

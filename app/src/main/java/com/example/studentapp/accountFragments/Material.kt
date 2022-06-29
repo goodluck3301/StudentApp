@@ -18,6 +18,7 @@ import com.example.studentapp.database.MaterialsData
 import com.example.studentapp.databinding.FragmentBooksBinding
 import com.example.studentapp.dialogs.AddMaterialDialog
 import com.example.studentapp.questions.Data.TopDataList
+import com.example.studentapp.questions.Data.contextFragment
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -34,8 +35,8 @@ class Material : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentBooksBinding.inflate(inflater)
+        contextFragment = context
         localDb = context?.let { MaterialDatabase.getDatabase(it) }!!
-        // getMaterials()
         return binding.root
     }
 
@@ -77,12 +78,14 @@ class Material : Fragment() {
         }
     }//
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun startAdapter() {
         TopDataList.sortBy { it.materialid}
         TopDataList.reverse()
         adapter = context?.let { MaterialsAdapter(it, TopDataList) }!!
         binding.materialRec.adapter = adapter
         binding.materialRec.layoutManager = LinearLayoutManager(context)
+        adapter.notifyDataSetChanged()
     }
 
     private fun getMaterials() {
@@ -98,7 +101,6 @@ class Material : Fragment() {
                             list.forEach { localDb.materialDao().delete(it) }
                         }
                     }
-
                     CoroutineScope(Dispatchers.IO).launch {
                         for (document in result) {
                             if ((localDb.materialDao()

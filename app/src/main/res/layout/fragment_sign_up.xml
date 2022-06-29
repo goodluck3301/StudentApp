@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_bg_color"
+    android:background="#e1bee7"
     tools:context=".fragments.SignUpFragment"
     android:paddingHorizontal="16dp"
     >
@@ -26,8 +26,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/creatNewAcc"
-            android:textColor="#6DA3B8"
-            android:textSize="16sp"
+            android:textColor="#7b1fa2"
+            android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/flow1"
             app:layout_constraintEnd_toEndOf="@+id/imageView2"
             app:layout_constraintStart_toStartOf="@+id/imageView2"
@@ -174,7 +174,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/iHaveAcc"
-                android:textColor="#685BFB"
+                android:textColor="#6a1b9a"
                 app:layout_constraintEnd_toEndOf="@+id/repeatPaswdS"
                 app:layout_constraintStart_toStartOf="@+id/repeatPaswdS"
                 app:layout_constraintTop_toBottomOf="@+id/repeatPaswdS" />
@@ -185,12 +185,11 @@
                 android:layout_height="wrap_content"
                 android:text="@string/toLoginPage"
                 android:layout_marginStart="8dp"
-                android:textColor="#6B69E2"
+                android:textColor="#6a1b9a"
                 app:layout_constraintEnd_toEndOf="@+id/repeatPaswdS"
                 app:layout_constraintStart_toStartOf="@+id/repeatPaswdS"
                 app:layout_constraintTop_toBottomOf="@+id/repeatPaswdS" />
         </LinearLayout>
-
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/okS"
