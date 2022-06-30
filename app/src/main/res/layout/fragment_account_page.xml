@@ -52,7 +52,7 @@
             android:id="@+id/personImage"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:background="#4F88C5"
+            android:background="#ba68c8"
             android:src="@drawable/ic_person_gray" />
     </androidx.cardview.widget.CardView>
 

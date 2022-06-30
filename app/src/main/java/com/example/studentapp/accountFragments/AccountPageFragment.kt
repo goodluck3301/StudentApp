@@ -122,6 +122,7 @@ class AccountPageFragment : Fragment() {
     }// onViewCreated()
 
     private var checkImage = false
+
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -156,7 +157,7 @@ class AccountPageFragment : Fragment() {
                                 .toString()) == (FirebaseAuth
                                 .getInstance()
                                 .uid).toString()
-                        ){
+                        ) {
                             binding.profileName.text = document.get("name").toString()
                             binding.scoreProfile.text = document.get("score").toString()
                             binding.emailProfil.text = document.get("email").toString()
@@ -185,7 +186,8 @@ class AccountPageFragment : Fragment() {
                 .addOnSuccessListener { result ->
                     var materialsCount = 0
                     for (document in result)
-                        materialsCount++
+                        if (document.get("idUser").toString() == firebaseAuth.uid)
+                            materialsCount++
                     binding.materialSize.text = materialsCount.toString()
                 }
                 .addOnFailureListener { exception ->
@@ -194,10 +196,10 @@ class AccountPageFragment : Fragment() {
         }
     }
 
-    private fun getPhotoUrl(upLoadUri:Uri) {
+    private fun getPhotoUrl(upLoadUri: Uri) {
         val imageFileName = "users/profilPic${System.currentTimeMillis()}.png"
         val upLoadTask = mStorageRef.child(imageFileName)
-        upLoadTask.putFile(upLoadUri).addOnCompleteListener { Task1  ->
+        upLoadTask.putFile(upLoadUri).addOnCompleteListener { Task1 ->
             if (Task1.isSuccessful) {
                 upLoadTask.downloadUrl.addOnCompleteListener { Task2 ->
                     if (Task2.isSuccessful) {

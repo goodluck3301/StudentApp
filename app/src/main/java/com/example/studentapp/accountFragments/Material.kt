@@ -2,13 +2,10 @@ package com.example.studentapp.accountFragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.URLUtil
 import android.widget.SearchView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.studentapp.GeneralFunctions
@@ -24,16 +21,18 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.*
 
+
 class Material : Fragment() {
 
     private lateinit var binding: FragmentBooksBinding
     private lateinit var adapter: MaterialsAdapter
     private lateinit var localDb: MaterialDatabase
+    private val dialog = AddMaterialDialog()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentBooksBinding.inflate(inflater)
         contextFragment = context
         localDb = context?.let { MaterialDatabase.getDatabase(it) }!!
@@ -43,12 +42,14 @@ class Material : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 adapter.getFilter().filter(query)
                 return true
             }
+
             override fun onQueryTextChange(newText: String?): Boolean {
                 adapter.getFilter().filter(newText)
                 return true
@@ -71,42 +72,52 @@ class Material : Fragment() {
         }
 
         binding.addButtom.setOnClickListener {
-            val dialog = AddMaterialDialog()
-            dialog.show(parentFragmentManager,"tag")
+            dialog.show(parentFragmentManager, "tag")
             getMaterials()
             adapter.notifyDataSetChanged()
         }
+
+
+
+        binding.refreshMaterial.setOnRefreshListener {
+            refreshAdapter()
+        }
+
     }//
+
+    private fun refreshAdapter() {
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(2000)
+            checkMaterials()
+            TopDataList.clear()
+            getMaterials()
+        }
+    }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun startAdapter() {
-        TopDataList.sortBy { it.materialid}
+        TopDataList.sortBy { it.materialid }
         TopDataList.reverse()
-        adapter = context?.let { MaterialsAdapter(it, TopDataList) }!!
+        adapter = context?.let { MaterialsAdapter(it, TopDataList){
+            refreshAdapter()
+        } }!!
         binding.materialRec.adapter = adapter
         binding.materialRec.layoutManager = LinearLayoutManager(context)
         adapter.notifyDataSetChanged()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun getMaterials() {
         val db = Firebase.firestore
         Firebase.auth.currentUser?.let {
             db.collection("materials")
                 .get()
                 .addOnSuccessListener { result ->
-
-                    if (context?.let { it1 -> GeneralFunctions.checkForInternet(it1) } == true) {
-                        CoroutineScope(Dispatchers.IO).launch {
-                            val list = localDb.materialDao().getAll()
-                            list.forEach { localDb.materialDao().delete(it) }
-                        }
-                    }
-                    CoroutineScope(Dispatchers.IO).launch {
-                        for (document in result) {
-                            if ((localDb.materialDao()
-                                    .isNotExists(document.get("materialTitle").toString()))
-                            ) {
-                                localDb.materialDao().insertData(
+                    CoroutineScope(Dispatchers.Main).launch {
+                        try {
+                            val list = mutableListOf<MaterialsData>()
+                            for (document in result) {
+                                list.add(
                                     MaterialsData(
                                         document.get("materialImgURI").toString(),
                                         document.get("materialURL").toString(),
@@ -116,13 +127,63 @@ class Material : Fragment() {
                                         document.get("idUser").toString(),
                                     )
                                 )
+                                CoroutineScope(Dispatchers.IO).launch {
+                                    if ((localDb.materialDao()
+                                            .isNotExists(document.get("materialTitle").toString()))
+                                    ) {
+                                        localDb.materialDao().insertData(
+                                            MaterialsData(
+                                                document.get("materialImgURI").toString(),
+                                                document.get("materialURL").toString(),
+                                                document.get("materialTitle").toString(),
+                                                document.get("materialDesc").toString(),
+                                                document.get("id").toString().toInt(),
+                                                document.get("idUser").toString(),
+                                            )
+                                        )
+                                    }
+                                }
                             }
+                            TopDataList = list
+                            binding.materialRec.adapter!!.notifyDataSetChanged()
+                            startAdapter()
+                            binding.refreshMaterial.isRefreshing = false
+                            binding.materialRec.adapter!!.notifyDataSetChanged()
+                        } catch (e: Exception) {}
+                    }
+                }
+        }
+    }//
+
+
+    private fun checkMaterials() {
+        var listDb = mutableListOf<MaterialsData>()
+        var listFirestore = mutableListOf<MaterialsData>()
+        val db = Firebase.firestore
+        Firebase.auth.currentUser?.let {
+            db.collection("materials")
+                .get()
+                .addOnSuccessListener { result ->
+                    CoroutineScope(Dispatchers.IO).launch {
+                        for (document in result) {
+                            listFirestore.add(
+                                MaterialsData(
+                                    document.get("materialImgURI").toString(),
+                                    document.get("materialURL").toString(),
+                                    document.get("materialTitle").toString(),
+                                    document.get("materialDesc").toString(),
+                                    document.get("id").toString().toInt(),
+                                    document.get("idUser").toString(),
+                                )
+                            )
+                        }
+                        listDb = localDb.materialDao().getAll().toMutableList()
+                        val difference = listDb.minus(listFirestore)
+                        difference.forEach {
+                            localDb.materialDao().delete(it)
                         }
                     }
                 }
-                .addOnFailureListener { exception ->
-                    Log.w("TAG", "Error getting documents.", exception)
-                }
         }
-    }// getMaterials()*/
+    }
 }

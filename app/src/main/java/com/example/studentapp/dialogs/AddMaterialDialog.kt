@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.studentapp.adapter.MaterialsAdapter
 import com.example.studentapp.database.MaterialsData
 import com.example.studentapp.databinding.FragmentAddMaterialDialogBinding
@@ -116,7 +117,7 @@ class AddMaterialDialog : DialogFragment() {
                         db.collection("materials")
                             .add(material)
                             .addOnSuccessListener {
-                                adapter=  contextFragment?.let { it1 -> MaterialsAdapter(it1, TopDataList) }!!
+                                adapter=  contextFragment?.let { it1 -> MaterialsAdapter(it1, TopDataList){} }!!
                                 TopDataList +=
                                     MaterialsData(
                                         photoUrl,
