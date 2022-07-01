@@ -85,7 +85,7 @@ class Material : Fragment() {
 
     }//
 
-    private fun refreshAdapter() {
+    fun refreshAdapter() {
         CoroutineScope(Dispatchers.Main).launch {
             delay(2000)
             checkMaterials()
@@ -105,6 +105,8 @@ class Material : Fragment() {
         binding.materialRec.layoutManager = LinearLayoutManager(context)
         adapter.notifyDataSetChanged()
     }
+
+
 
     @SuppressLint("NotifyDataSetChanged")
     private fun getMaterials() {

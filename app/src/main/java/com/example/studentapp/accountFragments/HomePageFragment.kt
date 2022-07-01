@@ -85,6 +85,11 @@ class HomePageFragment : Fragment() {
                 "Կապ չի գտնվել, հնարավոր է տվյալների ոչ լիարժեք բեռնում :(",
                 Toast.LENGTH_LONG
             ).show()
+
+
+        binding.refreshUser.setOnRefreshListener {
+            refreshUsers()
+        }
     }
 
     private fun startAdapter() {
@@ -92,6 +97,25 @@ class HomePageFragment : Fragment() {
         adapter = TopUsersAdapter(context, allUserList)
         binding.topUserRecycleView.layoutManager = LinearLayoutManager(context)
         binding.topUserRecycleView.adapter = adapter
+    }
+
+    private fun refreshUsers() {
+        CoroutineScope(Dispatchers.Main).launch {
+            deleteLocalDb()
+            readDataFirestore()
+            delay(2000)
+            startAdapter()
+            adapter.notifyDataSetChanged()
+            binding.refreshUser.isRefreshing = false
+        }
+    }
+
+    private fun deleteLocalDb() {
+        CoroutineScope(Dispatchers.IO).launch {
+            topUserDatabase.topUserDao().getAll().forEach {
+                topUserDatabase.topUserDao().deleteAll(it)
+            }
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")

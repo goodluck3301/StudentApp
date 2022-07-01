@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.studentapp.accountFragments.Material
 import com.example.studentapp.adapter.MaterialsAdapter
 import com.example.studentapp.database.MaterialsData
 import com.example.studentapp.databinding.FragmentAddMaterialDialogBinding

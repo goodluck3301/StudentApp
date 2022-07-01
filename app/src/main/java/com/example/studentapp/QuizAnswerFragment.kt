@@ -70,6 +70,7 @@ class QuizAnswerFragment : Fragment() {
 
         setQuestion()
 
+
         binding.tvOptionOne.setOnClickListener {
             if (check)
                 selectedOptionView(binding.tvOptionOne, 1)
@@ -184,6 +185,7 @@ class QuizAnswerFragment : Fragment() {
                 binding.tvOptionFour.visibility = View.VISIBLE
 
             defaultOptionsView()
+
             if (mCurrentPosition == list.size) {
                 binding.btnSubmit.text = "Ավարտել"
             } else {
@@ -193,11 +195,11 @@ class QuizAnswerFragment : Fragment() {
             binding.progressBar.progress = mCurrentPosition
             binding.tvProgress.text = "$mCurrentPosition" + "/" + binding.progressBar.max
 
-            binding.tvQuestion.text = question.question
-            binding.tvOptionOne.text = question.optionOne
-            binding.tvOptionTwo.text = question.optionTwo
+            binding.tvQuestion.text    = question.question
+            binding.tvOptionOne.text   = question.optionOne
+            binding.tvOptionTwo.text   = question.optionTwo
             binding.tvOptionThree.text = question.optionThree
-            binding.tvOptionFour.text = question.optionFour
+            binding.tvOptionFour.text  = question.optionFour
 
         } catch (e: Exception) { }
     }
@@ -217,7 +219,6 @@ class QuizAnswerFragment : Fragment() {
     }
 
     private fun defaultOptionsView() {
-
         val options = ArrayList<TextView>()
         options.add(0, binding.tvOptionOne)
         options.add(1, binding.tvOptionTwo)
