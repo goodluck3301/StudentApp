@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.studentapp.GeneralFunctions
 import com.example.studentapp.accountFragments.Material
 import com.example.studentapp.adapter.MaterialsAdapter
 import com.example.studentapp.database.MaterialsData
@@ -33,7 +34,7 @@ class AddMaterialDialog : DialogFragment() {
     private var selectPhotoUri: Uri? = null
     private lateinit var firebaseAuth: FirebaseAuth
     private val mStorageRef = FirebaseStorage.getInstance().reference
-    lateinit var adapter:MaterialsAdapter
+    lateinit var adapter: MaterialsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,16 +58,25 @@ class AddMaterialDialog : DialogFragment() {
         }
         binding.cancleDdata.setOnClickListener { dialog?.dismiss() }
         binding.sendDdata.setOnClickListener {
-            if (addMaterialValidation()) {
-                sendData()
-                dialog?.dismiss()
-            } else
-                Toast
-                    .makeText(
-                        context,
-                        "Լրացրեք բաց թողնված հատվածը :(",
-                        Toast.LENGTH_SHORT)
+            if (context?.let { it1 -> GeneralFunctions.checkForInternet(it1) } == true) {
+                if (addMaterialValidation() && checkImage) {
+                    sendData()
+                    checkImage = false
+                    dialog?.dismiss()
+                } else {
+                    Toast
+                        .makeText(
+                            context,
+                            "Խնդրում ենք լրացրեք բոլոր դաշտերը :(",
+                            Toast.LENGTH_SHORT
+                        )
+                        .show()
+                    checkImage = false
+                }
+            } else {
+                Toast.makeText(context, "Ստուգեք համացանցի առկայությունը", Toast.LENGTH_SHORT)
                     .show()
+            }
         }
     }
 
@@ -118,7 +128,12 @@ class AddMaterialDialog : DialogFragment() {
                         db.collection("materials")
                             .add(material)
                             .addOnSuccessListener {
-                                adapter=  contextFragment?.let { it1 -> MaterialsAdapter(it1, TopDataList){} }!!
+                                adapter = contextFragment?.let { it1 ->
+                                    MaterialsAdapter(
+                                        it1,
+                                        TopDataList
+                                    ) {}
+                                }!!
                                 TopDataList +=
                                     MaterialsData(
                                         photoUrl,

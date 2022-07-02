@@ -47,7 +47,6 @@ class HomePageFragment : Fragment() {
             }
         } else
             getTopUserFromDatabase()
-
         getMaterials()
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -69,7 +68,8 @@ class HomePageFragment : Fragment() {
             if (!GeneralFunctions.check && context?.let { GeneralFunctions.checkForInternet(it) } == true) {
                 GeneralFunctions.check = true
                 binding.progressBar3.visibility = View.VISIBLE
-                delay(6000)
+                startAdapter()
+                delay(7000)
                 binding.progressBar3.visibility = View.GONE
                 startAdapter()
             } else
@@ -100,12 +100,17 @@ class HomePageFragment : Fragment() {
     }
 
     private fun refreshUsers() {
-        CoroutineScope(Dispatchers.Main).launch {
-            deleteLocalDb()
-            readDataFirestore()
-            delay(2000)
-            startAdapter()
-            adapter.notifyDataSetChanged()
+        if (context?.let { GeneralFunctions.checkForInternet(it) } == true) {
+            CoroutineScope(Dispatchers.Main).launch {
+                deleteLocalDb()
+                readDataFirestore()
+                delay(2000)
+                startAdapter()
+                adapter.notifyDataSetChanged()
+                binding.refreshUser.isRefreshing = false
+            }
+        }else {
+            Toast.makeText(context, "Ստուգեք համացանցի առկայությունը", Toast.LENGTH_SHORT).show()
             binding.refreshUser.isRefreshing = false
         }
     }
@@ -134,7 +139,7 @@ class HomePageFragment : Fragment() {
                 .get()
                 .addOnSuccessListener { result ->
                     CoroutineScope(Dispatchers.IO).launch {
-                        var allUserList11 = mutableListOf<UserModel>()
+                        val allUserList11 = mutableListOf<UserModel>()
                         allUserList = mutableListOf()
                         for (document in result) {
                             allUserList11 += (
@@ -206,7 +211,7 @@ class HomePageFragment : Fragment() {
                 .get()
                 .addOnSuccessListener { result ->
                     CoroutineScope(Dispatchers.IO).launch {
-                        var list = mutableListOf<MaterialsData>()
+                        val list = mutableListOf<MaterialsData>()
                         for (document in result) {
                             list.add(
                                 MaterialsData(

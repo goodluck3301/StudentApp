@@ -103,7 +103,11 @@ class SignUpFragment : Fragment() {
                             }
                         }
                         .addOnFailureListener {
-                            Toast.makeText(context, "Սխալ մուտքագրված տվյալներ :(", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                context,
+                                "Դուք այս էլ․ փոստով արդեն ունեք պրոֆիլ :(",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                 } else {
                     binding.progressbarSignUP.visibility = View.GONE
@@ -122,11 +126,12 @@ class SignUpFragment : Fragment() {
             if (!showHideBool1) {
                 showHideBool1 = true
                 binding.passwdS.inputType = InputType.TYPE_CLASS_TEXT
-                binding.show.setImageDrawable(resources.getDrawable(R.drawable.ic_focused_visibility_off_24))
+             //   binding.show.setImageDrawable(resources.getDrawable(R.drawable.ic_focused_visibility_off_24))
+                binding.show.visibility=View.GONE
             } else {
                 showHideBool1 = false
                 binding.passwdS.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-                binding.show.setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_visibility_24))
+            //    binding.show.setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_visibility_24))
             }
         }//show1
 
@@ -136,11 +141,12 @@ class SignUpFragment : Fragment() {
             if (!showHideBool2) {
                 showHideBool2 = true
                 binding.repeatPaswdS.inputType = InputType.TYPE_CLASS_TEXT
-                binding.show2.setImageDrawable(resources.getDrawable(R.drawable.ic_focused_visibility_off_24))
+             //   binding.show2.setImageDrawable(resources.getDrawable(R.drawable.ic_focused_visibility_off_24))
+                binding.show2.visibility=View.GONE
             } else {
                 showHideBool2 = false
-                binding.repeatPaswdS.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-                binding.show2.setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_visibility_24))
+             //   binding.repeatPaswdS.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+             //   binding.show2.setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_visibility_24))
             }
         }//show2
     }
@@ -205,12 +211,13 @@ class SignUpFragment : Fragment() {
     }
 
     private fun isEmailSent(): Boolean {
-    var emailSent = false
-    firebaseAuth.currentUser?.sendEmailVerification()?.addOnCompleteListener {
-        emailSent = it.isSuccessful
+        var emailSent = false
+        firebaseAuth.currentUser?.sendEmailVerification()?.addOnCompleteListener {
+            emailSent = it.isSuccessful
+        }
+        Toast.makeText(context, "Ձեր էլ․ փոստին ուղարկվել է այն հաստատելու հղումը", Toast.LENGTH_LONG).show()
+        return emailSent
     }
-    return emailSent
 }
-}//class fragment
 
 

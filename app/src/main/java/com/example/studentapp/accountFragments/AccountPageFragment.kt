@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
@@ -41,6 +42,7 @@ class AccountPageFragment : Fragment() {
     private lateinit var changeDialog: View
     private lateinit var aboutDialog: View
     private val mStorageRef = FirebaseStorage.getInstance().reference
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -42,6 +42,7 @@ class QuizAnswerFragment : Fragment() {
     private lateinit var docId: String
     private var check = true
     private var checkSubmit = false
+    private var _correctOption = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,7 +67,7 @@ class QuizAnswerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val correctSound = MediaPlayer.create(context,R.raw.correct)
-        val wrongSound  = MediaPlayer.create(context,R.raw.wrong)
+        val wrongSound  = MediaPlayer.create(context,R.raw.wrong2)
 
         setQuestion()
 
@@ -127,7 +128,6 @@ class QuizAnswerFragment : Fragment() {
                 }
                 if (mSelectedOptionPosition == 0) {
                     mCurrentPosition++
-
                     when {
                         mCurrentPosition <= list.size -> {
                             setQuestion()
@@ -141,7 +141,7 @@ class QuizAnswerFragment : Fragment() {
                         }
                     }
                 } else {
-
+            //        ques
                     val question = list[mCurrentPosition - 1]
                     if (question.correctOption != mSelectedOptionPosition) {
                         answerView(mSelectedOptionPosition, R.drawable.wrong_option_border_bg)
@@ -201,6 +201,8 @@ class QuizAnswerFragment : Fragment() {
             binding.tvOptionThree.text = question.optionThree
             binding.tvOptionFour.text  = question.optionFour
 
+            _correctOption = question.correctOption
+            Toast.makeText(context, _correctOption, Toast.LENGTH_SHORT).show()
         } catch (e: Exception) { }
     }
 

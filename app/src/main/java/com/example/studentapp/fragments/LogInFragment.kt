@@ -3,6 +3,7 @@ package com.example.gavarstateuniversityapp.fragments
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.InputType
+import android.text.method.HideReturnsTransformationMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -58,15 +59,14 @@ class LogInFragment : Fragment() {
                     ).show()
 
                 if (internet && binding.emailLogin.text.isNotEmpty() && binding.passwdLogin.text.isNotEmpty()) {
-                    //////
-                    if (true) {
-                        firebaseAuth
-                            .signInWithEmailAndPassword(
-                                binding.emailLogin.text.toString(),
-                                binding.passwdLogin.text.toString()
-                            )
-                            .addOnCompleteListener {
-                                if (it.isSuccessful) {
+                    firebaseAuth
+                        .signInWithEmailAndPassword(
+                            binding.emailLogin.text.toString(),
+                            binding.passwdLogin.text.toString()
+                        )
+                        .addOnCompleteListener {
+                            if (it.isSuccessful) {
+                                if (firebaseAuth.currentUser!!.isEmailVerified) {
                                     fragmentManager?.beginTransaction()?.apply {
                                         replace(
                                             R.id.fragmentContainerView,
@@ -74,31 +74,31 @@ class LogInFragment : Fragment() {
                                         ).commit()
                                     }
                                 } else {
-                                    binding.progressLogin.visibility = View.GONE
+                                    Toast
+                                        .makeText(
+                                            context,
+                                            "Էլ․ փոստը հաստատված չէ",
+                                            Toast.LENGTH_LONG
+                                        ).show()
                                 }
+                            } else {
+                                binding.progressLogin.visibility = View.GONE
                             }
-                            .addOnFailureListener {
-                                Toast.makeText(
-                                    context,
-                                    "Սխալ էլ․ փոստ կամ գաղտնաբառ",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                        binding.progressLogin.visibility = View.GONE
-                    } else
-                        Toast
-                            .makeText(
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(
                                 context,
-                                "Account is not verified",
-                                Toast.LENGTH_LONG
-                            )
-                            .show()
+                                "Սխալ էլ․ փոստ կամ գաղտնաբառ",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    binding.progressLogin.visibility = View.GONE
                 }
             } catch (e: Exception) {
                 Toast
                     .makeText(
                         context,
-                        "Error",
+                        e.message,
                         Toast.LENGTH_SHORT
                     ).show()
             }
@@ -108,25 +108,22 @@ class LogInFragment : Fragment() {
         binding.showLogin.setOnClickListener {
             if (!showHideBool) {
                 showHideBool = true
-                binding.passwdLogin.inputType = InputType.TYPE_CLASS_TEXT
-                binding.showLogin.setImageDrawable(resources.getDrawable(R.drawable.ic_focused_visibility_off_24))
+                binding.passwdLogin.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                binding.showLogin.visibility= View.GONE
+              //  binding.showLogin.setImageDrawable(resources.getDrawable(R.drawable.ic_focused_visibility_off_24))
             } else {
                 showHideBool = false
-                binding.passwdLogin.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-                binding.showLogin.setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_visibility_24))
+               // binding.passwdLogin.inputType = InputType.TYPE_NUMBER_VARIATION_PASSWORD
+               // binding.showLogin.setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_visibility_24))
+                binding.showLogin.visibility= View.GONE
             }
-        }//
-    } //
+        }
+    }
 
     private fun textIsNotEmpty(email: EditText, pass: EditText) {
         if (binding.emailLogin.text.isEmpty())
             binding.emailLogin.error = "Text area is Empty."
-        if (binding.passwdLogin.text.isEmpty())
+        if (binding.passwdLogin.text!!.isEmpty())
             binding.passwdLogin.error = "Text area is Empty."
     }
-
-    fun isRegistred(): Boolean {
-        return firebaseAuth.currentUser != null
-    }
 }
-

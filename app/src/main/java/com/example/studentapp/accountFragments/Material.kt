@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.studentapp.GeneralFunctions
@@ -86,11 +87,16 @@ class Material : Fragment() {
     }//
 
     fun refreshAdapter() {
-        CoroutineScope(Dispatchers.Main).launch {
-            delay(2000)
-            checkMaterials()
-            TopDataList.clear()
-            getMaterials()
+        if (context?.let { GeneralFunctions.checkForInternet(it) } == true) {
+            CoroutineScope(Dispatchers.Main).launch {
+                delay(2000)
+                checkMaterials()
+                TopDataList.clear()
+                getMaterials()
+            }
+        }else {
+            Toast.makeText(context, "Ստուգեք համացանցի առկայությունը", Toast.LENGTH_SHORT).show()
+            binding.refreshMaterial.isRefreshing = false
         }
     }
 
@@ -98,14 +104,15 @@ class Material : Fragment() {
     private fun startAdapter() {
         TopDataList.sortBy { it.materialid }
         TopDataList.reverse()
-        adapter = context?.let { MaterialsAdapter(it, TopDataList){
-            refreshAdapter()
-        } }!!
+        adapter = context?.let {
+            MaterialsAdapter(it, TopDataList) {
+                refreshAdapter()
+            }
+        }!!
         binding.materialRec.adapter = adapter
         binding.materialRec.layoutManager = LinearLayoutManager(context)
         adapter.notifyDataSetChanged()
     }
-
 
 
     @SuppressLint("NotifyDataSetChanged")
@@ -151,7 +158,8 @@ class Material : Fragment() {
                             startAdapter()
                             binding.refreshMaterial.isRefreshing = false
                             binding.materialRec.adapter!!.notifyDataSetChanged()
-                        } catch (e: Exception) {}
+                        } catch (e: Exception) {
+                        }
                     }
                 }
         }

@@ -11,7 +11,6 @@
     <string name="creatNewAccLogin">Ստեղծել նոր հաշիվ։</string>
     <string name="goSignUpPage">Մուտք գործել հաշիվ</string>
     <string name="show_hide">Show/Hide</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="menuHome">Home</string>
     <string name="menuBooks">Books</string>
@@ -20,8 +19,8 @@
     <string name="profile">Պրոֆիլ</string>
     <string name="full_name">Անուն</string>
     <string name="examplemail_mail_ru">examplemail@mail.ru</string>
-    <string name="all_score">Միավորներ</string>
-    <string name="post_count">Նյութերի քանակ</string>
+    <string name="all_score">Իմ միավորներ</string>
+    <string name="post_count">Իմ նյութերը</string>
     <string name="todo">TODO</string>
     <string name="zero">0</string>
     <string name="change_name">Փոխել անունը</string>
