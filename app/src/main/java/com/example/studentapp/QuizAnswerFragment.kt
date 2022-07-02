@@ -28,6 +28,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.properties.Delegates
+import kotlin.random.Random
 
 
 class QuizAnswerFragment : Fragment() {
@@ -201,8 +202,6 @@ class QuizAnswerFragment : Fragment() {
             binding.tvOptionThree.text = question.optionThree
             binding.tvOptionFour.text  = question.optionFour
 
-            _correctOption = question.correctOption
-            Toast.makeText(context, _correctOption, Toast.LENGTH_SHORT).show()
         } catch (e: Exception) { }
     }
 
