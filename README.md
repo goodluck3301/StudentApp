@@ -1,5 +1,5 @@
 # StudentApp
 
 ---
-[Download APK](https://drive.google.com/file/d/1Bz51lfK03_fC4QF9wFI_DvapneRMAvKR/view?usp=sharing)
+[Download APK](https://drive.google.com/file/d/12bW6b7_9H0qFBqgg99Y57l4ccJOl2xBP/view?usp=sharing)
 ---
