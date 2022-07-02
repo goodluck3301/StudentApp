@@ -1,5 +1,5 @@
 # StudentApp
 
 ---
-
-[Descreption About Application](https://docs.google.com/document/d/1Ps99zsCq3rlZmr5Z6zLPocAa4h2nD6ZuN4hdgee-7LI/edit?usp=sharing)
+[Download APK](https://drive.google.com/file/d/12bW6b7_9H0qFBqgg99Y57l4ccJOl2xBP/view?usp=sharing)
+---
