@@ -15,11 +15,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "556280042378-rfh9u08dmnqitg16j0o94ncnq09l2m8l.apps.googleusercontent.com",
+          "client_id": "556280042378-7s8kshu7p2e4e4dlks12n5brc67honas.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.fires",
             "certificate_hash": "bfdf4a94f06162e7cff6378d5c8fba97709f3b7f"
+          }
+        },
+        {
+          "client_id": "556280042378-v4ppcgmi2b14934ut3qj9v14jt75utk6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fires",
+            "certificate_hash": "f711471be5c38b282a6e1936883c4b248261cbd4"
           }
         },
         {
@@ -60,6 +68,14 @@
           }
         },
         {
+          "client_id": "556280042378-p7mq4d8u9cr4t5lqdiqv45i9m8874hbu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.gavarstateuniversityapp",
+            "certificate_hash": "f711471be5c38b282a6e1936883c4b248261cbd4"
+          }
+        },
+        {
           "client_id": "556280042378-jsin4nmlcn9gndnmcebqvmh8k90a0qrg.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -88,6 +104,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "556280042378-e3atpdm3ljef2ikdhkuf3qkv2h4jc65e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.roomexample",
+            "certificate_hash": "e3a8423758c871caca5ce709fbe82b1f541b6454"
+          }
+        },
         {
           "client_id": "556280042378-jsin4nmlcn9gndnmcebqvmh8k90a0qrg.apps.googleusercontent.com",
           "client_type": 3

@@ -2,31 +2,21 @@ package com.example.gavarstateuniversityapp.fragments
 
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.text.InputType
-import android.text.method.HideReturnsTransformationMethod
-import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import com.example.studentapp.GeneralFunctions
-import com.example.studentapp.GeneralFunctions.checkForInternet
+import com.example.studentapp.objects.GeneralFunctions.checkForInternet
 import com.example.studentapp.R
 import com.example.studentapp.databinding.FragmentSignUpBinding
-import com.example.studentapp.fragments.GeneralFragment
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.actionCodeSettings
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import java.util.regex.Pattern
 
 class SignUpFragment : Fragment() {
 

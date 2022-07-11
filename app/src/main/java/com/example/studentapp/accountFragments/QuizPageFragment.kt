@@ -7,14 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.studentapp.QuizAnswerFragment
 import com.example.studentapp.R
 import com.example.studentapp.adapter.QuizAdapter
 import com.example.studentapp.database.questionsdb.QuestionsData
 import com.example.studentapp.database.questionsdb.QuestionsDatabase
 import com.example.studentapp.databinding.FragmentQuizPageBinding
-import com.example.studentapp.questions.Data
-import com.example.studentapp.questions.Data.qListFromDatabase
+import com.example.studentapp.objects.Data
+import com.example.studentapp.objects.Data.qListFromDatabase
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase

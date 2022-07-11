@@ -1,1 +1,0 @@
-package com.example.studentapp.modelsdata class MaterialModel(    val materialImgURI:String,    val materialURL   :String,    val materialTitle :String,    val materialDesc  :String)

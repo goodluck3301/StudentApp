@@ -11,7 +11,6 @@ import com.example.studentapp.accountFragments.Material
 import com.example.studentapp.accountFragments.HomePageFragment
 import com.example.studentapp.accountFragments.QuizPageFragment
 import com.example.studentapp.databinding.FragmentGeneralBinding
-import com.example.studentapp.questions.Data
 
 
 class GeneralFragment : Fragment() {

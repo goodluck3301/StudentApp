@@ -1,4 +1,4 @@
-package com.example.studentapp
+package com.example.studentapp.accountFragments
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -15,10 +15,10 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import com.example.studentapp.accountFragments.QuizPageFragment
+import com.example.studentapp.R
 import com.example.studentapp.databinding.FragmentQuizAnswerBinding
 import com.example.studentapp.models.Questions
-import com.example.studentapp.questions.Data.qListFromDatabase
+import com.example.studentapp.objects.Data.qListFromDatabase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.SetOptions
@@ -28,7 +28,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.properties.Delegates
-import kotlin.random.Random
 
 
 class QuizAnswerFragment : Fragment() {
@@ -67,8 +66,8 @@ class QuizAnswerFragment : Fragment() {
     @SuppressLint("SetTextI18n", "InflateParams")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val correctSound = MediaPlayer.create(context,R.raw.correct)
-        val wrongSound  = MediaPlayer.create(context,R.raw.wrong2)
+        val correctSound = MediaPlayer.create(context, R.raw.correct)
+        val wrongSound  = MediaPlayer.create(context, R.raw.wrong2)
 
         setQuestion()
 

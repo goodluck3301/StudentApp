@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
-import android.content.SharedPreferences
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
@@ -13,12 +12,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.URLUtil
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.gavarstateuniversityapp.fragments.LogInFragment
-import com.example.studentapp.GeneralFunctions
+import com.example.studentapp.objects.GeneralFunctions
 import com.example.studentapp.R
 import com.example.studentapp.databinding.FragmentAccountPageBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -83,7 +81,6 @@ class AccountPageFragment : Fragment() {
 
             changeDialog.findViewById<Button>(R.id.saveChange).setOnClickListener {
                 val hashMap = hashMapOf<String, Any>()
-
                 if (checkImage) {
                     binding.updateProgressBar.visibility = View.VISIBLE
                     readDataFirestore()

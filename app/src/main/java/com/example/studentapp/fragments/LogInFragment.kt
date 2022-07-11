@@ -3,13 +3,12 @@ package com.example.gavarstateuniversityapp.fragments
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.InputType
-import android.text.method.HideReturnsTransformationMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import com.example.studentapp.GeneralFunctions
+import com.example.studentapp.objects.GeneralFunctions
 import com.example.studentapp.R
 import com.example.studentapp.databinding.FragmentLogInBinding
 import com.example.studentapp.fragments.GeneralFragment

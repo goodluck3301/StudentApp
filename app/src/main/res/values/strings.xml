@@ -50,5 +50,8 @@
     <string name="cancle_material">Չեղարկել</string>
     <string name="verifi_material">Հաստատել</string>
     <string name="material_url">Նյութի աղբյուր</string>
+    <string name="nname">...</string>
+    <string name="title_notifi">Title</string>
+    <string name="message">message</string>
 
 </resources>
